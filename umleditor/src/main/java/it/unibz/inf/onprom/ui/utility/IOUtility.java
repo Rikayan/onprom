@@ -32,6 +32,9 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
+import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 import it.unibz.inf.onprom.data.EditorObjects;
 import it.unibz.inf.onprom.data.FileType;
 import it.unibz.inf.onprom.interfaces.Diagram;
@@ -61,18 +64,28 @@ public class IOUtility {
     private static final ObjectMapper OBJECT_MAPPER;
 
     static {
-        OBJECT_MAPPER = new ObjectMapper();
-        OBJECT_MAPPER.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
-        //use all fields
-        OBJECT_MAPPER.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-        //only include not null & non empty fields
-        OBJECT_MAPPER.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-        //store type of classess
-        OBJECT_MAPPER.enableDefaultTypingAsProperty(ObjectMapper.DefaultTyping.NON_FINAL, "@class");
-        //ignore unknown properties
-        OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
-        OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
+        PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
+                .allowIfBaseType(Object.class) // Restrict to specific packages in production
+                .build();
+        System.out.println(com.fasterxml.jackson.annotation.JsonInclude.class.getProtectionDomain().getCodeSource().getLocation());
+        OBJECT_MAPPER = JsonMapper.builder()
+                .visibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
+                .visibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
+                .defaultPropertyInclusion(JsonInclude.Value.ALL_NON_EMPTY)
+                .activateDefaultTypingAsProperty(ptv, ObjectMapper.DefaultTyping.NON_FINAL, "@class")
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false)
+                .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false)
+                .build();
+    }
+
+    public static String writeJSON(Object object) {
+        try {
+            return OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(object);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return null;
     }
 
     public static File exportJSON(FileType fileType, Set<DiagramShape<? extends Diagram>> allShapes) {
@@ -218,4 +231,12 @@ public class IOUtility {
     }
 
 
+    public static <T> Optional<T> inputJSON(String text, Class<T> klass) {
+        try {
+            return Optional.of(OBJECT_MAPPER.readValue(text, klass));
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return Optional.empty();
+    }
 }

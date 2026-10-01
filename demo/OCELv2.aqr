@@ -1,0 +1,210 @@
+{
+  "@class" : "it.unibz.inf.onprom.data.query.AnnotationQueries",
+  "queries" : [ "java.util.LinkedHashSet", [ {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?OAttrValue (\"oAttrValue\" AS ?_L_1057055107) ?_I1_1057055107\nWHERE\n  { ?OAttrValue  a                  <http://www.example.com/OCELv2/OAttrValue> ;\n              <http://www.example.com/OCELv2/oValue>  ?_I1_1057055107}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/Attribute",
+    "component" : [ "_L_1057055107", "_I1_1057055107", "OAttrValue" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?OAttrValue ?_I1_1057055107 (\"oAttrValue\" AS ?_L_1057055107)\nWHERE\n  { ?OAttrValue  <http://www.example.com/OCELv2/oValue>  ?_I1_1057055107}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/attValue",
+    "firstComponent" : [ "_L_1057055107", "_I1_1057055107", "OAttrValue" ],
+    "secondComponent" : [ "_I1_1057055107" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?OAttrValue ?Object (\"oAttrValue\" AS ?_L_1057055107) ?_I1_1057055107 (\"object\" AS ?_L_890718123) ?_I1_890718123 ?_I2_890718123\nWHERE\n  { ?Object   <http://www.example.com/OCELv2/hasOAttr>  ?OAttrValue .\n    ?OAttrValue  <http://www.example.com/OCELv2/oValue>  ?_I1_1057055107 .\n    ?Object   <http://www.example.com/OCELv2/objectId>  ?_I1_890718123 ;\n              <http://www.example.com/OCELv2/has>  ?Type .\n    ?Type     <http://www.example.com/OCELv2/typeString>  ?_I2_890718123}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/o-has-a",
+    "firstComponent" : [ "_L_890718123", "_I1_890718123", "_I2_890718123", "Object" ],
+    "secondComponent" : [ "_L_1057055107", "_I1_1057055107", "OAttrValue" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?OAttrValue ?OAttribute (\"oAttrValue\" AS ?_L_1057055107) ?_I1_1057055107 (\"oAttribute\" AS ?_L_91237610) ?_I1_91237610 ?_I2_91237610\nWHERE\n  { ?OAttribute  <http://www.example.com/OCELv2/hasOValue>  ?OAttrValue .\n    ?OAttrValue  <http://www.example.com/OCELv2/oValue>  ?_I1_1057055107 .\n    ?OAttribute  <http://www.example.com/OCELv2/oKey>  ?_I1_91237610\n    BIND(?OAttribute AS ?_I2_91237610)\n  }\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/o-has-a",
+    "firstComponent" : [ "_L_91237610", "_I1_91237610", "_I2_91237610", "OAttribute" ],
+    "secondComponent" : [ "_L_1057055107", "_I1_1057055107", "OAttrValue" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?corr (\"corr\" AS ?_L_28193636) ?_I1_28193636\nWHERE\n  { ?corr  a                     <http://www.example.com/OCELv2/corr> ;\n           <http://www.example.com/OCELv2/eQualifier>  ?_I1_28193636}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/Attribute",
+    "component" : [ "_L_28193636", "_I1_28193636", "corr" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?corr ?_I1_28193636 (\"corr\" AS ?_L_28193636)\nWHERE\n  { ?corr  <http://www.example.com/OCELv2/eQualifier>  ?_I1_28193636}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/attValue",
+    "firstComponent" : [ "_L_28193636", "_I1_28193636", "corr" ],
+    "secondComponent" : [ "_I1_28193636" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?corr ?Event (\"corr\" AS ?_L_28193636) ?_I1_28193636 (\"event\" AS ?_L_507090678) ?_I1_507090678 ?_I2_507090678\nWHERE\n  { ?corr   <http://www.example.com/OCELv2/corr_2_Event>  ?Event ;\n            <http://www.example.com/OCELv2/eQualifier>  ?_I1_28193636 .\n    ?Event  <http://www.example.com/OCELv2/eventId>  ?_I1_507090678 ;\n            <http://www.example.com/OCELv2/timestamp>  ?_I2_507090678}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/e-has-a",
+    "firstComponent" : [ "_L_507090678", "_I1_507090678", "_I2_507090678", "Event" ],
+    "secondComponent" : [ "_L_28193636", "_I1_28193636", "corr" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?corr ?Object (\"corr\" AS ?_L_28193636) ?_I1_28193636 (\"object\" AS ?_L_890718123) ?_I1_890718123 ?_I2_890718123\nWHERE\n  { ?corr    <http://www.example.com/OCELv2/corr_2_Object>  ?Object ;\n             <http://www.example.com/OCELv2/eQualifier>  ?_I1_28193636 .\n    ?Object  <http://www.example.com/OCELv2/objectId>  ?_I1_890718123 ;\n             <http://www.example.com/OCELv2/has>  ?Type .\n    ?Type    <http://www.example.com/OCELv2/typeString>  ?_I2_890718123}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/o-has-a",
+    "firstComponent" : [ "_L_890718123", "_I1_890718123", "_I2_890718123", "Object" ],
+    "secondComponent" : [ "_L_28193636", "_I1_28193636", "corr" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?related (\"related\" AS ?_L_594217953) ?_I1_594217953\nWHERE\n  { ?related  a                     <http://www.example.com/OCELv2/related> ;\n              <http://www.example.com/OCELv2/oTargets>  ?_I1_594217953}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/Attribute",
+    "component" : [ "_L_594217953", "_I1_594217953", "related" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?related ?_I1_594217953 (\"related\" AS ?_L_594217953)\nWHERE\n  { ?related  <http://www.example.com/OCELv2/oTargets>  ?_I1_594217953}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/attValue",
+    "firstComponent" : [ "_L_594217953", "_I1_594217953", "related" ],
+    "secondComponent" : [ "_I1_594217953" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?related ?Object (\"related\" AS ?_L_594217953) ?_I1_594217953 (\"object\" AS ?_L_890718123) ?_I1_890718123 ?_I2_890718123\nWHERE\n  { ?Object   <http://www.example.com/OCELv2/relatedToObjects>  ?related .\n    ?related  <http://www.example.com/OCELv2/oTargets>  ?_I1_594217953 .\n    ?Object   <http://www.example.com/OCELv2/objectId>  ?_I1_890718123 ;\n              <http://www.example.com/OCELv2/has>  ?Type .\n    ?Type     <http://www.example.com/OCELv2/typeString>  ?_I2_890718123}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/o-has-a",
+    "firstComponent" : [ "_L_890718123", "_I1_890718123", "_I2_890718123", "Object" ],
+    "secondComponent" : [ "_L_594217953", "_I1_594217953", "related" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?EAttrValue (\"eAttrValue\" AS ?_L_88142732) ?_I1_88142732\nWHERE\n  { ?EAttrValue  a                  <http://www.example.com/OCELv2/EAttrValue> ;\n              <http://www.example.com/OCELv2/eValue>  ?_I1_88142732}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/Attribute",
+    "component" : [ "_L_88142732", "_I1_88142732", "EAttrValue" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?EAttrValue ?_I1_88142732 (\"eAttrValue\" AS ?_L_88142732)\nWHERE\n  { ?EAttrValue  <http://www.example.com/OCELv2/eValue>  ?_I1_88142732}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/attValue",
+    "firstComponent" : [ "_L_88142732", "_I1_88142732", "EAttrValue" ],
+    "secondComponent" : [ "_I1_88142732" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?EAttrValue ?Event (\"eAttrValue\" AS ?_L_88142732) ?_I1_88142732 (\"event\" AS ?_L_507090678) ?_I1_507090678 ?_I2_507090678\nWHERE\n  { ?Event    <http://www.example.com/OCELv2/hasEAttr>  ?EAttrValue .\n    ?EAttrValue  <http://www.example.com/OCELv2/eValue>  ?_I1_88142732 .\n    ?Event    <http://www.example.com/OCELv2/eventId>  ?_I1_507090678 ;\n              <http://www.example.com/OCELv2/timestamp>  ?_I2_507090678}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/e-has-a",
+    "firstComponent" : [ "_L_507090678", "_I1_507090678", "_I2_507090678", "Event" ],
+    "secondComponent" : [ "_L_88142732", "_I1_88142732", "EAttrValue" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?EAttrValue ?Attribute (\"eAttrValue\" AS ?_L_88142732) ?_I1_88142732 (\"attribute\" AS ?_L_1966412859) ?_I1_1966412859 ?_I2_1966412859\nWHERE\n  { ?Event    <http://www.example.com/OCELv2/hasEAttr>  ?EAttrValue ;\n              <http://www.example.com/OCELv2/observes>  ?Activity .\n    ?Activity  <http://www.example.com/OCELv2/hasEAttribute>  ?Attribute .\n    ?EAttrValue  <http://www.example.com/OCELv2/eValue>  ?_I1_88142732 .\n    ?Attribute  <http://www.example.com/OCELv2/key>  ?_I1_1966412859\n    BIND(?Attribute AS ?_I2_1966412859)\n  }\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/o-has-a",
+    "firstComponent" : [ "_L_1966412859", "_I1_1966412859", "_I2_1966412859", "Attribute" ],
+    "secondComponent" : [ "_L_88142732", "_I1_88142732", "EAttrValue" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Attribute (\"attribute\" AS ?_L_1966412859) ?_I1_1966412859 ?_I2_1966412859\nWHERE\n  { ?Attribute  a                   <http://www.example.com/OCELv2/Attribute> ;\n              <http://www.example.com/OCELv2/key>  ?_I1_1966412859\n    BIND(?Attribute AS ?_I2_1966412859)\n  }\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/Object",
+    "component" : [ "_L_1966412859", "_I1_1966412859", "_I2_1966412859", "Attribute" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Attribute ?_I1_1966412859 (\"attribute\" AS ?_L_1966412859) ?_I2_1966412859\nWHERE\n  { ?Attribute  <http://www.example.com/OCELv2/key>  ?_I1_1966412859\n    BIND(?Attribute AS ?_I2_1966412859)\n  }\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/objectId",
+    "firstComponent" : [ "_L_1966412859", "_I1_1966412859", "_I2_1966412859", "Attribute" ],
+    "secondComponent" : [ "_I1_1966412859" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Attribute ?_I2_1966412859 (\"attribute\" AS ?_L_1966412859) ?_I1_1966412859\nWHERE\n  { ?Attribute  a  <http://www.example.com/OCELv2/Attribute>\n    BIND(?Attribute AS ?_I2_1966412859)\n    ?Attribute  <http://www.example.com/OCELv2/key>  ?_I1_1966412859\n  }\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/objectType",
+    "firstComponent" : [ "_L_1966412859", "_I1_1966412859", "_I2_1966412859", "Attribute" ],
+    "secondComponent" : [ "_I2_1966412859" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Event (\"event\" AS ?_L_507090678) ?_I1_507090678 ?_I2_507090678\nWHERE\n  { ?Event  a                     <http://www.example.com/OCELv2/Event> ;\n            <http://www.example.com/OCELv2/eventId>  ?_I1_507090678 ;\n            <http://www.example.com/OCELv2/timestamp>  ?_I2_507090678}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/Event",
+    "component" : [ "_L_507090678", "_I1_507090678", "_I2_507090678", "Event" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Event ?_value (\"event\" AS ?_L_507090678) ?_I1_507090678 ?_I2_507090678\nWHERE\n  { ?Event    <http://www.example.com/OCELv2/hasEAttr>  ?EAttrValue .\n    ?Attribute  <http://www.example.com/OCELv2/hasEValue>  ?EAttrValue .\n    ?Activity  <http://www.example.com/OCELv2/hasEAttribute>  ?Attribute ;\n              <http://www.example.com/OCELv2/name>  ?_value .\n    ?Event    <http://www.example.com/OCELv2/eventId>  ?_I1_507090678 ;\n              <http://www.example.com/OCELv2/timestamp>  ?_I2_507090678}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/activity",
+    "firstComponent" : [ "_L_507090678", "_I1_507090678", "_I2_507090678", "Event" ],
+    "secondComponent" : [ "_value" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Event ?_I1_507090678 (\"event\" AS ?_L_507090678) ?_I2_507090678\nWHERE\n  { ?Event  <http://www.example.com/OCELv2/eventId>  ?_I1_507090678 ;\n            <http://www.example.com/OCELv2/timestamp>  ?_I2_507090678}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/eventId",
+    "firstComponent" : [ "_L_507090678", "_I1_507090678", "_I2_507090678", "Event" ],
+    "secondComponent" : [ "_I1_507090678" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Event ?_I2_507090678 (\"event\" AS ?_L_507090678) ?_I1_507090678\nWHERE\n  { ?Event  <http://www.example.com/OCELv2/timestamp>  ?_I2_507090678 ;\n            <http://www.example.com/OCELv2/eventId>  ?_I1_507090678}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/timestamp",
+    "firstComponent" : [ "_L_507090678", "_I1_507090678", "_I2_507090678", "Event" ],
+    "secondComponent" : [ "_I2_507090678" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?OAttribute (\"oAttribute\" AS ?_L_91237610) ?_I1_91237610 ?_I2_91237610\nWHERE\n  { ?OAttribute  a                  <http://www.example.com/OCELv2/OAttribute> ;\n              <http://www.example.com/OCELv2/oKey>  ?_I1_91237610\n    BIND(?OAttribute AS ?_I2_91237610)\n  }\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/Object",
+    "component" : [ "_L_91237610", "_I1_91237610", "_I2_91237610", "OAttribute" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?OAttribute ?_I1_91237610 (\"oAttribute\" AS ?_L_91237610) ?_I2_91237610\nWHERE\n  { ?OAttribute  <http://www.example.com/OCELv2/oKey>  ?_I1_91237610\n    BIND(?OAttribute AS ?_I2_91237610)\n  }\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/objectId",
+    "firstComponent" : [ "_L_91237610", "_I1_91237610", "_I2_91237610", "OAttribute" ],
+    "secondComponent" : [ "_I1_91237610" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?OAttribute ?_I2_91237610 (\"oAttribute\" AS ?_L_91237610) ?_I1_91237610\nWHERE\n  { ?OAttribute  a  <http://www.example.com/OCELv2/OAttribute>\n    BIND(?OAttribute AS ?_I2_91237610)\n    ?OAttribute  <http://www.example.com/OCELv2/oKey>  ?_I1_91237610\n  }\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/objectType",
+    "firstComponent" : [ "_L_91237610", "_I1_91237610", "_I2_91237610", "OAttribute" ],
+    "secondComponent" : [ "_I2_91237610" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Activity (\"activity\" AS ?_L_1523001953) ?_I1_1523001953\nWHERE\n  { ?Activity  a                    <http://www.example.com/OCELv2/Activity> ;\n              <http://www.example.com/OCELv2/name>  ?_I1_1523001953}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/Attribute",
+    "component" : [ "_L_1523001953", "_I1_1523001953", "Activity" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Activity ?_I1_1523001953 (\"activity\" AS ?_L_1523001953)\nWHERE\n  { ?Activity  <http://www.example.com/OCELv2/name>  ?_I1_1523001953}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/attKey",
+    "firstComponent" : [ "_L_1523001953", "_I1_1523001953", "Activity" ],
+    "secondComponent" : [ "_I1_1523001953" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Activity ?Event (\"activity\" AS ?_L_1523001953) ?_I1_1523001953 (\"event\" AS ?_L_507090678) ?_I1_507090678 ?_I2_507090678\nWHERE\n  { ?Event    <http://www.example.com/OCELv2/observes>  ?Activity .\n    ?Activity  <http://www.example.com/OCELv2/name>  ?_I1_1523001953 .\n    ?Event    <http://www.example.com/OCELv2/eventId>  ?_I1_507090678 ;\n              <http://www.example.com/OCELv2/timestamp>  ?_I2_507090678}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/e-has-a",
+    "firstComponent" : [ "_L_507090678", "_I1_507090678", "_I2_507090678", "Event" ],
+    "secondComponent" : [ "_L_1523001953", "_I1_1523001953", "Activity" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Activity ?Attribute (\"activity\" AS ?_L_1523001953) ?_I1_1523001953 (\"attribute\" AS ?_L_1966412859) ?_I1_1966412859 ?_I2_1966412859\nWHERE\n  { ?Activity  <http://www.example.com/OCELv2/hasEAttribute>  ?Attribute ;\n              <http://www.example.com/OCELv2/name>  ?_I1_1523001953 .\n    ?Attribute  <http://www.example.com/OCELv2/key>  ?_I1_1966412859\n    BIND(?Attribute AS ?_I2_1966412859)\n  }\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/o-has-a",
+    "firstComponent" : [ "_L_1966412859", "_I1_1966412859", "_I2_1966412859", "Attribute" ],
+    "secondComponent" : [ "_L_1523001953", "_I1_1523001953", "Activity" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Type (\"type\" AS ?_L_883604679) ?_I1_883604679\nWHERE\n  { ?Type  a                     <http://www.example.com/OCELv2/Type> ;\n           <http://www.example.com/OCELv2/typeString>  ?_I1_883604679}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/Attribute",
+    "component" : [ "_L_883604679", "_I1_883604679", "Type" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Type ?_I1_883604679 (\"type\" AS ?_L_883604679)\nWHERE\n  { ?Type  <http://www.example.com/OCELv2/typeString>  ?_I1_883604679}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/attKey",
+    "firstComponent" : [ "_L_883604679", "_I1_883604679", "Type" ],
+    "secondComponent" : [ "_I1_883604679" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Type ?Object (\"type\" AS ?_L_883604679) ?_I1_883604679 (\"object\" AS ?_L_890718123) ?_I1_890718123 ?_I2_890718123\nWHERE\n  { ?Object  <http://www.example.com/OCELv2/has>  ?Type .\n    ?Type    <http://www.example.com/OCELv2/typeString>  ?_I1_883604679 .\n    ?Object  <http://www.example.com/OCELv2/objectId>  ?_I1_890718123 ;\n             <http://www.example.com/OCELv2/has>  ?Type .\n    ?Type    <http://www.example.com/OCELv2/typeString>  ?_I2_890718123}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/o-has-a",
+    "firstComponent" : [ "_L_890718123", "_I1_890718123", "_I2_890718123", "Object" ],
+    "secondComponent" : [ "_L_883604679", "_I1_883604679", "Type" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Object (\"object\" AS ?_L_890718123) ?_I1_890718123 ?_I2_890718123\nWHERE\n  { ?Object  a                     <http://www.example.com/OCELv2/Object> ;\n             <http://www.example.com/OCELv2/objectId>  ?_I1_890718123 ;\n             <http://www.example.com/OCELv2/has>  ?Type .\n    ?Type    <http://www.example.com/OCELv2/typeString>  ?_I2_890718123}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/Object",
+    "component" : [ "_L_890718123", "_I1_890718123", "_I2_890718123", "Object" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Object ?_I1_890718123 (\"object\" AS ?_L_890718123) ?_I2_890718123\nWHERE\n  { ?Object  <http://www.example.com/OCELv2/objectId>  ?_I1_890718123 ;\n             <http://www.example.com/OCELv2/has>  ?Type .\n    ?Type    <http://www.example.com/OCELv2/typeString>  ?_I2_890718123}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/objectId",
+    "firstComponent" : [ "_L_890718123", "_I1_890718123", "_I2_890718123", "Object" ],
+    "secondComponent" : [ "_I1_890718123" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Object ?_I2_890718123 (\"object\" AS ?_L_890718123) ?_I1_890718123\nWHERE\n  { ?Object  <http://www.example.com/OCELv2/has>  ?Type .\n    ?Type    <http://www.example.com/OCELv2/typeString>  ?_I2_890718123 .\n    ?Object  <http://www.example.com/OCELv2/objectId>  ?_I1_890718123}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/objectType",
+    "firstComponent" : [ "_L_890718123", "_I1_890718123", "_I2_890718123", "Object" ],
+    "secondComponent" : [ "_I2_890718123" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Object ?Event (\"object\" AS ?_L_890718123) ?_I1_890718123 ?_I2_890718123 (\"event\" AS ?_L_507090678) ?_I1_507090678 ?_I2_507090678\nWHERE\n  { ?corr    <http://www.example.com/OCELv2/corr_2_Event>  ?Event .\n    ?Object  <http://www.example.com/OCELv2/objectId>  ?_I1_890718123 ;\n             <http://www.example.com/OCELv2/has>  ?Type .\n    ?Type    <http://www.example.com/OCELv2/typeString>  ?_I2_890718123 .\n    ?Event   <http://www.example.com/OCELv2/eventId>  ?_I1_507090678 ;\n             <http://www.example.com/OCELv2/timestamp>  ?_I2_507090678}\n",
+    "targetIRI" : "http://onprom.inf.unibz.it/ocel/e-contains-o",
+    "firstComponent" : [ "_L_507090678", "_I1_507090678", "_I2_507090678", "Event" ],
+    "secondComponent" : [ "_L_890718123", "_I1_890718123", "_I2_890718123", "Object" ]
+  } ] ]
+}

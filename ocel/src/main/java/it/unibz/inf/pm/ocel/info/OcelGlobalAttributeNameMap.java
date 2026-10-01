@@ -80,7 +80,7 @@ public class OcelGlobalAttributeNameMap implements OcelAttributeNameMap {
     }
 
     public String mapSafely(OcelAttribute attribute, OcelAttributeNameMap mapping) {
-        return this.mapSafely(attribute.getKey(), mapping);
+        return this.mapSafely(attribute.getId(), mapping);
     }
 
     public String mapSafely(String attributeKey, OcelAttributeNameMap mapping) {

@@ -46,8 +46,8 @@ public class OBDAMaterializer {
 
     public static OWLOntology getMaterializedOWLOntology(OWLOntology targetOntology, SQLPPMapping obdaModel, Properties datasourceProperties) {
         try {
-            OntopSQLOWLAPIConfiguration config = OntopUtility.getConfiguration(targetOntology, obdaModel, datasourceProperties);
-            OntopOWLReasoner reasoner = OntopOWLFactory.defaultFactory().createReasoner(config);
+            OntopSQLOWLAPIConfiguration config = OntopUtility.getConfiguration(obdaModel, datasourceProperties);
+            OntopOWLReasoner reasoner = OntopOWLFactory.defaultFactory().createReasoner(targetOntology, config);
 
             OWLOntology result = cloneOntology(targetOntology);
 

@@ -47,17 +47,16 @@ public class DiagramEditorAction extends ToolbarAction {
 
     @Override
     public void execute() {
-        if (actionType.equals(UMLDiagramActions.open)) {
-            diagramEditor.open(null);
-        } else if (actionType.equals(UMLDiagramActions.export)) {//export as OWL
-            diagramEditor.export(false);
-        } else if (actionType.equals(UMLDiagramActions.save)) {//save over the files
-            diagramEditor.save();
-        } else if (actionType.equals(UMLDiagramActions.saveas)) {//save as JSON file
-            diagramEditor.export(true);
-        } else if (actionType.equals(UMLDiagramActions.close)) {
-            diagramEditor.close();
-
+        switch (actionType) {
+            case UMLDiagramActions.open -> diagramEditor.open(null);
+            case UMLDiagramActions.export -> //export as OWL
+                    diagramEditor.export(false);
+            case UMLDiagramActions.save -> //save over the files
+                    diagramEditor.save();
+            case UMLDiagramActions.saveas -> //save as JSON file
+                    diagramEditor.export(true);
+            case UMLDiagramActions.close -> diagramEditor.close();
+            default -> throw new IllegalStateException("Unexpected value: " + actionType);
         }
     }
 }

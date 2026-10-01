@@ -27,9 +27,10 @@
 package it.unibz.inf.pm.ocel.importer;
 
 
+import it.unibz.inf.pm.ocel.entity.*;
 import it.unibz.inf.pm.ocel.util.DateFormatUtil;
 import it.unibz.inf.pm.ocel.util.XmlUtil;
-import org.dom4j.Attribute;
+import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -39,25 +40,24 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.*;
 
+@Slf4j
 public class Ocelxml {
-    public static Map apply(String input_path, String... parameters) throws DocumentException {
+    public static OcelLog apply(String input_path) throws DocumentException {
         XmlUtil xmlUtil = new XmlUtil();
         Element root = xmlUtil.read(new File(input_path));
         Document dom = xmlUtil.getDocument();
 
         HashMap<String, Object> logMap = new HashMap<>();
-
-        List<Element> globalNodes = dom.selectNodes("//global");
-        List<Attribute> globalNodeAttributes = dom.selectNodes("//global/@scope");
+        OcelLog.OcelLogBuilder logBuilder = OcelLog.builder();
 
         // parse <global scope="event">
         Element globalEventNode = XmlUtil.parse(root, "scope", "event");
-        HashMap<String, String> globalEventMap = new HashMap<>();
+        Map<String, String> globalEventMap = new HashMap<>();
         List<Element> subGlobalEventNodes = globalEventNode.elements();
         for(Element emt : subGlobalEventNodes) {
             globalEventMap.put(emt.attribute("key").getValue(),emt.attribute("value").getValue());
         }
-        logMap.put("ocel:global-event",globalEventMap);
+        logBuilder.globalEvents(globalEventMap);
 
         // parse <global scope="object">
         Element globalObjectNode = XmlUtil.parse(root, "scope", "object");
@@ -66,106 +66,125 @@ public class Ocelxml {
         for(Element emt : subGlobalObjectNodes) {
             globalObjectMap.put(emt.attribute("key").getValue(),emt.attribute("value").getValue());
         }
-        logMap.put("ocel:global-object",globalObjectMap);
+        logBuilder.globalObjects(globalObjectMap);
 
         // parse <global scope="log">
         Element globalLogNode = XmlUtil.parse(root, "scope", "log");
-        HashMap<String, Object> globalLogMap = new HashMap<>();
+        HashMap<String, OcelAttribute> globalLogMap = new HashMap<>();
         List<Element> subGlobalLogNodes = globalLogNode.elements();
+        List<String> attributeValueList = new ArrayList<>();
+        List<String> objTpyeValueList = new ArrayList<>();
         for (Element emt : subGlobalLogNodes) {
             String value = emt.attribute("key").getValue();
-            List<Element> attributNamesElments = emt.elements();
-            List<String> attributeValueList = new ArrayList<>();
-            List<String> objTpyeValueList = new ArrayList<>();
+            List<Element> attributeNamesElements = emt.elements();
             switch (value) {
                 case "attribute-names":
-                    for (Element attrElm : attributNamesElments) {
+                    for (Element attrElm : attributeNamesElements) {
                         attributeValueList.add(attrElm.attribute("value").getValue());
-                        globalLogMap.put("ocel:attribute-names", attributeValueList);
                     }
                     break;
                 case "object-types":
-                    for (Element attrElm : attributNamesElments) {
+                    for (Element attrElm : attributeNamesElements) {
                         objTpyeValueList.add(attrElm.attribute("value").getValue());
-                        globalLogMap.put("ocel:object-types", objTpyeValueList);
                     }
                     break;
                 case "version":
-                    globalLogMap.put("ocel:version", emt.attribute("value").getValue());
+                    globalLogMap.put("ocel:version",
+                            new OcelAttribute("ocel:version", new OcelElement(emt.attribute("value").getValue())));
                     break;
                 case "ordering":
-                    globalLogMap.put("ocel:ordering", emt.attribute("value").getValue());
+                    globalLogMap.put("ocel:ordering",
+                            new OcelAttribute("ocel:ordering", new OcelElement(emt.attribute("value").getValue())));
                     break;
             }
         }
-        logMap.put("ocel:global-log",globalLogMap);
+        globalLogMap.put("ocel:attribute-names", new OcelAttribute("ocel:attribute-names",
+                new OcelElement(attributeValueList)));
+        globalLogMap.put("ocel:object-types", new OcelAttribute("ocel:attribute-names",
+                new OcelElement(objTpyeValueList)));
+        logBuilder.globalLog(globalLogMap);
 
         //parse the elements of <event>
         List<Element> eventsNodes = dom.selectNodes("//event");
-        List<HashMap> eventMapList = new ArrayList<>();
-        HashMap<String, Object> eventMapInOne = new HashMap<>();
+        HashMap<String, OcelEvent> eventMapInOne = new HashMap<>();
+        String eventKeyName = "";
         for (Element entElm: eventsNodes) {
-            String eventKeyName = "";
             List<Element> eventElmt = entElm.elements();
+
+            OcelEvent.OcelEventBuilder eventBuilder = OcelEvent.builder();
             HashMap<String, Object> eventMap = new HashMap<>();
             for (Element event: eventElmt ) {
                 String keyStr = event.attribute("key").getValue();
                 if("id".equals(keyStr)) {
                     eventKeyName = event.attribute("value").getValue();
+                    eventBuilder = eventBuilder.id(eventKeyName);
                 }else if("timestamp".equals(keyStr)){
                     try {
-                        eventMap.put("ocel:timestamp", DateFormatUtil.dealDateFormatReverse(event.attribute("value").getValue()));
+                        eventBuilder = eventBuilder.timestamp(
+                                        DateFormatUtil.dealDateFormatReverse(event.attribute("value").getValue()));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                 }else if("activity".equals(keyStr)){
+                    eventBuilder = eventBuilder.activity(event.attribute("value").getValue());
                     eventMap.put("ocel:activity",event.attribute("value").getValue());
                 }else if ("omap".equals(keyStr)) {
                     List<Element> omapElements = event.elements();
                     List<String> ompValueList = new ArrayList<>();
                     for (Element ompElm : omapElements) {
                         ompValueList.add(ompElm.attribute("value").getValue());
-                        eventMap.put("ocel:omap", ompValueList);
                     }
+                    eventBuilder = eventBuilder.omap(ompValueList);
                 } else if ("vmap".equals(keyStr)) {
-                    HashMap<String, Object> vmapMap = new HashMap<>();
-                    List<Element> vmapElements = event.elements();
-                    for (Element vmpElm : vmapElements) {
-                        vmapMap.put(vmpElm.attribute("key").getValue(), parse_xml(vmpElm.attribute("value").getValue(), "vmpElm.getName()"));
-                    }
-                    eventMap.put("ocel:vmap", vmapMap);
+                    HashMap<String, OcelAttribute> vmapMap = extractMapFromElement(event);
+                    eventBuilder = eventBuilder.vmap(vmapMap);
                 }
-                eventMapInOne.put(eventKeyName,eventMap);
             }
-            logMap.put("ocel:events",eventMapInOne);
+            if (eventKeyName.isEmpty() || !eventMap.keySet().containsAll(List.of("ocel:activity", "ocel:timestamp"))) {
+                if (!eventKeyName.isEmpty()) {
+                    log.warn("For event {}, activity or timestamp is not present. Ignoring...",  eventKeyName);
+                } else {
+                    log.warn("Found event without ID! Ignoring...");
+                }
+            } else {
+                eventMapInOne.put(eventKeyName, eventBuilder.build());
+            }
         }
+        logBuilder.events(eventMapInOne);
 
         //parse the elements of <event>
         List<Element> objectsNodes = dom.selectNodes("//object");
-        HashMap<String, Object> objectMapInOne = new HashMap<>();
+        HashMap<String, OcelObject> objectMapInOne = new HashMap<>();
         for (Element objElm: objectsNodes) {
             String objectKeyName = "";
             List<Element> objElmt = objElm.elements();
-            HashMap<String, Object> objectMap = new HashMap<>();
+            OcelObject.OcelObjectBuilder objectBuilder = OcelObject.builder();
             for (Element obj: objElmt ) {
                 String keyStr = obj.attribute("key").getValue();
                 if("id".equals(keyStr)) {
-                    objectKeyName = obj.attribute("value").getValue();
+                    objectBuilder = objectBuilder.id(obj.attribute("value").getValue());
                 }else if ("type".equals(keyStr)) {
-                    objectMap.put("ocel:type", obj.attribute("value").getValue());
+                    objectBuilder = objectBuilder.type(obj.attribute("value").getValue());
                 } else if ("ovmap".equals(keyStr)) {
-                    HashMap<String, Object> ovmapMap = new HashMap<>();
-                    List<Element> ovmapElements = obj.elements();
-                    for (Element ovmpElm : ovmapElements) {
-                        ovmapMap.put(ovmpElm.attribute("key").getValue(), parse_xml(ovmpElm.attribute("value").getValue(), "vmpElm.getName()"));
-                    }
-                    objectMap.put("ocel:ovmap", ovmapMap);
+                    objectBuilder = objectBuilder.ovmap(extractMapFromElement(obj));
                 }
-                objectMapInOne.put(objectKeyName,objectMap);
             }
-            logMap.put("ocel:objects",objectMapInOne);
         }
-        return logMap;
+        logBuilder.objects(objectMapInOne);
+        return logBuilder.build();
+    }
+
+    private static HashMap<String, OcelAttribute> extractMapFromElement(Element event) {
+        HashMap<String, OcelAttribute> vmapMap = new HashMap<>();
+        List<Element> vmapElements = event.elements();
+        for (Element vmpElm : vmapElements) {
+            String id = vmpElm.attribute("key").getValue();
+            OcelAttribute.OcelAttributeBuilder attributeBuilder = OcelAttribute.builder().key(id);
+            attributeBuilder = attributeBuilder.value(new OcelElement(parse_xml(vmpElm.attribute("value").getValue(),
+                    "vmpElm.getName()").toString()));
+            vmapMap.put(id, attributeBuilder.build());
+        }
+        return vmapMap;
     }
 
 

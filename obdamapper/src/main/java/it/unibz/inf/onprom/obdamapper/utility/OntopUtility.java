@@ -34,7 +34,6 @@ import it.unibz.inf.ontop.protege.core.OldSyntaxMappingConverter;
 import it.unibz.inf.ontop.spec.mapping.parser.impl.OntopNativeMappingParser;
 import it.unibz.inf.ontop.spec.mapping.pp.SQLPPMapping;
 import it.unibz.inf.ontop.spec.mapping.serializer.impl.OntopNativeMappingSerializer;
-import org.semanticweb.owlapi.model.OWLOntology;
 
 import java.io.File;
 import java.io.FileReader;
@@ -52,32 +51,14 @@ public class OntopUtility {
         return null;
     }
 
-    public static OntopSQLOWLAPIConfiguration getConfiguration(OWLOntology ontology, 
-                                                               //OBDAModel obdaModel,
+    public static OntopSQLOWLAPIConfiguration getConfiguration(//OBDAModel obdaModel,
                                                                SQLPPMapping mapping,
                                                                Properties dataSourceProperties) {
         return OntopSQLOWLAPIConfiguration.defaultBuilder()
-                .ontology(ontology)
                 .ppMapping(mapping)
-                //.ppMapping(obdaModel.generatePPMapping())
                 .properties(dataSourceProperties)
                 .build();
     }
-
-//    public static OBDAModel emptyOBDAModel(OntopMappingSQLAllConfiguration configuration) {
-//        return new OBDAModel(
-//                configuration.getInjector().getInstance(SQLPPMappingFactory.class),
-//                new PrefixDocumentFormatImpl(),
-//                configuration.getInjector().getInstance(AtomFactory.class),
-//                configuration.getInjector().getInstance(TermFactory.class),
-//                configuration.getInjector().getInstance(TypeFactory.class),
-//                configuration.getInjector().getInstance(TargetAtomFactory.class),
-//                configuration.getInjector().getInstance(SubstitutionFactory.class),
-//                configuration.getInjector().getInstance(RDF.class),
-//                configuration.getInjector().getInstance(TargetQueryParserFactory.class),
-//                configuration.getInjector().getInstance(SQLPPSourceQueryFactory.class)
-//        );
-//    }
 
     public static SQLPPMapping getOBDAModel(File obdaFile, File propertiesFile) {
         Properties properties = new Properties();
@@ -86,23 +67,10 @@ public class OntopUtility {
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
-
-//        properties.put(RDBMSourceParameterConstants.DATABASE_URL, "");
-//        properties.put(RDBMSourceParameterConstants.DATABASE_USERNAME, "");
-//        properties.put(RDBMSourceParameterConstants.DATABASE_PASSWORD, "");
-//        properties.put(RDBMSourceParameterConstants.DATABASE_DRIVER, "");
-        
         return getOBDAModel(obdaFile, properties);
     }
 
     public static SQLPPMapping getOBDAModel(File obdaFile, Properties dataSource) {
-        
-
-//        properties.put(RDBMSourceParameterConstants.DATABASE_URL, "");
-//        properties.put(RDBMSourceParameterConstants.DATABASE_USERNAME, "");
-//        properties.put(RDBMSourceParameterConstants.DATABASE_PASSWORD, "");
-//        properties.put(RDBMSourceParameterConstants.DATABASE_DRIVER, "");
-
         Injector injector = OntopSQLOWLAPIConfiguration.defaultBuilder()
                 .properties(dataSource)
                 .build().getInjector();

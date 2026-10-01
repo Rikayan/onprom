@@ -43,10 +43,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 class XESEBDAReasoner extends EBDAReasoner<XAttribute, XEvent, XTrace> {
     private static final Logger logger = LoggerFactory.getLogger(XESEBDAReasoner.class);
@@ -97,7 +94,8 @@ class XESEBDAReasoner extends EBDAReasoner<XAttribute, XEvent, XTrace> {
                     logger.error(e.getMessage());
                 }
             }
-            logger.info("Finished extracting " + attributes.size() + " attributes in " + (System.currentTimeMillis() - start) + "ms");
+            logger.info("Finished extracting " + attributes.size() + " attributes in " +
+                    (System.currentTimeMillis() - start) + "ms");
             resultSet.close();
             st.close();
         } catch (Exception e) {

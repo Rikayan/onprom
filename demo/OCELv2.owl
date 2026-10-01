@@ -1,0 +1,626 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.example.com/OCELv2/"
+     xml:base="http://www.example.com/OCELv2/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:onprom="http://kaos.inf.unibz.it/onprom/">
+    <owl:Ontology rdf:about="http://www.example.com/OCELv2/"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://kaos.inf.unibz.it/onprom/association -->
+
+
+    <owl:AnnotationProperty rdf:about="http://kaos.inf.unibz.it/onprom/association"/>
+    
+
+
+    <!-- http://kaos.inf.unibz.it/onprom/coordinates -->
+
+
+    <owl:AnnotationProperty rdf:about="http://kaos.inf.unibz.it/onprom/coordinates"/>
+    
+
+
+    <!-- http://kaos.inf.unibz.it/onprom/type -->
+
+
+    <owl:AnnotationProperty rdf:about="http://kaos.inf.unibz.it/onprom/type"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://www.example.com/OCELv2/corr_2_Event -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.example.com/OCELv2/corr_2_Event">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/corr"/>
+        <rdfs:range rdf:resource="http://www.example.com/OCELv2/Event"/>
+        <onprom:association>corr</onprom:association>
+        <onprom:coordinates></onprom:coordinates>
+        <onprom:type>domain</onprom:type>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/corr_2_Object -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.example.com/OCELv2/corr_2_Object">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/corr"/>
+        <rdfs:range rdf:resource="http://www.example.com/OCELv2/Object"/>
+        <onprom:association>corr</onprom:association>
+        <onprom:type>range</onprom:type>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/has -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.example.com/OCELv2/has">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/Object"/>
+        <rdfs:range rdf:resource="http://www.example.com/OCELv2/Type"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/hasEAttr -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.example.com/OCELv2/hasEAttr">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/Event"/>
+        <rdfs:range rdf:resource="http://www.example.com/OCELv2/EAttrValue"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/hasEAttribute -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.example.com/OCELv2/hasEAttribute">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/Activity"/>
+        <rdfs:range rdf:resource="http://www.example.com/OCELv2/Attribute"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/hasEValue -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.example.com/OCELv2/hasEValue">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/Attribute"/>
+        <rdfs:range rdf:resource="http://www.example.com/OCELv2/EAttrValue"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/hasOAttr -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.example.com/OCELv2/hasOAttr">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/Object"/>
+        <rdfs:range rdf:resource="http://www.example.com/OCELv2/OAttrValue"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/hasOAttribute -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.example.com/OCELv2/hasOAttribute">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/Type"/>
+        <rdfs:range rdf:resource="http://www.example.com/OCELv2/OAttribute"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/hasOValue -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.example.com/OCELv2/hasOValue">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/OAttribute"/>
+        <rdfs:range rdf:resource="http://www.example.com/OCELv2/OAttrValue"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/observes -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.example.com/OCELv2/observes">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/Event"/>
+        <rdfs:range rdf:resource="http://www.example.com/OCELv2/Activity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/relatedToObjects -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.example.com/OCELv2/relatedToObjects">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/Object"/>
+        <rdfs:range rdf:resource="http://www.example.com/OCELv2/related"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://www.example.com/OCELv2/eQualifier -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.example.com/OCELv2/eQualifier">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/corr"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/eValue -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.example.com/OCELv2/eValue">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/EAttrValue"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/eventId -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.example.com/OCELv2/eventId">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/Event"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/key -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.example.com/OCELv2/key">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/Attribute"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/name -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.example.com/OCELv2/name">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/Activity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/oKey -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.example.com/OCELv2/oKey">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/OAttribute"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/oQualifier -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.example.com/OCELv2/oQualifier">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/related"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/oTargets -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.example.com/OCELv2/oTargets">
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/related"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/oValue -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.example.com/OCELv2/oValue">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/OAttrValue"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/objectId -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.example.com/OCELv2/objectId">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/Object"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/timestamp -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.example.com/OCELv2/timestamp">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/Event"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTimeStamp"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.com/OCELv2/typeString -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.example.com/OCELv2/typeString">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/OCELv2/Type"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+    <!-- http://www.example.com/OCELv2/Activity -->
+
+
+    <owl:Class rdf:about="http://www.example.com/OCELv2/Activity">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty>
+                    <rdf:Description>
+                        <owl:inverseOf rdf:resource="http://www.example.com/OCELv2/observes"/>
+                    </rdf:Description>
+                </owl:onProperty>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/name"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <onprom:coordinates>202,292</onprom:coordinates>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/OCELv2/Attribute -->
+
+
+    <owl:Class rdf:about="http://www.example.com/OCELv2/Attribute">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty>
+                    <rdf:Description>
+                        <owl:inverseOf rdf:resource="http://www.example.com/OCELv2/hasEAttribute"/>
+                    </rdf:Description>
+                </owl:onProperty>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/key"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <onprom:coordinates>333,442</onprom:coordinates>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/OCELv2/EAttrValue -->
+
+
+    <owl:Class rdf:about="http://www.example.com/OCELv2/EAttrValue">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty>
+                    <rdf:Description>
+                        <owl:inverseOf rdf:resource="http://www.example.com/OCELv2/hasEAttr"/>
+                    </rdf:Description>
+                </owl:onProperty>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty>
+                    <rdf:Description>
+                        <owl:inverseOf rdf:resource="http://www.example.com/OCELv2/hasEValue"/>
+                    </rdf:Description>
+                </owl:onProperty>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/eValue"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <onprom:coordinates>460,308</onprom:coordinates>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/OCELv2/Event -->
+
+
+    <owl:Class rdf:about="http://www.example.com/OCELv2/Event">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/observes"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/eventId"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/timestamp"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <onprom:coordinates>166,115</onprom:coordinates>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/OCELv2/OAttrValue -->
+
+
+    <owl:Class rdf:about="http://www.example.com/OCELv2/OAttrValue">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty>
+                    <rdf:Description>
+                        <owl:inverseOf rdf:resource="http://www.example.com/OCELv2/hasOAttr"/>
+                    </rdf:Description>
+                </owl:onProperty>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/oValue"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <onprom:coordinates>618,342</onprom:coordinates>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/OCELv2/OAttribute -->
+
+
+    <owl:Class rdf:about="http://www.example.com/OCELv2/OAttribute">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/hasOValue"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty>
+                    <rdf:Description>
+                        <owl:inverseOf rdf:resource="http://www.example.com/OCELv2/hasOAttribute"/>
+                    </rdf:Description>
+                </owl:onProperty>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/oKey"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <onprom:coordinates>953,317</onprom:coordinates>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/OCELv2/Object -->
+
+
+    <owl:Class rdf:about="http://www.example.com/OCELv2/Object">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/has"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty>
+                    <rdf:Description>
+                        <owl:inverseOf rdf:resource="http://www.example.com/OCELv2/corr_2_Object"/>
+                    </rdf:Description>
+                </owl:onProperty>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/objectId"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <onprom:coordinates>620,123</onprom:coordinates>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/OCELv2/Type -->
+
+
+    <owl:Class rdf:about="http://www.example.com/OCELv2/Type">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty>
+                    <rdf:Description>
+                        <owl:inverseOf rdf:resource="http://www.example.com/OCELv2/has"/>
+                    </rdf:Description>
+                </owl:onProperty>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/typeString"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <onprom:coordinates>836,42</onprom:coordinates>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/OCELv2/corr -->
+
+
+    <owl:Class rdf:about="http://www.example.com/OCELv2/corr">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/corr_2_Event"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/corr_2_Object"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/eQualifier"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <onprom:association>corr</onprom:association>
+        <onprom:coordinates>414,0</onprom:coordinates>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.com/OCELv2/related -->
+
+
+    <owl:Class rdf:about="http://www.example.com/OCELv2/related">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty>
+                    <rdf:Description>
+                        <owl:inverseOf rdf:resource="http://www.example.com/OCELv2/relatedToObjects"/>
+                    </rdf:Description>
+                </owl:onProperty>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/oQualifier"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/OCELv2/oTargets"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <onprom:coordinates>777,232</onprom:coordinates>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 2.4.0) https://github.com/owlcs/owlapi/ -->
+
+

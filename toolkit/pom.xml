@@ -38,13 +38,13 @@
     </parent>
 
     <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
             <!-- Generate large JAR with dependencies-->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>${maven.assembly.version}</version>
                 <configuration>
-                    <finalName>${project.artifactId}-${project.version}</finalName>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>

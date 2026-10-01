@@ -37,6 +37,8 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.search.EntitySearcher;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Class used to import OWL ontologies to the tool.
@@ -164,15 +166,16 @@ public class OWLImporter extends OWLUtility {
       String attrName = dataProperty.getIRI().getShortForm();
       Attribute attr = new Attribute(attrName);
       attr.setLongName(dataProperty.getIRI().toString());
-      final Collection<OWLClassExpression> domains = EntitySearcher.getDomains(dataProperty, ontology);
-      if (domains.size() > 1) {
+      final List<OWLClassExpression> domains;
+        domains = EntitySearcher.getDomains(dataProperty, ontology).toList();
+        if (domains.size() > 1) {
         messages.add("Multiple domains are found for for <em>" + attrName + "</em> " + domains);
       }
       domains.forEach(owlClassExpression -> {
           if (owlClassExpression instanceof OWLClass) {
               UMLClass domainClass = umlClasses.get(owlClassExpression.asOWLClass());
               if (domainClass != null) {
-                OWLDataRange range = EntitySearcher.getRanges(dataProperty, ontology).stream().findFirst().orElse(null);
+                OWLDataRange range = EntitySearcher.getRanges(dataProperty, ontology).findFirst().orElse(null);
                   if (range != null) {
                       attr.setType(DataType.get(range.toString()));
                   } else {
@@ -186,7 +189,7 @@ public class OWLImporter extends OWLUtility {
               messages.add("Class expression " + owlClassExpression + " is not available as OWL Class");
         }
       });
-      if (domains.size() < 1) {
+      if (domains.isEmpty()) {
         messages.add("No domain is found for " + dataProperty.getIRI() + " adding it to the Thing class");
         thingClass.addAttribute(attr);
         thingAdded = true;
@@ -200,7 +203,7 @@ public class OWLImporter extends OWLUtility {
 
       final IRI objectPropertyIRI = objectProperty.getIRI();
 
-      OWLClassExpression domainClassExpression = EntitySearcher.getDomains(objectProperty, ontology).stream().findFirst().orElse(null);
+      OWLClassExpression domainClassExpression = EntitySearcher.getDomains(objectProperty, ontology).findFirst().orElse(null);
         if (domainClassExpression instanceof OWLClass) {
             domainClass = umlClasses.get(domainClassExpression.asOWLClass());
       } else {
@@ -209,7 +212,7 @@ public class OWLImporter extends OWLUtility {
             messages.add("No domain is found for " + objectPropertyIRI + " setting Thing as domain class (" + domainClassExpression + ")");
       }
 
-      OWLClassExpression rangeClassExpression = EntitySearcher.getRanges(objectProperty, ontology).stream().findFirst().orElse(null);
+      OWLClassExpression rangeClassExpression = EntitySearcher.getRanges(objectProperty, ontology).findFirst().orElse(null);
         if (rangeClassExpression instanceof OWLClass) {
         rangeClass = umlClasses.get(rangeClassExpression.asOWLClass());
       } else {
@@ -219,16 +222,27 @@ public class OWLImporter extends OWLUtility {
       }
       String assocString = getAssociation(ontology, objectPropertyIRI);
       if (assocString != null) {
-        String typeString = getType(ontology, objectPropertyIRI);
+        Set<String> typeStrings = getTypes(ontology, objectPropertyIRI);
         association = associationClasses.get(assocString).getAssociation();
-        if (isDomain(typeString)) {
-          association.setFirstClass(rangeClass);
-          association.setSecondMultiplicity(Cardinality.get(inverseExistentialObjectProperties.contains(objectProperty),
-            isInverseFunctional(objectProperty, ontology) || inverserFunctionalObjectProperties.contains(objectProperty)));
-        } else {
-          association.setSecondClass(rangeClass);
-          association.setFirstMultiplicity(Cardinality.get(inverseExistentialObjectProperties.contains(objectProperty),
-            EntitySearcher.isFunctional(objectProperty.getInverseProperty(), ontology) || inverserFunctionalObjectProperties.contains(objectProperty)));
+        boolean isFirstSet=false, isSecondSet=false;
+        for (String typeString : typeStrings) {
+          if (isDomain(typeString)) {
+            if (isFirstSet) {
+              messages.add("Multiple domains are found for for <em>" + assocString + "</em> " + domainClassExpression);
+            }
+            isFirstSet=true;
+            association.setFirstClass(rangeClass);
+            association.setSecondMultiplicity(Cardinality.get(inverseExistentialObjectProperties.contains(objectProperty),
+                    isInverseFunctional(objectProperty, ontology) || inverserFunctionalObjectProperties.contains(objectProperty)));
+          } else {
+            if (isSecondSet) {
+              messages.add("Multiple ranges are found for for <em>" + assocString + "</em> " + rangeClassExpression);
+            }
+            isSecondSet=true;
+            association.setSecondClass(rangeClass);
+            association.setFirstMultiplicity(Cardinality.get(inverseExistentialObjectProperties.contains(objectProperty),
+                    EntitySearcher.isFunctional(objectProperty.getInverseProperty(), ontology) || inverserFunctionalObjectProperties.contains(objectProperty)));
+          }
         }
       } else {
         association = new Association(objectPropertyIRI.getShortForm(), objectPropertyIRI.toString(), domainClass, rangeClass);
@@ -267,8 +281,8 @@ public class OWLImporter extends OWLUtility {
     return owlAnnotationAssertionAxiom.map(axiom -> ((OWLLiteral) axiom.getValue()).getLiteral()).orElse(null);
   }
 
-  private static String getType(OWLOntology ontology, IRI classIRI) {
-    Optional<OWLAnnotationAssertionAxiom> owlAnnotationAssertionAxiom = ontology.getAnnotationAssertionAxioms(classIRI).stream().filter(x -> x.getProperty().getIRI().getShortForm().equals(getTypeIRI().getShortForm())).findFirst();
-    return owlAnnotationAssertionAxiom.map(axiom -> ((OWLLiteral) axiom.getValue()).getLiteral()).orElse(null);
+  private static Set<String> getTypes(OWLOntology ontology, IRI classIRI) {
+    Stream<OWLAnnotationAssertionAxiom> owlAnnotationAssertionAxiom = ontology.getAnnotationAssertionAxioms(classIRI).stream().filter(x -> x.getProperty().getIRI().getShortForm().equals(getTypeIRI().getShortForm()));
+    return owlAnnotationAssertionAxiom.map(axiom -> ((OWLLiteral) axiom.getValue()).getLiteral()).collect(Collectors.toSet());
   }
 }

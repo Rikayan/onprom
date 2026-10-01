@@ -35,7 +35,7 @@ import java.util.Set;
 public class OBDAMappingUtility {
 
     public static String cleanURI(String str) {
-        return str.replaceAll("://", "/").replaceAll(":", "");
+        return str.replace("://", "/").replace(":", "");
     }
 
     public static boolean isConstant(String answerVar) {

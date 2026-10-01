@@ -26,10 +26,7 @@
 
 package it.unibz.inf.pm.ocel.util;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONException;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.*;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import it.unibz.inf.pm.ocel.entity.OcelEvent;
@@ -40,10 +37,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -117,7 +111,7 @@ public class JsonUtil {
         return JSON.toJSONString(jsonObject);
     }
 
-    public static OcelEvent getEvent(String jsonstring, Class cls) {
+    public static OcelEvent getEvent(String jsonstring, Class<?> cls) {
         OcelEvent object = null;
         try {
             object = (OcelEvent) JSON.parseObject(jsonstring, cls);
@@ -127,8 +121,8 @@ public class JsonUtil {
         return object;
     }
 
-    public static List getEventList(String jsonstring, Class cls) {
-        List list = new ArrayList();
+    public static List<?> getEventList(String jsonstring, Class<?> cls) {
+        List<?> list = new ArrayList<>();
         try {
             list = JSON.parseArray(jsonstring, cls);
         } catch (Exception e) {
@@ -212,94 +206,10 @@ public class JsonUtil {
 //        }
     }
 
-    public static Map readJsonToMap(String filepath) throws IOException {
-        Map logMap = new HashMap();
-        Map tmpMap = null;
-        File file = new File(filepath);
-        String jsonString = FileUtils.readFileToString(file, "UTF-8");
-        JSONObject jsonObject = JSONObject.parseObject(jsonString);
-        Object globalLog = jsonObject.get("ocel:global-log");
-        Object globalEvent = jsonObject.get("ocel:global-event");
-        Object globalObject = jsonObject.get("ocel:global-object");
-
-        Object events = jsonObject.get("ocel:events");
-        Object objects = jsonObject.get("ocel:objects");
-
-        Map globalEventMap = (Map) JSON.parse(globalEvent.toString());
-        tmpMap = new HashMap();
-        for (Object map : globalEventMap.entrySet()){
-            tmpMap.put(((Map.Entry)map).getKey(),((Map.Entry)map).getValue());
-        }
-        logMap.put("ocel:global-event",tmpMap);
-
-        // save the events element
-        Map eventsMap = (Map) JSON.parse(events.toString());
-        Map allEventsMap = new HashMap();
-        tmpMap = new HashMap();
-        for (Object map : eventsMap.entrySet()){
-            String key = (String) ((Map.Entry)map).getKey();
-            Object value = ((Map.Entry)map).getValue();
-            Map eventElementMap = (Map) JSON.parse(value.toString());
-            for (Object eventElmt : eventElementMap.entrySet()) {
-                String keyEvent = (String) ((Map.Entry)eventElmt).getKey();
-                Object valueEvent = ((Map.Entry)eventElmt).getValue();
-                if("ocel:vmap".equals(keyEvent) ) {
-                    Map vMap = (Map) JSON.parse(valueEvent.toString());
-                    Map vTmpMap = new HashMap();
-                    for (Object vmapElment : vMap.entrySet()) {
-                        vTmpMap.put(((Map.Entry)vmapElment).getKey(),((Map.Entry)vmapElment).getValue());
-                    }
-                    tmpMap.put(keyEvent,vTmpMap);
-                }else if("ocel:omap".equals(keyEvent) ) {
-                    List<String> tmpList = new ArrayList<>((List) ((Map.Entry) eventElmt).getValue());
-                    tmpMap.put(keyEvent,tmpList);
-                } else {
-                    tmpMap.put(((Map.Entry)eventElmt).getKey(),((Map.Entry)eventElmt).getValue());
-                }
-                allEventsMap.put(key,tmpMap);
-            }
-            logMap.put("ocel:events",allEventsMap);
-        }
-
-        // save the objects element
-        Map objectsMap = (Map) JSON.parse(objects.toString());
-        Map allObjectsMap = new HashMap();
-
-        for (Object map : objectsMap.entrySet()){
-            tmpMap = new HashMap();
-            String key = (String) ((Map.Entry)map).getKey();
-            Object value = ((Map.Entry)map).getValue();
-
-            Map ojbectElementMap = (Map) JSON.parse(value.toString());
-            for (Object objectElmt : ojbectElementMap.entrySet()) {
-                String keyObject = (String) ((Map.Entry)objectElmt).getKey();
-                Object valueObject = ((Map.Entry)objectElmt).getValue();
-                if("ocel:ovmap".equals(keyObject) ) {
-                    Map ovMap = (Map) JSON.parse(valueObject.toString());
-                    Map ovTmpMap = new HashMap();
-                    for (Object ovmapElment : ovMap.entrySet()) {
-                        ovTmpMap.put(((Map.Entry)ovmapElment).getKey(),((Map.Entry)ovmapElment).getValue());
-                    }
-                    tmpMap.put(keyObject,ovTmpMap);
-                    allObjectsMap.put(key,tmpMap);
-                }else {
-                    tmpMap.put(((Map.Entry)objectElmt).getKey(),((Map.Entry)objectElmt).getValue());
-                    allObjectsMap.put(key,tmpMap);
-                }
-            }
-            logMap.put("ocel:objects",allObjectsMap);
-        }
-        return logMap;
-    }
-
     public static JSONObject readJsonfileToObject(String filePath) throws IOException {
         File file = new File(filePath);
         String jsonString = FileUtils.readFileToString(file, "UTF-8");
         return JSONObject.parseObject(jsonString);
-    }
-
-    public static void main(String[] args) throws IOException {
-        readJsonToMap("ocel/logs/minimal.jsonocel");
     }
 
     @Data

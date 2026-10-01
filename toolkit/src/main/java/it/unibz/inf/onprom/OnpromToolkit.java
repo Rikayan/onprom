@@ -40,6 +40,7 @@ import it.unibz.inf.onprom.ui.utility.UIUtility;
 import it.unibz.inf.onprom.utility.ToolkitMessages;
 import it.unibz.inf.onprom.utility.VersionUtility;
 import it.unibz.inf.pm.ocel.entity.OcelLog;
+import lombok.Getter;
 import org.deckfour.xes.info.XLogInfoFactory;
 import org.deckfour.xes.model.XLog;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -69,9 +70,10 @@ import java.util.Set;
  */
 public class OnpromToolkit extends JFrame implements AnnotationEditorListener {
     private static final Logger logger = LoggerFactory.getLogger(OnpromToolkit.class.getSimpleName());
+    @Getter
     private final JProgressBar progressBar = new JProgressBar();
     private final FileType[] supportedFormats = {
-            FileType.ONTOLOGY, FileType.UML, FileType.ANNOTATION, FileType.MAPPING, FileType.QUERIES, FileType.XLOG, FileType.DS_PROPERTIES
+            FileType.ONTOLOGY, FileType.UML, FileType.ANNOTATION, FileType.MAPPING, FileType.QUERIES, FileType.XLOG, FileType.DS_PROPERTIES, FileType.OCEL
     };
     private final JDesktopPane desktop = new JDesktopPane();
 
@@ -144,10 +146,6 @@ public class OnpromToolkit extends JFrame implements AnnotationEditorListener {
         new OnpromToolkit();
     }
 
-    public JProgressBar getProgressBar() {
-        return progressBar;
-    }
-
     private void checkForUpdate() {
         UIUtility.executeInBackground(() -> {
             progressBar.setIndeterminate(true);
@@ -180,17 +178,7 @@ public class OnpromToolkit extends JFrame implements AnnotationEditorListener {
         exitItem.addActionListener(e -> this.dispose());
         mnFile.add(exitItem);
 
-        JMenu mnTools = new JMenu("Tools");
-        mnTools.setMnemonic(KeyEvent.VK_T);
-        JMenuItem umlItem = new JMenuItem("Open UML Editor", KeyEvent.VK_U);
-        umlItem.addActionListener(e -> UIUtility.executeInBackground(this::displayUMLEditor, progressBar));
-        mnTools.add(umlItem);
-        JMenuItem annoItem = new JMenuItem("Open Annotation Editor", KeyEvent.VK_A);
-        annoItem.addActionListener(e -> UIUtility.executeInBackground(this::displayAnnotationEditor, progressBar));
-        mnTools.add(annoItem);
-        JMenuItem showExportItem = new JMenuItem("Export Log", KeyEvent.VK_E);
-        showExportItem.addActionListener(e -> UIUtility.executeInBackground(this::showExportPanel, progressBar));
-        mnTools.add(showExportItem);
+        JMenu mnTools = getJMenuTools();
         menuBar.add(mnTools);
 
         JMenu mnHelp = new JMenu("Help");
@@ -206,6 +194,25 @@ public class OnpromToolkit extends JFrame implements AnnotationEditorListener {
         return menuBar;
     }
 
+    private JMenu getJMenuTools() {
+        JMenu mnTools = new JMenu("Tools");
+        mnTools.setMnemonic(KeyEvent.VK_T);
+        JMenuItem umlItem = new JMenuItem("Open UML Editor", KeyEvent.VK_U);
+        umlItem.addActionListener(e -> UIUtility.executeInBackground(this::displayUMLEditor, progressBar));
+        mnTools.add(umlItem);
+        JMenuItem annoItem = new JMenuItem("Open Annotation Editor", KeyEvent.VK_A);
+        annoItem.addActionListener(e -> UIUtility.executeInBackground(this::displayAnnotationEditor, progressBar));
+        mnTools.add(annoItem);
+        JMenuItem annoOCELItem = new JMenuItem("Open Annotation Editor for OCEL Log",  KeyEvent.VK_O);
+        annoOCELItem.addActionListener(e -> UIUtility.executeInBackground(this::displayOCELAnnotationEditor,
+                progressBar));
+        mnTools.add(annoOCELItem);
+        JMenuItem showExportItem = new JMenuItem("Export Log", KeyEvent.VK_E);
+        showExportItem.addActionListener(e -> UIUtility.executeInBackground(this::showExportPanel, progressBar));
+        mnTools.add(showExportItem);
+        return mnTools;
+    }
+
     @Nonnull
     public Set<TreeNode<Object>> getResourceNodes() {
         return objects.getAllNodes();
@@ -217,6 +224,10 @@ public class OnpromToolkit extends JFrame implements AnnotationEditorListener {
 
     public void displayAnnotationEditor() {
         displayEditor(new AnnotationEditor(this));
+    }
+
+    public void displayOCELAnnotationEditor() {
+        displayEditor(new AnnotationEditor(this, true));
     }
 
     public void displayPropertiesEditor(TreeNode<Object> node) {

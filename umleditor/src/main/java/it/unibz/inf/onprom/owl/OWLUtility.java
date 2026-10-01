@@ -87,7 +87,7 @@ public class OWLUtility {
         return DATA_FACTORY.getOWLAnnotation(DATA_FACTORY.getRDFSComment(), DATA_FACTORY.getOWLLiteral(value));
     }
 
-    static IRI getAssociationIRI() {
+    public static IRI getAssociationIRI() {
         return IRI.create(ONPROM_IRI + ASSOCIATION);
     }
 
@@ -103,15 +103,15 @@ public class OWLUtility {
         return getTypeAnnotation(RANGE);
     }
 
-    static boolean isDomain(String string) {
+    public static boolean isDomain(String string) {
         return string.equalsIgnoreCase(DOMAIN);
     }
 
-    static boolean isRange(String string) {
+    public static boolean isRange(String string) {
         return string.equalsIgnoreCase(RANGE);
     }
 
-    static IRI getTypeIRI() {
+    public static IRI getTypeIRI() {
         return IRI.create(ONPROM_IRI + ASSOCIATION_TYPE);
     }
 
@@ -168,6 +168,7 @@ public class OWLUtility {
     }
 
     public static String getDocumentIRI(@Nonnull OWLOntology ontology) {
-        return ontology.getOntologyID().getOntologyIRI().transform(IRI::toString).or("http://www.example.com/example.owl");
+        return ontology.getOntologyID().getOntologyIRI().map(IRI::toString)
+                .orElse("http://www.example.com/example.owl");
     }
 }

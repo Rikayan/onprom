@@ -2,84 +2,85 @@ package it.unibz.inf.pm.ocel.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NonNull;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.ZonedDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * an OCEL contains a global log, global event, and global object element.
  */
 
+@Builder
 @Data
 public class OcelLog {
     @JsonProperty("ocel:global-log")
-    private Map<String, Object> globalLog;
+    private Map<String, OcelAttribute> globalLog;
+
+    @JsonProperty("ocel:global-events")
+    private Map<String, String> globalEvents;
+
+    @JsonProperty("ocel:global-events")
+    private Map<String, String> globalObjects;
 
     @JsonProperty("ocel:events")
+    @NonNull
+    @Getter
     private Map<String, OcelEvent> events;
 
     @JsonProperty("ocel:objects")
+    @Getter
     private Map<String, OcelObject> objects;
 
     @JsonIgnore
-    private List<String> objectTypes;
+    private Set<String> objectTypes;
 
     @JsonIgnore
-    private List<String> attributeNames;
+    private Set<String> attributeNames;
+
+    @JsonIgnore
+    private List<ZonedDateTime> allTimestamps;
 
     @JsonIgnore
     private Map<String, OcelAttribute> attributeMap;
 
-    @JsonIgnore
-    private List<String> timestamps;
 
-
-    public OcelLog(Map<String, Object> globalLog, Map<String, OcelEvent> events, Map<String, OcelObject> objects) {
-        attributeMap = new HashMap<>();
-        this.globalLog = globalLog;
-        this.events = events;
-        this.objects = objects;
+    public List<ZonedDateTime> getAllTimestamps() {
+        if (allTimestamps == null) {
+            allTimestamps = new ArrayList<>();
+            for (OcelEvent event : events.values()) {
+                allTimestamps.add(event.getTimestamp());
+            }
+        }
+        return allTimestamps;
     }
 
-    public OcelLog(Map<String, Object> globalLog, Map<String, OcelEvent> events, Map<String, OcelObject> objects, List<String> timestamps) {
-        attributeMap = new HashMap<>();
-        this.timestamps = timestamps;
-        this.globalLog = globalLog;
-        this.events = events;
-        this.objects = objects;
+    public Set<String> getAttributeNames() {
+        if (attributeNames == null) {
+            // Check if present in attribute form
+            attributeNames = new HashSet<>();
+            attributeNames.addAll(attributeMap.keySet());
+        }
+        return attributeNames;
     }
 
-    public OcelLog(Map<String, Object> globalLog, Map<String, OcelEvent> events,
-                   Map<String, OcelObject> objects, List<String> timestamps, List<String> objectTypes) {
-        attributeMap = new HashMap<>();
-        this.timestamps = timestamps;
-        this.objectTypes = objectTypes;
-        this.globalLog = globalLog;
-        this.events = events;
-        this.objects = objects;
+    public Set<String> getObjectTypes() {
+        if (objectTypes == null) {
+            objectTypes = new HashSet<>();
+            objectTypes.addAll(objects.values().stream().map(OcelObject::getType).collect(Collectors.toSet()));
+        }
+        return objectTypes;
     }
 
-    public OcelLog(Map<String, Object> globalLog, Map<String, OcelEvent> events, Map<String, OcelObject> objects,
-                   Map<String, OcelAttribute> attributes, List<String> timestamps, List<String> objectTypes) {
-        this.attributeMap = attributes;
-        this.timestamps = timestamps;
-        this.objectTypes = objectTypes;
-        this.globalLog = globalLog;
-        this.events = events;
-        this.objects = objects;
-    }
-
-    public OcelLog(Map<String, Object> globalLog, Map<String, OcelEvent> events,
-                   Map<String, OcelObject> objects, Map<String, OcelAttribute> attributes,
-                   List<String> timestamps, List<String> objectTypes, List<String> attributeNames) {
-        this.attributeMap = attributes;
-        this.timestamps = timestamps;
-        this.objectTypes = objectTypes;
-        this.globalLog = globalLog;
-        this.events = events;
-        this.objects = objects;
-        this.attributeNames = attributeNames;
+    public Set<String> getRelationTypes() {
+        if (objectTypes == null) {
+            objectTypes = new HashSet<>();
+            objectTypes.addAll(objects.values().stream().map(OcelObject::getType).collect(Collectors.toSet()));
+        }
+        return objectTypes;
     }
 }

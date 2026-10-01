@@ -6,6 +6,5 @@ public class Oceljson {
     public static void apply(Object log, String output_path, String ... parameters)
     {
         JsonUtil.saveJson(log,output_path);
-
     }
 }

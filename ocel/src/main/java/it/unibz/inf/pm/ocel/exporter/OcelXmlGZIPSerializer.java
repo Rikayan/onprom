@@ -25,10 +25,10 @@ public class OcelXmlGZIPSerializer extends OcelXmlSerializer {
         return new String[]{"ocel", "ocel.gz"};
     }
 
-    public void serialize(OcelLog log, OutputStream out) throws IOException, DocumentException {
+    public static void serialize(OcelLog log, OutputStream out) throws IOException, DocumentException {
 //        GZIPOutputStream gzos = new GZIPOutputStream(out);
         BufferedOutputStream bos = new BufferedOutputStream(out);
-        super.serialize(log, bos);
+        OcelXmlSerializer.serialize(log, bos);
         bos.flush();
 //        gzos.flush();
         bos.close();

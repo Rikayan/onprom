@@ -87,8 +87,7 @@ public class DynamicAnnotationForm extends AbstractAnnotationForm {
         associations = new HashMap<>(classRelationships.size());
         for (Relationship relationship : classRelationships) {
             //TODO do we need to deal with inheritance relations?
-            if (relationship instanceof Association) {
-                Association association = (Association) relationship;
+            if (relationship instanceof Association association) {
                 if (association.getSecondClass().equals(annotation.getAnnotationClass())) {
                     gridBagConstraints.gridy++;
                     DynamicAssociationPanel panel = new DynamicAssociationPanel(this, association);

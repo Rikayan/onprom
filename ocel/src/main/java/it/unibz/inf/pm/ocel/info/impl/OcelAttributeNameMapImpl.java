@@ -46,7 +46,7 @@ public class OcelAttributeNameMapImpl implements OcelAttributeNameMap {
     }
 
     public String map(OcelAttribute attribute) {
-        return this.map(attribute.getKey());
+        return this.map(attribute.getId());
     }
 
     public String map(String attributeKey) {
@@ -54,7 +54,7 @@ public class OcelAttributeNameMapImpl implements OcelAttributeNameMap {
     }
 
     public void registerMapping(OcelAttribute attribute, String alias) {
-        this.registerMapping(attribute.getKey(), alias);
+        this.registerMapping(attribute.getId(), alias);
     }
 
     public void registerMapping(String attributeKey, String alias) {

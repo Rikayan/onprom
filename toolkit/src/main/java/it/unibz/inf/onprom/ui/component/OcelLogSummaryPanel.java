@@ -40,6 +40,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.*;
 
@@ -73,7 +74,7 @@ public class OcelLogSummaryPanel extends JInternalFrame {
 
         String prefix = "http://onprom.inf.unibz.it/";
         Map<String, OcelEvent> events = log.getEvents();
-        List<String> timestamps = log.getTimestamps();
+        List<ZonedDateTime> timestamps = log.getAllTimestamps();
         Collections.sort(timestamps); // Sort by timestamps in ascending order
 
         gridBagConstraints.gridy = 0;

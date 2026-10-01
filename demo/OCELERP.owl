@@ -1,15 +1,13 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns="http://www.example.com/dolibarr/"
-     xml:base="http://www.example.com/dolibarr/"
+<rdf:RDF xmlns="http://www.example.com/dolibarr"
+     xml:base="http://www.example.com/dolibarr"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:data="http://www.example.com/dolibarr/data/"
-     xmlns:obda="https://w3id.org/obda/vocabulary#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:onprom="http://kaos.inf.unibz.it/onprom/">
-    <owl:Ontology rdf:about="http://www.example.com/dolibarr/"/>
+     xmlns:onprom="http://kaos.inf.unibz.it/onprom">
+    <owl:Ontology rdf:about="http://www.example.com/dolibarr"/>
     
 
 
@@ -21,10 +19,12 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+
     
 
 
     <!-- http://kaos.inf.unibz.it/onprom/coordinates -->
+
 
     <owl:AnnotationProperty rdf:about="http://kaos.inf.unibz.it/onprom/coordinates"/>
     
@@ -38,10 +38,12 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+
     
 
 
     <!-- http://www.example.com/dolibarr/createOrder -->
+
 
     <owl:ObjectProperty rdf:about="http://www.example.com/dolibarr/createOrder">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
@@ -52,6 +54,7 @@
 
 
     <!-- http://www.example.com/dolibarr/hasInvoice -->
+
 
     <owl:ObjectProperty rdf:about="http://www.example.com/dolibarr/hasInvoice">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
@@ -64,6 +67,7 @@
 
     <!-- http://www.example.com/dolibarr/hasProduct -->
 
+
     <owl:ObjectProperty rdf:about="http://www.example.com/dolibarr/hasProduct">
         <rdfs:domain rdf:resource="http://www.example.com/dolibarr/OrderItem"/>
         <rdfs:range rdf:resource="http://www.example.com/dolibarr/Product"/>
@@ -73,27 +77,30 @@
 
     <!-- http://www.example.com/dolibarr/invoiceOf -->
 
+
     <owl:ObjectProperty rdf:about="http://www.example.com/dolibarr/invoiceOf">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.example.com/dolibarr/Invoice"/>
         <rdfs:range rdf:resource="http://www.example.com/dolibarr/Order"/>
-        <onprom:coordinates rdf:datatype="http://www.w3.org/2001/XMLSchema#string">194,217</onprom:coordinates>
+        <onprom:coordinates>194,217</onprom:coordinates>
     </owl:ObjectProperty>
     
 
 
     <!-- http://www.example.com/dolibarr/invoiceTo -->
 
+
     <owl:ObjectProperty rdf:about="http://www.example.com/dolibarr/invoiceTo">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.example.com/dolibarr/Invoice"/>
         <rdfs:range rdf:resource="http://www.example.com/dolibarr/Customer"/>
-        <onprom:coordinates rdf:datatype="http://www.w3.org/2001/XMLSchema#string">592,221</onprom:coordinates>
+        <onprom:coordinates>592,221</onprom:coordinates>
     </owl:ObjectProperty>
     
 
 
     <!-- http://www.example.com/dolibarr/relatedOrder -->
+
 
     <owl:ObjectProperty rdf:about="http://www.example.com/dolibarr/relatedOrder">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
@@ -105,6 +112,7 @@
 
     <!-- http://www.example.com/dolibarr/relatedPayment -->
 
+
     <owl:ObjectProperty rdf:about="http://www.example.com/dolibarr/relatedPayment">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.example.com/dolibarr/PaymentItem"/>
@@ -115,6 +123,7 @@
 
     <!-- http://www.example.com/dolibarr/relatedShipment -->
 
+
     <owl:ObjectProperty rdf:about="http://www.example.com/dolibarr/relatedShipment">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.example.com/dolibarr/ShipmentItem"/>
@@ -124,6 +133,7 @@
 
 
     <!-- http://www.example.com/dolibarr/shipTo -->
+
 
     <owl:ObjectProperty rdf:about="http://www.example.com/dolibarr/shipTo">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
@@ -141,10 +151,12 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+
     
 
 
     <!-- http://www.example.com/dolibarr/customerId -->
+
 
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/customerId">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
@@ -156,6 +168,7 @@
 
     <!-- http://www.example.com/dolibarr/customerName -->
 
+
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/customerName">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.example.com/dolibarr/Customer"/>
@@ -165,6 +178,7 @@
 
 
     <!-- http://www.example.com/dolibarr/invoiceDate -->
+
 
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/invoiceDate">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
@@ -176,6 +190,7 @@
 
     <!-- http://www.example.com/dolibarr/invoiceId -->
 
+
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/invoiceId">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.example.com/dolibarr/Invoice"/>
@@ -185,6 +200,7 @@
 
 
     <!-- http://www.example.com/dolibarr/orderDate -->
+
 
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/orderDate">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
@@ -196,6 +212,7 @@
 
     <!-- http://www.example.com/dolibarr/orderId -->
 
+
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/orderId">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.example.com/dolibarr/Order"/>
@@ -205,6 +222,7 @@
 
 
     <!-- http://www.example.com/dolibarr/orderItemId -->
+
 
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/orderItemId">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
@@ -216,6 +234,7 @@
 
     <!-- http://www.example.com/dolibarr/orderNo -->
 
+
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/orderNo">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.example.com/dolibarr/Order"/>
@@ -225,6 +244,7 @@
 
 
     <!-- http://www.example.com/dolibarr/paymentDate -->
+
 
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/paymentDate">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
@@ -236,6 +256,7 @@
 
     <!-- http://www.example.com/dolibarr/paymentId -->
 
+
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/paymentId">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.example.com/dolibarr/Payment"/>
@@ -245,6 +266,7 @@
 
 
     <!-- http://www.example.com/dolibarr/paymentItemId -->
+
 
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/paymentItemId">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
@@ -256,6 +278,7 @@
 
     <!-- http://www.example.com/dolibarr/product -->
 
+
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/product">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.example.com/dolibarr/OrderItem"/>
@@ -265,6 +288,7 @@
 
 
     <!-- http://www.example.com/dolibarr/productId -->
+
 
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/productId">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
@@ -276,6 +300,7 @@
 
     <!-- http://www.example.com/dolibarr/productName -->
 
+
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/productName">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.example.com/dolibarr/Product"/>
@@ -284,7 +309,19 @@
     
 
 
+    <!-- http://www.example.com/dolibarr/productPrice -->
+
+
+    <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/productPrice">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.com/dolibarr/Product"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://www.example.com/dolibarr/quantity -->
+
 
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/quantity">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
@@ -296,6 +333,7 @@
 
     <!-- http://www.example.com/dolibarr/shipmentDate -->
 
+
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/shipmentDate">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.example.com/dolibarr/Shipment"/>
@@ -306,6 +344,7 @@
 
     <!-- http://www.example.com/dolibarr/shipmentId -->
 
+
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/shipmentId">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.example.com/dolibarr/Shipment"/>
@@ -315,6 +354,7 @@
 
 
     <!-- http://www.example.com/dolibarr/shipmentItemId -->
+
 
     <owl:DatatypeProperty rdf:about="http://www.example.com/dolibarr/shipmentItemId">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
@@ -332,10 +372,12 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+
     
 
 
     <!-- http://www.example.com/dolibarr/Customer -->
+
 
     <owl:Class rdf:about="http://www.example.com/dolibarr/Customer">
         <rdfs:subClassOf>
@@ -360,12 +402,13 @@
                 <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <onprom:coordinates rdf:datatype="http://www.w3.org/2001/XMLSchema#string">494,307</onprom:coordinates>
+        <onprom:coordinates>494,307</onprom:coordinates>
     </owl:Class>
     
 
 
     <!-- http://www.example.com/dolibarr/Invoice -->
+
 
     <owl:Class rdf:about="http://www.example.com/dolibarr/Invoice">
         <rdfs:subClassOf>
@@ -402,12 +445,13 @@
                 <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <onprom:coordinates rdf:datatype="http://www.w3.org/2001/XMLSchema#string">267,157</onprom:coordinates>
+        <onprom:coordinates>267,157</onprom:coordinates>
     </owl:Class>
     
 
 
     <!-- http://www.example.com/dolibarr/Order -->
+
 
     <owl:Class rdf:about="http://www.example.com/dolibarr/Order">
         <rdfs:subClassOf>
@@ -448,12 +492,13 @@
                 <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <onprom:coordinates rdf:datatype="http://www.w3.org/2001/XMLSchema#string">122,296</onprom:coordinates>
+        <onprom:coordinates>122,296</onprom:coordinates>
     </owl:Class>
     
 
 
     <!-- http://www.example.com/dolibarr/OrderItem -->
+
 
     <owl:Class rdf:about="http://www.example.com/dolibarr/OrderItem">
         <rdfs:subClassOf>
@@ -480,12 +525,13 @@
                 <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <onprom:coordinates rdf:datatype="http://www.w3.org/2001/XMLSchema#string">129,532</onprom:coordinates>
+        <onprom:coordinates>129,532</onprom:coordinates>
     </owl:Class>
     
 
 
     <!-- http://www.example.com/dolibarr/Payment -->
+
 
     <owl:Class rdf:about="http://www.example.com/dolibarr/Payment">
         <rdfs:subClassOf>
@@ -510,12 +556,13 @@
                 <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <onprom:coordinates rdf:datatype="http://www.w3.org/2001/XMLSchema#string">612,7</onprom:coordinates>
+        <onprom:coordinates>612,7</onprom:coordinates>
     </owl:Class>
     
 
 
     <!-- http://www.example.com/dolibarr/PaymentItem -->
+
 
     <owl:Class rdf:about="http://www.example.com/dolibarr/PaymentItem">
         <rdfs:subClassOf>
@@ -536,12 +583,13 @@
                 <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <onprom:coordinates rdf:datatype="http://www.w3.org/2001/XMLSchema#string">269,17</onprom:coordinates>
+        <onprom:coordinates>269,17</onprom:coordinates>
     </owl:Class>
     
 
 
     <!-- http://www.example.com/dolibarr/Product -->
+
 
     <owl:Class rdf:about="http://www.example.com/dolibarr/Product">
         <rdfs:subClassOf>
@@ -566,12 +614,19 @@
                 <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <onprom:coordinates rdf:datatype="http://www.w3.org/2001/XMLSchema#string">374,532</onprom:coordinates>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.com/dolibarr/productPrice"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <onprom:coordinates>401,521</onprom:coordinates>
     </owl:Class>
     
 
 
     <!-- http://www.example.com/dolibarr/Shipment -->
+
 
     <owl:Class rdf:about="http://www.example.com/dolibarr/Shipment">
         <rdfs:subClassOf>
@@ -602,12 +657,13 @@
                 <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <onprom:coordinates rdf:datatype="http://www.w3.org/2001/XMLSchema#string">785,282</onprom:coordinates>
+        <onprom:coordinates>785,282</onprom:coordinates>
     </owl:Class>
     
 
 
     <!-- http://www.example.com/dolibarr/ShipmentItem -->
+
 
     <owl:Class rdf:about="http://www.example.com/dolibarr/ShipmentItem">
         <rdfs:subClassOf>
@@ -628,11 +684,12 @@
                 <owl:someValuesFrom rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <onprom:coordinates rdf:datatype="http://www.w3.org/2001/XMLSchema#string">742,532</onprom:coordinates>
+        <onprom:coordinates>742,532</onprom:coordinates>
     </owl:Class>
 </rdf:RDF>
 
 
 
-<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+<!-- Generated by the OWL API (version 5.5.1) https://github.com/owlcs/owlapi/ -->
+
 

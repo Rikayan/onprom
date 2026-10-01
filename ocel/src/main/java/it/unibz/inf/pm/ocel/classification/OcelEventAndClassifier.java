@@ -37,7 +37,7 @@ public class OcelEventAndClassifier extends OcelEventAttributeClassifier {
         StringBuilder sb = new StringBuilder();
         sb.append("(");
         sb.append(comparators[0].name());
-        Collection<String> keys = new ArrayList(Arrays.asList(comparators[0].getDefiningAttributeKeys()));
+        Collection<String> keys = new ArrayList<>(Arrays.asList(comparators[0].getDefiningAttributeKeys()));
 
         for(int i = 1; i < comparators.length; ++i) {
             sb.append(" AND ");

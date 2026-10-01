@@ -32,6 +32,8 @@ import it.unibz.inf.onprom.interfaces.AnnotationDiagram;
 import it.unibz.inf.onprom.interfaces.AnnotationProperties;
 import it.unibz.inf.onprom.ui.utility.DrawingUtility;
 import it.unibz.inf.onprom.ui.utility.UIUtility;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,8 +53,13 @@ public abstract class Annotation extends AbstractDiagramShape<AnnotationDiagram>
     @JsonIgnore
     AnnotationProperties properties = getClass().getAnnotation(AnnotationProperties.class);
 
+    @Getter
     UMLClass relatedClass;
+    @Setter
+    @Getter
     private String label;
+    @Setter
+    @Getter
     private List<AnnotationAttribute> attributes;
 
     Annotation() {
@@ -134,26 +141,6 @@ public abstract class Annotation extends AbstractDiagramShape<AnnotationDiagram>
 
     public String toString() {
         return getAnnotationProperties().title() + (label != null ? " " + label : " ") + " (" + relatedClass.toString() + ")";
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public List<AnnotationAttribute> getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(List<AnnotationAttribute> attributes) {
-        this.attributes = attributes;
-    }
-
-    public UMLClass getRelatedClass() {
-        return relatedClass;
     }
 
     public String getVarName() {

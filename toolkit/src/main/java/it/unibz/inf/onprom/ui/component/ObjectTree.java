@@ -36,6 +36,7 @@ import it.unibz.inf.onprom.ui.utility.UIUtility;
 import it.unibz.inf.ontop.spec.mapping.pp.SQLPPMapping;
 import it.unibz.inf.pm.ocel.entity.OcelLog;
 import it.unibz.inf.pm.ocel.exporter.OcelXmlSerializer;
+import it.unibz.inf.pm.ocel.importer.OcelXmlParser;
 import org.apache.commons.io.FilenameUtils;
 import org.deckfour.xes.in.XesXmlParser;
 import org.deckfour.xes.model.XLog;
@@ -100,6 +101,9 @@ public class ObjectTree {
                 menuItem = new JMenuItem("Open with Annotation Editor", KeyEvent.VK_A);
                 menuItem.addActionListener(e -> toolkit.displayAnnotationEditor());
                 add(menuItem);
+                menuItem = new JMenuItem("Open with OCEL Editor", KeyEvent.VK_A);
+                menuItem.addActionListener(e -> toolkit.displayOCELAnnotationEditor());
+                add(menuItem);
             }
         });
         objects.addKeyListener(new KeyAdapter() {
@@ -132,7 +136,7 @@ public class ObjectTree {
     }
 
     public void openFiles(@Nonnull File[] files) {
-        List<File> propertiesFiles = Arrays.stream(files).filter(file -> IOUtility.getFileType(file) == FileType.DS_PROPERTIES).collect(Collectors.toList());
+        List<File> propertiesFiles = Arrays.stream(files).filter(file -> IOUtility.getFileType(file) == FileType.DS_PROPERTIES).toList();
         for (File properties : propertiesFiles) {
             try {
                 Properties dsProperties = new Properties();
@@ -143,7 +147,6 @@ public class ObjectTree {
             }
             break;
         }
-        List<File> otherFiles = Arrays.stream(files).filter(file -> IOUtility.getFileType(file) != FileType.DS_PROPERTIES).collect(Collectors.toList());
         for (File selectedFile : files) {
             switch (IOUtility.getFileType(selectedFile)) {
                 case ONTOLOGY:
@@ -157,8 +160,8 @@ public class ObjectTree {
                 case MAPPING:
                     try {
                         //check if corresponding properties available
-                        List<TreeNode<Object>> allProperties = objects.getAllNodes().stream().filter(objectTreeNode -> objectTreeNode.getType() == FileType.DS_PROPERTIES).collect(Collectors.toList());
-                        if (allProperties.size() < 1) {
+                        List<TreeNode<Object>> allProperties = objects.getAllNodes().stream().filter(objectTreeNode -> objectTreeNode.getType() == FileType.DS_PROPERTIES).toList();
+                        if (allProperties.isEmpty()) {
                             InformationDialog.display("Please load database connection properties file first! Please note that utility currently assumes that database properties and OBDA file has same name!");
                         } else {
                             Optional<TreeNode<Object>> property = allProperties.stream().filter(p -> IOUtility.getFileName(p.getTitle()).equals(IOUtility.getFileName(selectedFile))).findFirst();
@@ -191,6 +194,13 @@ public class ObjectTree {
                             addObject(selectedFile.getName(), FileType.XLOG, xlog);
                         }
                     } catch (Exception e) {
+                        logError(e);
+                    }
+                    break;
+                case OCEL:
+                    try {
+                        addObject(selectedFile.getName(), FileType.OCEL, OcelXmlParser.parse(selectedFile));
+                    } catch (RuntimeException e) {
                         logError(e);
                     }
                     break;

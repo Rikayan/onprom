@@ -29,13 +29,16 @@ package it.unibz.inf.onprom.logextractor.ocel;
 import com.google.common.collect.Interner;
 import com.google.common.collect.Interners;
 import it.unibz.inf.pm.ocel.entity.OcelAttribute;
+import it.unibz.inf.pm.ocel.entity.OcelElement;
 import it.unibz.inf.pm.ocel.entity.OcelExtension;
+import lombok.Getter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class OCELFactory {
+    @Getter
     private Date date;
     private final Interner<String> interner = Interners.newWeakInterner();
     private boolean useInterner = true;
@@ -48,10 +51,6 @@ public class OCELFactory {
 
     private String intern(String s) {
         return this.useInterner ? this.interner.intern(s) : s;
-    }
-
-    public Date getDate() {
-        return date;
     }
 
     public void setDate(Date date) {
@@ -80,64 +79,11 @@ public class OCELFactory {
                     }
                 }
                 //return createAttributeTimestamp(key, date);
-                return new OcelAttribute(type, key, date.toString());
+                return new OcelAttribute(key, new OcelElement(date), type);
             } else {
-                return new OcelAttribute(type, key, value);
+                return new OcelAttribute(key, new OcelElement(value, type), type);
             }
         }
         return null;
-    }
-
-    public OcelAttribute createAttribute(String type, String key, String value, OcelExtension extension) throws ParseException {
-
-        if (type != null && key != null && value != null) {
-            if (type.equalsIgnoreCase("timestamp")) {
-                // we assume that the timestamp is in format yyyy-[m]m-[d]d hh:mm:ss[.f...].
-                // The fractional seconds may be omitted. The leading zero for mm and dd may also be omitted.
-                Date date;
-                try {
-                    date = WITH_T.parse(value);
-                } catch (ParseException e0) {
-                    try {
-                        date = WITHOUT_T.parse(value);
-                    } catch (ParseException e1) {
-                        date = ONLY_DATE.parse(value);
-                    }
-                }
-                return createAttributeTimestamp(key, date, extension);
-//                return new OcelAttribute(key, date.toString());
-            } else {
-                return createAttributeLiteral(key, value, extension);
-            }
-        }
-        return null;
-    }
-
-//    public XExtension getPredefinedExtension(String key) {
-//        if (key != null) {
-//            switch (key.toLowerCase()) {
-//                case "time:timestamp":
-//                    return XTimeExtension.instance();
-//                case "concept:name":
-//                    return XConceptExtension.instance();
-//                case "lifecycle:transition":
-//                    return XLifecycleExtension.instance();
-//                case "org:resource":
-//                    return XOrganizationalExtension.instance();
-//            }
-//        }
-//        return null;
-//    }
-
-    private OcelAttribute createAttributeTimestamp(String key, Date date, OcelExtension extension) {
-        return new OcelAttribute(key, date, extension);
-    }
-
-    private OcelAttribute createAttributeTimestamp(String key, long millis, OcelExtension extension) {
-        return new OcelAttribute(key, millis, extension);
-    }
-
-    private OcelAttribute createAttributeLiteral(String key, String value, OcelExtension extension) {
-        return new OcelAttribute(key, value.length() < 64 ? this.intern(value) : value, extension);
     }
 }

@@ -130,7 +130,8 @@ public class SimpleQueryExporter {
             } else if (shape instanceof AssociationClass) {
                 if (isaSubject != null && !shape.getCleanName().equalsIgnoreCase(subject)) {
                     String varName = shape.getCleanName();
-                    builder.addWhere("?" + varNames.getOrDefault(varName, varName), "<" + shape.getLongName() + OWLExporter.REIFICATION_SEPARATOR + subject + ">", "?" + varNames.getOrDefault(isaSubject, isaSubject));
+                    builder.addWhere("?" + varNames.getOrDefault(varName, varName), "<" + shape.getLongName() +
+                            OWLExporter.REIFICATION_SEPARATOR + subject + ">", "?" + varNames.getOrDefault(isaSubject, isaSubject));
                     isaSubject = null;
                 }
             } else if (shape instanceof UMLClass) {
@@ -171,37 +172,25 @@ public class SimpleQueryExporter {
         }
         //we only add filter if it is a dynamic value
         if (navigationalAttribute.getFilterClause() != null && !navigationalAttribute.getFilterClause().isEmpty()) {
-            try {
-                builder.addFilter(navigationalAttribute.getFilterClause().replaceAll("%1", "?" + nameVar.getVarName()));
-            } catch (ParseException e) {
-                logger.error(e.getMessage(), e);
-            }
+            builder.addFilter(navigationalAttribute.getFilterClause().replaceAll("%1", "?" + nameVar.getVarName()));
         }
     }
 
     private static void addStringAttribute(SelectBuilder builder, StringAttribute navigationalAttribute, Set<DiagramShape> casePath, Var nameVar, Var classVar, String classIRI) {
-        try {
-            if (casePath == null) {
-                builder.addWhere(classVar, "a", classIRI);
-            }
-            builder.addVar("\"" + navigationalAttribute.getValue() + "\"", nameVar);
-        } catch (ParseException e) {
-            logger.error(e.getMessage(), e);
+        if (casePath == null) {
+            builder.addWhere(classVar, "a", classIRI);
         }
+        builder.addVar("\"" + navigationalAttribute.getValue() + "\"", nameVar);
     }
 
     private static void addClassAttribute(SelectBuilder builder, NavigationalAttribute navigationalAttribute, UMLClass relatedClass, Var nameVar, Var classVar, String classIRI) {
-        try {
-            if (navigationalAttribute.getUmlClass().equalsOrInherits(relatedClass)) {
-                builder.addWhere(classVar, "a", classIRI);
-                builder.addBind("?" + classVar.getVarName(), nameVar);
-            } else {
-                builder.addWhere("?" + navigationalAttribute.getUmlClass().getCleanName(), "a", "<" + navigationalAttribute.getUmlClass().getLongName() + ">");
-                builder.addBind("?" + navigationalAttribute.getUmlClass().getCleanName(), nameVar);
-            }
-            builder.addVar(nameVar);
-        } catch (ParseException e) {
-            logger.error(e.getMessage(), e);
+        if (navigationalAttribute.getUmlClass().equalsOrInherits(relatedClass)) {
+            builder.addWhere(classVar, "a", classIRI);
+            builder.addBind("?" + classVar.getVarName(), nameVar);
+        } else {
+            builder.addWhere("?" + navigationalAttribute.getUmlClass().getCleanName(), "a", "<" + navigationalAttribute.getUmlClass().getLongName() + ">");
+            builder.addBind("?" + navigationalAttribute.getUmlClass().getCleanName(), nameVar);
         }
+        builder.addVar(nameVar);
     }
 }

@@ -27,12 +27,14 @@
 package it.unibz.inf.onprom.ui.utility;
 
 import it.unibz.inf.onprom.ui.interfaces.Buttons;
+import lombok.Getter;
 
 /**
  * Enumeration for buttons used in annotation editor forms
  * <p>
  * @author T. E. Kalayci on 16/02/17.
  */
+@Getter
 public enum AnnotationEditorButtons implements Buttons {
   CONTINUE("Continue", "Continue", 'c'),
     CANCEL("Cancel", "Cancel the operation", 'c'),
@@ -54,19 +56,7 @@ public enum AnnotationEditorButtons implements Buttons {
     this.mnemonic = _mnemonic;
   }
 
-  public String getText() {
-    return this.text;
-  }
-
-  public String getTooltip() {
-    return this.tooltip;
-  }
-
-  public char getMnemonic() {
-    return this.mnemonic;
-  }
-
-  @Override
+    @Override
   public String toString() {
     return text;
   }

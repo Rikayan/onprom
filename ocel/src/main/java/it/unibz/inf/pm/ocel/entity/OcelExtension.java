@@ -26,6 +26,8 @@
 
 package it.unibz.inf.pm.ocel.entity;
 
+import lombok.Getter;
+
 import java.io.Serializable;
 import java.net.URI;
 import java.util.Collection;
@@ -34,8 +36,11 @@ import java.util.HashSet;
 
 public class OcelExtension implements Serializable {
     private static final long serialVersionUID = -677323212952951508L;
+    @Getter
     protected String name;
+    @Getter
     protected String prefix;
+    @Getter
     protected URI uri;
     protected HashSet<OcelAttribute> allAttributes;
     protected HashSet<OcelAttribute> logAttributes;
@@ -48,27 +53,15 @@ public class OcelExtension implements Serializable {
         this.prefix = prefix;
         this.uri = uri;
         this.allAttributes = null;
-        this.logAttributes = new HashSet();
-        this.eventAttributes = new HashSet();
-        this.metaAttributes = new HashSet();
-        this.objectAttributes = new HashSet();
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public URI getUri() {
-        return this.uri;
-    }
-
-    public String getPrefix() {
-        return this.prefix;
+        this.logAttributes = new HashSet<>();
+        this.eventAttributes = new HashSet<>();
+        this.metaAttributes = new HashSet<>();
+        this.objectAttributes = new HashSet<>();
     }
 
     public Collection<OcelAttribute> getDefinedAttributes() {
         if (this.allAttributes == null) {
-            this.allAttributes = new HashSet();
+            this.allAttributes = new HashSet<>();
             this.allAttributes.addAll(this.getLogAttributes());
             this.allAttributes.addAll(this.getEventAttributes());
             this.allAttributes.addAll(this.getMetaAttributes());

@@ -1,0 +1,500 @@
+[PrefixDeclaration]
+obda:		https://w3id.org/obda/vocabulary#
+owl:		http://www.w3.org/2002/07/owl#
+log:		http://www.example.com/OCELv2/
+xsd:		http://www.w3.org/2001/XMLSchema#
+rdfs:		http://www.w3.org/2000/01/rdf-schema#
+rdf:		http://www.w3.org/1999/02/22-rdf-syntax-ns#
+onprom:		http://kaos.inf.unibz.it/onprom/
+:		http://www.example.com/dolibarr/
+xml:		http://www.w3.org/XML/1998/namespace
+data:		http://www.example.com/dolibarr/data/
+
+[MappingDeclaration] @collection [[
+mappingId	ONPROM_MAPPING_1
+target		:Payment/{rowid1m12}/{rowid1m12} a log:Object . 
+source		SELECT v1.`rowid` AS `rowid1m12`
+			FROM `llx_paiement` v1
+			
+
+mappingId	ONPROM_MAPPING_2
+target		:Payment/{rowid1m13}/{rowid1m13} log:objectId {rowid1m13}^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m13`
+			FROM `llx_paiement` v1
+			
+
+mappingId	ONPROM_MAPPING_3
+target		:corr/DoPayment/{rowid1m12}/{v0}/{rowid1m12}/Payment/{rowid1m12}/{rowid1m12} a log:corr ; log:corr_2_Event :DoPayment/{rowid1m12}/{v0}/{rowid1m12} ; log:corr_2_Object :Payment/{rowid1m12}/{rowid1m12} . 
+source		SELECT v1.`rowid` AS `rowid1m12`, REPLACE(CAST(v1.`datec` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_paiement` v1
+			WHERE v1.`datec` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_4
+target		:corr/DoInvoice/{fk_facture1m26}/{v0}/{fk_facture1m26}/Payment/{fk_paiement1m32}/{fk_paiement1m32} a log:corr ; log:corr_2_Event :DoInvoice/{fk_facture1m26}/{v0}/{fk_facture1m26} ; log:corr_2_Object :Payment/{fk_paiement1m32}/{fk_paiement1m32} . 
+source		SELECT v1.`fk_facture` AS `fk_facture1m26`, v1.`fk_paiement` AS `fk_paiement1m32`, REPLACE(CAST(v2.`datec` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_paiement_facture` v1, `llx_facture` v2
+			WHERE (v2.`datec` IS NOT NULL AND v1.`fk_paiement` IS NOT NULL AND v1.`fk_facture` = v2.`rowid`)
+			
+
+mappingId	ONPROM_MAPPING_5
+target		:DoInvoice/{rowid1m20}/{v0}/{rowid1m20} a log:Event . 
+source		SELECT v1.`rowid` AS `rowid1m20`, REPLACE(CAST(v1.`datec` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_facture` v1
+			WHERE v1.`datec` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_6
+target		:DoInvoice/{rowid1m21}/{v0}/{rowid1m21} log:eventId {rowid1m21}^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m21`, REPLACE(CAST(v1.`datec` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_facture` v1
+			WHERE v1.`datec` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_7
+target		:DoInvoice/{rowid1m22}/{v0}/{rowid1m22} log:timestamp {v0}^^xsd:dateTimeStamp . 
+source		SELECT v1.`rowid` AS `rowid1m22`, REPLACE(CAST(v1.`datec` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_facture` v1
+			WHERE v1.`datec` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_8
+target		:Customer/{rowid1m5} a log:Type . 
+source		SELECT v1.`rowid` AS `rowid1m5`
+			FROM `llx_societe` v1
+			
+
+mappingId	ONPROM_MAPPING_9
+target		:Customer/{rowid1m5} log:typeString "Customer"^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m5`
+			FROM `llx_societe` v1
+			
+
+mappingId	ONPROM_MAPPING_10
+target		:Customer/{rowid1m5}/{rowid1m5} log:has :Customer/{rowid1m5} . 
+source		SELECT v1.`rowid` AS `rowid1m5`
+			FROM `llx_societe` v1
+			
+
+mappingId	ONPROM_MAPPING_11
+target		:shipmentActivity/DoShipment/{rowid1m17} a log:Activity . 
+source		SELECT v1.`rowid` AS `rowid1m17`
+			FROM `llx_expedition` v1
+			
+
+mappingId	ONPROM_MAPPING_12
+target		:shipmentActivity/DoShipment/{rowid1m17} log:name "DoShipment"^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m17`
+			FROM `llx_expedition` v1
+			
+
+mappingId	ONPROM_MAPPING_13
+target		:DoShipment/{rowid1m17}/{v0}/{rowid1m17} log:observes :shipmentActivity/DoShipment/{rowid1m17} . 
+source		SELECT v1.`rowid` AS `rowid1m17`, REPLACE(CAST(v1.`date_creation` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_expedition` v1
+			WHERE v1.`date_creation` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_14
+target		:DoShipment/{rowid1m17}/{v0}/{rowid1m17} a log:Event . 
+source		SELECT v1.`rowid` AS `rowid1m17`, REPLACE(CAST(v1.`date_creation` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_expedition` v1
+			WHERE v1.`date_creation` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_15
+target		:DoShipment/{rowid1m18}/{v0}/{rowid1m18} log:eventId {rowid1m18}^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m18`, REPLACE(CAST(v1.`date_creation` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_expedition` v1
+			WHERE v1.`date_creation` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_16
+target		:DoShipment/{rowid1m19}/{v0}/{rowid1m19} log:timestamp {v0}^^xsd:dateTimeStamp . 
+source		SELECT v1.`rowid` AS `rowid1m19`, REPLACE(CAST(v1.`date_creation` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_expedition` v1
+			WHERE v1.`date_creation` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_17
+target		:DoInvoice/{rowid1m20} a log:Activity . 
+source		SELECT v1.`rowid` AS `rowid1m20`
+			FROM `llx_facture` v1
+			
+
+mappingId	ONPROM_MAPPING_18
+target		:DoInvoice/{rowid1m20} log:name "DoInvoice"^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m20`
+			FROM `llx_facture` v1
+			
+
+mappingId	ONPROM_MAPPING_19
+target		:DoInvoice/{rowid1m20}/{v0}/{rowid1m20} log:observes :DoInvoice/{rowid1m20} . 
+source		SELECT v1.`rowid` AS `rowid1m20`, REPLACE(CAST(v1.`datec` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_facture` v1
+			WHERE v1.`datec` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_20
+target		:DoPayment/{rowid1m12} a log:Activity . 
+source		SELECT v1.`rowid` AS `rowid1m12`
+			FROM `llx_paiement` v1
+			
+
+mappingId	ONPROM_MAPPING_21
+target		:DoPayment/{rowid1m12} log:name "DoPayment"^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m12`
+			FROM `llx_paiement` v1
+			
+
+mappingId	ONPROM_MAPPING_22
+target		:DoPayment/{rowid1m12}/{v0}/{rowid1m12} log:observes :DoPayment/{rowid1m12} . 
+source		SELECT v1.`rowid` AS `rowid1m12`, REPLACE(CAST(v1.`datec` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_paiement` v1
+			WHERE v1.`datec` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_23
+target		:Product/{rowid1m1} a log:Type . 
+source		SELECT v1.`rowid` AS `rowid1m1`
+			FROM `llx_product` v1
+			
+
+mappingId	ONPROM_MAPPING_24
+target		:Product/{rowid1m1} log:typeString "Product"^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m1`
+			FROM `llx_product` v1
+			
+
+mappingId	ONPROM_MAPPING_25
+target		:Order/{rowid1m8}/{rowid1m8} a log:Object . 
+source		SELECT v1.`rowid` AS `rowid1m8`
+			FROM `llx_commande` v1
+			
+
+mappingId	ONPROM_MAPPING_26
+target		:Order/{rowid1m9}/{rowid1m9} log:objectId {rowid1m9}^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m9`
+			FROM `llx_commande` v1
+			
+
+mappingId	ONPROM_MAPPING_27
+target		:corr/PlaceOrder/{rowid1m8}/{v0}/{rowid1m8}/Order/{rowid1m8}/{rowid1m8} a log:corr ; log:corr_2_Event :PlaceOrder/{rowid1m8}/{v0}/{rowid1m8} ; log:corr_2_Object :Order/{rowid1m8}/{rowid1m8} . 
+source		SELECT v1.`rowid` AS `rowid1m8`, REPLACE(CAST(v1.`date_creation` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_commande` v1
+			WHERE v1.`date_creation` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_28
+target		:priceType/price/{rowid1m1} a log:OAttribute . 
+source		SELECT v1.`rowid` AS `rowid1m1`
+			FROM `llx_product` v1
+			
+
+mappingId	ONPROM_MAPPING_29
+target		:priceType/price/{rowid1m1} log:oKey "price"^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m1`
+			FROM `llx_product` v1
+			
+
+mappingId	ONPROM_MAPPING_30
+target		:Product/{rowid1m1}/{rowid1m1} log:hasOAttribute :priceType/price/{rowid1m1} . 
+source		SELECT v1.`rowid` AS `rowid1m1`
+			FROM `llx_product` v1
+			
+
+mappingId	ONPROM_MAPPING_31
+target		:ShippedItems/{rowid1m23} a log:Type . 
+source		SELECT v1.`rowid` AS `rowid1m23`
+			FROM `llx_expeditiondet` v1
+			
+
+mappingId	ONPROM_MAPPING_32
+target		:ShippedItems/{rowid1m23} log:typeString "ShippedItems"^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m23`
+			FROM `llx_expeditiondet` v1
+			
+
+mappingId	ONPROM_MAPPING_33
+target		:ShippedItems/{rowid1m23}/{rowid1m23} log:has :ShippedItems/{rowid1m23} . 
+source		SELECT v1.`rowid` AS `rowid1m23`
+			FROM `llx_expeditiondet` v1
+			
+
+mappingId	ONPROM_MAPPING_34
+target		:Paymentitem/{rowid1m15}/{rowid1m15} a log:EAttrValue . 
+source		SELECT v1.`rowid` AS `rowid1m15`
+			FROM `llx_paiement_facture` v1
+			
+
+mappingId	ONPROM_MAPPING_35
+target		:Paymentitem/{rowid1m16}/{rowid1m16} log:eValue {rowid1m16}^^xsd:anyURI . 
+source		SELECT v1.`rowid` AS `rowid1m16`
+			FROM `llx_paiement_facture` v1
+			
+
+mappingId	ONPROM_MAPPING_36
+target		:paymentItemType/PaymentItem/{rowid1m15} log:hasEValue :Paymentitem/{rowid1m15}/{rowid1m15} . 
+source		SELECT v1.`rowid` AS `rowid1m15`
+			FROM `llx_paiement_facture` v1
+			
+
+mappingId	ONPROM_MAPPING_37
+target		:DoPayment/{fk_paiement1m32}/{v0}/{fk_paiement1m32} log:hasEAttr :Paymentitem/{rowid1m32}/{rowid1m32} . 
+source		SELECT v1.`fk_paiement` AS `fk_paiement1m32`, v1.`rowid` AS `rowid1m32`, REPLACE(CAST(v2.`datec` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_paiement_facture` v1, `llx_paiement` v2
+			WHERE (v2.`datec` IS NOT NULL AND v1.`fk_paiement` = v2.`rowid`)
+			
+
+mappingId	ONPROM_MAPPING_38
+target		:Customer/{rowid1m5}/{rowid1m5} a log:Object . 
+source		SELECT v1.`rowid` AS `rowid1m5`
+			FROM `llx_societe` v1
+			
+
+mappingId	ONPROM_MAPPING_39
+target		:Customer/{rowid1m6}/{rowid1m6} log:objectId {rowid1m6}^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m6`
+			FROM `llx_societe` v1
+			
+
+mappingId	ONPROM_MAPPING_40
+target		:corr/PlaceOrder/{rowid1m27}/{v0}/{rowid1m27}/Customer/{fk_soc1m27}/{fk_soc1m27} a log:corr ; log:corr_2_Event :PlaceOrder/{rowid1m27}/{v0}/{rowid1m27} ; log:corr_2_Object :Customer/{fk_soc1m27}/{fk_soc1m27} . 
+source		SELECT v1.`fk_soc` AS `fk_soc1m27`, v1.`rowid` AS `rowid1m27`, REPLACE(CAST(v1.`date_creation` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_commande` v1
+			WHERE v1.`date_creation` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_41
+target		:corr/DoInvoice/{rowid1m34}/{v0}/{rowid1m34}/Customer/{fk_soc1m34}/{fk_soc1m34} a log:corr ; log:corr_2_Event :DoInvoice/{rowid1m34}/{v0}/{rowid1m34} ; log:corr_2_Object :Customer/{fk_soc1m34}/{fk_soc1m34} . 
+source		SELECT v1.`fk_soc` AS `fk_soc1m34`, v1.`rowid` AS `rowid1m34`, REPLACE(CAST(v1.`datec` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_facture` v1
+			WHERE v1.`datec` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_42
+target		:paymentItemType/PaymentItem/{rowid1m15} a log:Attribute . 
+source		SELECT v1.`rowid` AS `rowid1m15`
+			FROM `llx_paiement_facture` v1
+			
+
+mappingId	ONPROM_MAPPING_43
+target		:paymentItemType/PaymentItem/{rowid1m15} log:key "PaymentItem"^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m15`
+			FROM `llx_paiement_facture` v1
+			
+
+mappingId	ONPROM_MAPPING_44
+target		:DoPayment/{fk_paiement1m32} log:hasEAttribute :paymentItemType/PaymentItem/{rowid1m32} . 
+source		SELECT v1.`fk_paiement` AS `fk_paiement1m32`, v1.`rowid` AS `rowid1m32`
+			FROM `llx_paiement_facture` v1
+			WHERE v1.`fk_paiement` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_45
+target		:receieved/beenShipped/{rowid1m17} a log:related . 
+source		SELECT v1.`rowid` AS `rowid1m17`
+			FROM `llx_expedition` v1
+			
+
+mappingId	ONPROM_MAPPING_46
+target		:receieved/beenShipped/{rowid1m17} log:oQualifier "beenShipped"^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m17`
+			FROM `llx_expedition` v1
+			
+
+mappingId	ONPROM_MAPPING_47
+target		:receieved/beenShipped/{fk_expedition1m25} log:oTargets {rowid1m25}^^xsd:string . 
+source		SELECT v1.`fk_expedition` AS `fk_expedition1m25`, v1.`rowid` AS `rowid1m25`
+			FROM `llx_expeditiondet` v1
+			
+
+mappingId	ONPROM_MAPPING_48
+target		:Customer/{fk_soc1m33}/{fk_soc1m33} log:relatedToObjects :receieved/beenShipped/{rowid1m33} . 
+source		SELECT v1.`fk_soc` AS `fk_soc1m33`, v1.`rowid` AS `rowid1m33`
+			FROM `llx_expedition` v1
+			
+
+mappingId	ONPROM_MAPPING_49
+target		:priceValue/{price1m4}/{rowid1m1} a log:OAttrValue . 
+source		SELECT v1.`price` AS `price1m4`, v1.`rowid` AS `rowid1m1`
+			FROM `llx_product` v1
+			WHERE v1.`price` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_50
+target		:priceValue/{price1m4}/{rowid1m4} log:oValue {price1m4}^^xsd:anyURI . 
+source		SELECT v1.`price` AS `price1m4`, v1.`rowid` AS `rowid1m4`
+			FROM `llx_product` v1
+			WHERE v1.`price` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_51
+target		:priceType/price/{rowid1m1} log:hasOValue :priceValue/{price1m4}/{rowid1m1} . 
+source		SELECT v1.`price` AS `price1m4`, v1.`rowid` AS `rowid1m1`
+			FROM `llx_product` v1
+			WHERE v1.`price` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_52
+target		:Product/{rowid1m1}/{rowid1m1} log:hasOAttr :priceValue/{price1m4}/{rowid1m1} . 
+source		SELECT v1.`price` AS `price1m4`, v1.`rowid` AS `rowid1m1`
+			FROM `llx_product` v1
+			WHERE v1.`price` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_53
+target		:PlaceOrder/{rowid1m8} a log:Activity . 
+source		SELECT v1.`rowid` AS `rowid1m8`
+			FROM `llx_commande` v1
+			
+
+mappingId	ONPROM_MAPPING_54
+target		:PlaceOrder/{rowid1m8} log:name "PlaceOrder"^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m8`
+			FROM `llx_commande` v1
+			
+
+mappingId	ONPROM_MAPPING_55
+target		:PlaceOrder/{rowid1m8}/{v0}/{rowid1m8} log:observes :PlaceOrder/{rowid1m8} . 
+source		SELECT v1.`rowid` AS `rowid1m8`, REPLACE(CAST(v1.`date_creation` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_commande` v1
+			WHERE v1.`date_creation` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_56
+target		:DoPayment/{rowid1m12}/{v0}/{rowid1m12} a log:Event . 
+source		SELECT v1.`rowid` AS `rowid1m12`, REPLACE(CAST(v1.`datec` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_paiement` v1
+			WHERE v1.`datec` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_57
+target		:DoPayment/{rowid1m13}/{v0}/{rowid1m13} log:eventId {rowid1m13}^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m13`, REPLACE(CAST(v1.`datec` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_paiement` v1
+			WHERE v1.`datec` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_58
+target		:DoPayment/{rowid1m14}/{v0}/{rowid1m14} log:timestamp {v0}^^xsd:dateTimeStamp . 
+source		SELECT v1.`rowid` AS `rowid1m14`, REPLACE(CAST(v1.`datec` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_paiement` v1
+			WHERE v1.`datec` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_59
+target		:Order/{rowid1m8} a log:Type . 
+source		SELECT v1.`rowid` AS `rowid1m8`
+			FROM `llx_commande` v1
+			
+
+mappingId	ONPROM_MAPPING_60
+target		:Order/{rowid1m8} log:typeString "Order"^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m8`
+			FROM `llx_commande` v1
+			
+
+mappingId	ONPROM_MAPPING_61
+target		:Order/{rowid1m8}/{rowid1m8} log:has :Order/{rowid1m8} . 
+source		SELECT v1.`rowid` AS `rowid1m8`
+			FROM `llx_commande` v1
+			
+
+mappingId	ONPROM_MAPPING_62
+target		:Product/{rowid1m1}/{rowid1m1} a log:Object . 
+source		SELECT v1.`rowid` AS `rowid1m1`
+			FROM `llx_product` v1
+			
+
+mappingId	ONPROM_MAPPING_63
+target		:Product/{rowid1m2}/{rowid1m2} log:objectId {rowid1m2}^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m2`
+			FROM `llx_product` v1
+			
+
+mappingId	ONPROM_MAPPING_64
+target		:corr/PlaceOrder/{fk_commande1m30}/{v0}/{fk_commande1m30}/Product/{fk_product1m31}/{fk_product1m31} a log:corr ; log:corr_2_Event :PlaceOrder/{fk_commande1m30}/{v0}/{fk_commande1m30} ; log:corr_2_Object :Product/{fk_product1m31}/{fk_product1m31} . 
+source		SELECT v1.`fk_commande` AS `fk_commande1m30`, v1.`fk_product` AS `fk_product1m31`, REPLACE(CAST(v3.`date_creation` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_commandedet` v1, `llx_product` v2, `llx_commande` v3
+			WHERE (v3.`date_creation` IS NOT NULL AND v1.`fk_product` = v2.`rowid` AND v1.`fk_commande` = v3.`rowid`)
+			
+
+mappingId	ONPROM_MAPPING_65
+target		:PlaceOrder/{rowid1m8}/{v0}/{rowid1m8} a log:Event . 
+source		SELECT v1.`rowid` AS `rowid1m8`, REPLACE(CAST(v1.`date_creation` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_commande` v1
+			WHERE v1.`date_creation` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_66
+target		:PlaceOrder/{rowid1m9}/{v0}/{rowid1m9} log:eventId {rowid1m9}^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m9`, REPLACE(CAST(v1.`date_creation` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_commande` v1
+			WHERE v1.`date_creation` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_67
+target		:PlaceOrder/{rowid1m11}/{v0}/{rowid1m11} log:timestamp {v0}^^xsd:dateTimeStamp . 
+source		SELECT v1.`rowid` AS `rowid1m11`, REPLACE(CAST(v1.`date_creation` AS CHAR(30) CHARACTER SET utf8),' ', 'T') AS `v0`
+			FROM `llx_commande` v1
+			WHERE v1.`date_creation` IS NOT NULL
+			
+
+mappingId	ONPROM_MAPPING_68
+target		:paymentType/Payment/{rowid1m12} a log:Type . 
+source		SELECT v1.`rowid` AS `rowid1m12`
+			FROM `llx_paiement` v1
+			
+
+mappingId	ONPROM_MAPPING_69
+target		:paymentType/Payment/{rowid1m12} log:typeString "Payment"^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m12`
+			FROM `llx_paiement` v1
+			
+
+mappingId	ONPROM_MAPPING_70
+target		:Payment/{rowid1m12}/{rowid1m12} log:has :paymentType/Payment/{rowid1m12} . 
+source		SELECT v1.`rowid` AS `rowid1m12`
+			FROM `llx_paiement` v1
+			
+
+mappingId	ONPROM_MAPPING_71
+target		:hasItem/{rowid1m28}/{rowid1m28} a log:related . 
+source		SELECT v1.`rowid` AS `rowid1m28`
+			FROM `llx_commandedet` v1
+			
+
+mappingId	ONPROM_MAPPING_72
+target		:hasItem/{rowid1m31}/{rowid1m31} log:oQualifier {fk_product1m31}^^xsd:string . 
+source		SELECT v1.`fk_product` AS `fk_product1m31`, v1.`rowid` AS `rowid1m31`
+			FROM `llx_commandedet` v1, `llx_product` v2
+			WHERE v1.`fk_product` = v2.`rowid`
+			
+
+mappingId	ONPROM_MAPPING_73
+target		:hasItem/{rowid1m29}/{rowid1m29} log:oTargets {rowid1m29}^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m29`
+			FROM `llx_commandedet` v1
+			
+
+mappingId	ONPROM_MAPPING_74
+target		:Product/{fk_product1m31}/{fk_product1m31} log:relatedToObjects :hasItem/{rowid1m31}/{rowid1m31} . 
+source		SELECT v1.`fk_product` AS `fk_product1m31`, v1.`rowid` AS `rowid1m31`
+			FROM `llx_commandedet` v1, `llx_product` v2
+			WHERE v1.`fk_product` = v2.`rowid`
+			
+
+mappingId	ONPROM_MAPPING_75
+target		:ShippedItems/{rowid1m23}/{rowid1m23} a log:Object . 
+source		SELECT v1.`rowid` AS `rowid1m23`
+			FROM `llx_expeditiondet` v1
+			
+
+mappingId	ONPROM_MAPPING_76
+target		:ShippedItems/{rowid1m24}/{rowid1m24} log:objectId {rowid1m24}^^xsd:string . 
+source		SELECT v1.`rowid` AS `rowid1m24`
+			FROM `llx_expeditiondet` v1
+			
+]]
+

@@ -13,9 +13,9 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 public abstract class EBDAReasoner<A, E, O> {
     private static final Logger logger = LoggerFactory.getLogger(EBDAReasoner.class);
@@ -26,11 +26,10 @@ public abstract class EBDAReasoner<A, E, O> {
     protected EBDAReasoner(SQLPPMapping obdaModel, Properties dataSourceProperties, OWLOntology eventOntology) throws OWLOntologyCreationException {
         try {
             OntopSQLOWLAPIConfiguration config = OntopUtility.getConfiguration(
-                    eventOntology,
                     obdaModel,
                     dataSourceProperties
             );
-            this.reasoner = OntopOWLFactory.defaultFactory().createReasoner(config);
+            this.reasoner = OntopOWLFactory.defaultFactory().createReasoner(eventOntology, config);
             this.connection = this.reasoner.getConnection();
             // fix for large query results
             this.connection.setAutoCommit(false);

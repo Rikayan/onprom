@@ -1,0 +1,622 @@
+[PrefixDeclaration]
+obda:		https://w3id.org/obda/vocabulary#
+owl:		http://www.w3.org/2002/07/owl#
+log:		http://www.example.com/OCELv2/
+xsd:		http://www.w3.org/2001/XMLSchema#
+rdfs:		http://www.w3.org/2000/01/rdf-schema#
+rdf:		http://www.w3.org/1999/02/22-rdf-syntax-ns#
+onprom:		http://kaos.inf.unibz.it/onprom/
+:		http://www.example.com/dolibarr/
+xml:		http://www.w3.org/XML/1998/namespace
+data:		http://www.example.com/dolibarr/data/
+
+[MappingDeclaration] @collection [[
+mappingId	ONPROM_MAPPING_1
+target		:{_L_1989826789}/{_I1_1989826789}/{Payment} a log:Object . 
+source		SELECT  ?Payment ("Payment" AS ?_L_1989826789) ?_I1_1989826789
+			WHERE
+			  { ?Payment  a                     <http://www.example.com/dolibarr/Payment> ;
+			              <http://www.example.com/dolibarr/paymentId>  ?_I1_1989826789}
+			
+
+mappingId	ONPROM_MAPPING_2
+target		:{_L_1989826789}/{_I1_1989826789}/{Payment} log:objectId {_I1_1989826789}^^xsd:string . 
+source		SELECT  ?Payment ?_I1_1989826789 ("Payment" AS ?_L_1989826789)
+			WHERE
+			  { ?Payment  <http://www.example.com/dolibarr/paymentId>  ?_I1_1989826789}
+			
+
+mappingId	ONPROM_MAPPING_3
+target		:corr/{_L_1859153769}/{_I1_1859153769}/{_I2_1859153769}/{Payment}/{_L_1989826789}/{_I1_1989826789}/{Payment} a log:corr ; log:corr_2_Event :{_L_1859153769}/{_I1_1859153769}/{_I2_1859153769}/{Payment} ; log:corr_2_Object :{_L_1989826789}/{_I1_1989826789}/{Payment} . 
+source		SELECT  ?Payment ("Payment" AS ?_L_1989826789) ?_I1_1989826789 ("DoPayment" AS ?_L_1859153769) ?_I1_1859153769 ?_I2_1859153769
+			WHERE
+			  { ?Payment  a                     <http://www.example.com/dolibarr/Payment> ;
+			              <http://www.example.com/dolibarr/paymentId>  ?_I1_1989826789 ;
+			              <http://www.example.com/dolibarr/paymentId>  ?_I1_1859153769 ;
+			              <http://www.example.com/dolibarr/paymentDate>  ?_I2_1859153769}
+			
+
+mappingId	ONPROM_MAPPING_4
+target		:corr/{_L_1442342557}/{_I1_1442342557}/{_I2_1442342557}/{Invoice}/{_L_1989826789}/{_I1_1989826789}/{Payment} a log:corr ; log:corr_2_Event :{_L_1442342557}/{_I1_1442342557}/{_I2_1442342557}/{Invoice} ; log:corr_2_Object :{_L_1989826789}/{_I1_1989826789}/{Payment} . 
+source		SELECT  ?Payment ?Invoice ("Payment" AS ?_L_1989826789) ?_I1_1989826789 ("DoInvoice" AS ?_L_1442342557) ?_I1_1442342557 ?_I2_1442342557
+			WHERE
+			  { ?PaymentItem  <http://www.example.com/dolibarr/relatedPayment>  ?Payment ;
+			              <http://www.example.com/dolibarr/hasInvoice>  ?Invoice .
+			    ?Payment  <http://www.example.com/dolibarr/paymentId>  ?_I1_1989826789 .
+			    ?Invoice  <http://www.example.com/dolibarr/invoiceId>  ?_I1_1442342557 ;
+			              <http://www.example.com/dolibarr/invoiceDate>  ?_I2_1442342557}
+			
+
+mappingId	ONPROM_MAPPING_5
+target		:{_L_1442342557}/{_I1_1442342557}/{_I2_1442342557}/{Invoice} a log:Event . 
+source		SELECT  ?Invoice ("DoInvoice" AS ?_L_1442342557) ?_I1_1442342557 ?_I2_1442342557
+			WHERE
+			  { ?Invoice  a                     <http://www.example.com/dolibarr/Invoice> ;
+			              <http://www.example.com/dolibarr/invoiceId>  ?_I1_1442342557 ;
+			              <http://www.example.com/dolibarr/invoiceDate>  ?_I2_1442342557}
+			
+
+mappingId	ONPROM_MAPPING_6
+target		:{_L_1442342557}/{_I1_1442342557}/{_I2_1442342557}/{Invoice} log:eventId {_I1_1442342557}^^xsd:string . 
+source		SELECT  ?Invoice ?_I1_1442342557 ("DoInvoice" AS ?_L_1442342557) ?_I2_1442342557
+			WHERE
+			  { ?Invoice  <http://www.example.com/dolibarr/invoiceId>  ?_I1_1442342557 ;
+			              <http://www.example.com/dolibarr/invoiceDate>  ?_I2_1442342557}
+			
+
+mappingId	ONPROM_MAPPING_7
+target		:{_L_1442342557}/{_I1_1442342557}/{_I2_1442342557}/{Invoice} log:timestamp {_I2_1442342557}^^xsd:dateTimeStamp . 
+source		SELECT  ?Invoice ?_I2_1442342557 ("DoInvoice" AS ?_L_1442342557) ?_I1_1442342557
+			WHERE
+			  { ?Invoice  <http://www.example.com/dolibarr/invoiceDate>  ?_I2_1442342557 ;
+			              <http://www.example.com/dolibarr/invoiceId>  ?_I1_1442342557}
+			
+
+mappingId	ONPROM_MAPPING_8
+target		:{_I0_1269339945}/{Customer} a log:Type . 
+source		SELECT  ?Customer ("Customer" AS ?_I0_1269339945)
+			WHERE
+			  { ?Customer  a  <http://www.example.com/dolibarr/Customer>}
+			
+
+mappingId	ONPROM_MAPPING_9
+target		:{_I0_1269339945}/{Customer} log:typeString {_I0_1269339945}^^xsd:string . 
+source		SELECT  ?Customer ("Customer" AS ?_I0_1269339945)
+			WHERE
+			  { ?Customer  a  <http://www.example.com/dolibarr/Customer>}
+			
+
+mappingId	ONPROM_MAPPING_10
+target		:{_L_1220747354}/{_I1_1220747354}/{Customer} log:has :{_I0_1269339945}/{Customer} . 
+source		SELECT  ?Customer ("Customer" AS ?_I0_1269339945) ("Customer" AS ?_L_1220747354) ?_I1_1220747354
+			WHERE
+			  { ?Customer  a                    <http://www.example.com/dolibarr/Customer> ;
+			              <http://www.example.com/dolibarr/customerId>  ?_I1_1220747354}
+			
+
+mappingId	ONPROM_MAPPING_11
+target		:{_L_2036324408}/{_I1_2036324408}/{Shipment} a log:Activity . 
+source		SELECT  ?Shipment ("shipmentActivity" AS ?_L_2036324408) ("DoShipment" AS ?_I1_2036324408)
+			WHERE
+			  { ?Shipment  a  <http://www.example.com/dolibarr/Shipment>}
+			
+
+mappingId	ONPROM_MAPPING_12
+target		:{_L_2036324408}/{_I1_2036324408}/{Shipment} log:name {_I1_2036324408}^^xsd:string . 
+source		SELECT  ?Shipment ("DoShipment" AS ?_I1_2036324408) ("shipmentActivity" AS ?_L_2036324408)
+			WHERE
+			  { ?Shipment  a  <http://www.example.com/dolibarr/Shipment>}
+			
+
+mappingId	ONPROM_MAPPING_13
+target		:{_L_453007883}/{_I1_453007883}/{_I2_453007883}/{Shipment} log:observes :{_L_2036324408}/{_I1_2036324408}/{Shipment} . 
+source		SELECT  ?Shipment ("shipmentActivity" AS ?_L_2036324408) ("DoShipment" AS ?_I1_2036324408) ("DoShipment" AS ?_L_453007883) ?_I1_453007883 ?_I2_453007883
+			WHERE
+			  { ?Shipment  a                    <http://www.example.com/dolibarr/Shipment> ;
+			              <http://www.example.com/dolibarr/shipmentId>  ?_I1_453007883 ;
+			              <http://www.example.com/dolibarr/shipmentDate>  ?_I2_453007883}
+			
+
+mappingId	ONPROM_MAPPING_14
+target		:{_L_453007883}/{_I1_453007883}/{_I2_453007883}/{Shipment} a log:Event . 
+source		SELECT  ?Shipment ("DoShipment" AS ?_L_453007883) ?_I1_453007883 ?_I2_453007883
+			WHERE
+			  { ?Shipment  a                    <http://www.example.com/dolibarr/Shipment> ;
+			              <http://www.example.com/dolibarr/shipmentId>  ?_I1_453007883 ;
+			              <http://www.example.com/dolibarr/shipmentDate>  ?_I2_453007883}
+			
+
+mappingId	ONPROM_MAPPING_15
+target		:{_L_453007883}/{_I1_453007883}/{_I2_453007883}/{Shipment} log:eventId {_I1_453007883}^^xsd:string . 
+source		SELECT  ?Shipment ?_I1_453007883 ("DoShipment" AS ?_L_453007883) ?_I2_453007883
+			WHERE
+			  { ?Shipment  <http://www.example.com/dolibarr/shipmentId>  ?_I1_453007883 ;
+			              <http://www.example.com/dolibarr/shipmentDate>  ?_I2_453007883}
+			
+
+mappingId	ONPROM_MAPPING_16
+target		:{_L_453007883}/{_I1_453007883}/{_I2_453007883}/{Shipment} log:timestamp {_I2_453007883}^^xsd:dateTimeStamp . 
+source		SELECT  ?Shipment ?_I2_453007883 ("DoShipment" AS ?_L_453007883) ?_I1_453007883
+			WHERE
+			  { ?Shipment  <http://www.example.com/dolibarr/shipmentDate>  ?_I2_453007883 ;
+			              <http://www.example.com/dolibarr/shipmentId>  ?_I1_453007883}
+			
+
+mappingId	ONPROM_MAPPING_17
+target		:{_I0_278753868}/{Invoice} a log:Activity . 
+source		SELECT  ?Invoice ("DoInvoice" AS ?_I0_278753868)
+			WHERE
+			  { ?Invoice  a  <http://www.example.com/dolibarr/Invoice>}
+			
+
+mappingId	ONPROM_MAPPING_18
+target		:{_I0_278753868}/{Invoice} log:name {_I0_278753868}^^xsd:string . 
+source		SELECT  ?Invoice ("DoInvoice" AS ?_I0_278753868)
+			WHERE
+			  { ?Invoice  a  <http://www.example.com/dolibarr/Invoice>}
+			
+
+mappingId	ONPROM_MAPPING_19
+target		:{_L_1442342557}/{_I1_1442342557}/{_I2_1442342557}/{Invoice} log:observes :{_I0_278753868}/{Invoice} . 
+source		SELECT  ?Invoice ("DoInvoice" AS ?_I0_278753868) ("DoInvoice" AS ?_L_1442342557) ?_I1_1442342557 ?_I2_1442342557
+			WHERE
+			  { ?Invoice  a                     <http://www.example.com/dolibarr/Invoice> ;
+			              <http://www.example.com/dolibarr/invoiceId>  ?_I1_1442342557 ;
+			              <http://www.example.com/dolibarr/invoiceDate>  ?_I2_1442342557}
+			
+
+mappingId	ONPROM_MAPPING_20
+target		:{_I0_239937174}/{Payment} a log:Activity . 
+source		SELECT  ?Payment ("DoPayment" AS ?_I0_239937174)
+			WHERE
+			  { ?Payment  a  <http://www.example.com/dolibarr/Payment>}
+			
+
+mappingId	ONPROM_MAPPING_21
+target		:{_I0_239937174}/{Payment} log:name {_I0_239937174}^^xsd:string . 
+source		SELECT  ?Payment ("DoPayment" AS ?_I0_239937174)
+			WHERE
+			  { ?Payment  a  <http://www.example.com/dolibarr/Payment>}
+			
+
+mappingId	ONPROM_MAPPING_22
+target		:{_L_1859153769}/{_I1_1859153769}/{_I2_1859153769}/{Payment} log:observes :{_I0_239937174}/{Payment} . 
+source		SELECT  ?Payment ("DoPayment" AS ?_I0_239937174) ("DoPayment" AS ?_L_1859153769) ?_I1_1859153769 ?_I2_1859153769
+			WHERE
+			  { ?Payment  a                     <http://www.example.com/dolibarr/Payment> ;
+			              <http://www.example.com/dolibarr/paymentId>  ?_I1_1859153769 ;
+			              <http://www.example.com/dolibarr/paymentDate>  ?_I2_1859153769}
+			
+
+mappingId	ONPROM_MAPPING_23
+target		:{_I0_1846508205}/{Product} a log:Type . 
+source		SELECT  ?Product ("Product" AS ?_I0_1846508205)
+			WHERE
+			  { ?Product  a  <http://www.example.com/dolibarr/Product>}
+			
+
+mappingId	ONPROM_MAPPING_24
+target		:{_I0_1846508205}/{Product} log:typeString {_I0_1846508205}^^xsd:string . 
+source		SELECT  ?Product ("Product" AS ?_I0_1846508205)
+			WHERE
+			  { ?Product  a  <http://www.example.com/dolibarr/Product>}
+			
+
+mappingId	ONPROM_MAPPING_25
+target		:{_L_628933116}/{_I1_628933116}/{Order} a log:Object . 
+source		SELECT  ?Order ("Order" AS ?_L_628933116) ?_I1_628933116
+			WHERE
+			  { ?Order  a                     <http://www.example.com/dolibarr/Order> ;
+			            <http://www.example.com/dolibarr/orderId>  ?_I1_628933116}
+			
+
+mappingId	ONPROM_MAPPING_26
+target		:{_L_628933116}/{_I1_628933116}/{Order} log:objectId {_I1_628933116}^^xsd:string . 
+source		SELECT  ?Order ?_I1_628933116 ("Order" AS ?_L_628933116)
+			WHERE
+			  { ?Order  <http://www.example.com/dolibarr/orderId>  ?_I1_628933116}
+			
+
+mappingId	ONPROM_MAPPING_27
+target		:corr/{_L_957387062}/{_I1_957387062}/{_I2_957387062}/{Order}/{_L_628933116}/{_I1_628933116}/{Order} a log:corr ; log:corr_2_Event :{_L_957387062}/{_I1_957387062}/{_I2_957387062}/{Order} ; log:corr_2_Object :{_L_628933116}/{_I1_628933116}/{Order} . 
+source		SELECT  ?Order ("Order" AS ?_L_628933116) ?_I1_628933116 ("PlaceOrder" AS ?_L_957387062) ?_I1_957387062 ?_I2_957387062
+			WHERE
+			  { ?Order  a                     <http://www.example.com/dolibarr/Order> ;
+			            <http://www.example.com/dolibarr/orderId>  ?_I1_628933116 ;
+			            <http://www.example.com/dolibarr/orderId>  ?_I1_957387062 ;
+			            <http://www.example.com/dolibarr/orderDate>  ?_I2_957387062}
+			
+
+mappingId	ONPROM_MAPPING_28
+target		:{_L_424226973}/{_I1_424226973}/{Product} a log:OAttribute . 
+source		SELECT  ?Product ("priceType" AS ?_L_424226973) ("price" AS ?_I1_424226973)
+			WHERE
+			  { ?Product  a  <http://www.example.com/dolibarr/Product>}
+			
+
+mappingId	ONPROM_MAPPING_29
+target		:{_L_424226973}/{_I1_424226973}/{Product} log:oKey {_I1_424226973}^^xsd:string . 
+source		SELECT  ?Product ("price" AS ?_I1_424226973) ("priceType" AS ?_L_424226973)
+			WHERE
+			  { ?Product  a  <http://www.example.com/dolibarr/Product>}
+			
+
+mappingId	ONPROM_MAPPING_30
+target		:{_L_1414924274}/{_I1_1414924274}/{Product} log:hasOAttribute :{_L_424226973}/{_I1_424226973}/{Product} . 
+source		SELECT  ?Product ("priceType" AS ?_L_424226973) ("price" AS ?_I1_424226973) ("Product" AS ?_L_1414924274) ?_I1_1414924274
+			WHERE
+			  { ?Product  a                     <http://www.example.com/dolibarr/Product> ;
+			              <http://www.example.com/dolibarr/productId>  ?_I1_1414924274}
+			
+
+mappingId	ONPROM_MAPPING_31
+target		:{_I0_161118423}/{ShipmentItem} a log:Type . 
+source		SELECT  ?ShipmentItem ("ShippedItems" AS ?_I0_161118423)
+			WHERE
+			  { ?ShipmentItem
+			              a  <http://www.example.com/dolibarr/ShipmentItem>}
+			
+
+mappingId	ONPROM_MAPPING_32
+target		:{_I0_161118423}/{ShipmentItem} log:typeString {_I0_161118423}^^xsd:string . 
+source		SELECT  ?ShipmentItem ("ShippedItems" AS ?_I0_161118423)
+			WHERE
+			  { ?ShipmentItem
+			              a  <http://www.example.com/dolibarr/ShipmentItem>}
+			
+
+mappingId	ONPROM_MAPPING_33
+target		:{_L_2140846441}/{_I1_2140846441}/{ShipmentItem} log:has :{_I0_161118423}/{ShipmentItem} . 
+source		SELECT  ?ShipmentItem ("ShippedItems" AS ?_I0_161118423) ("ShippedItems" AS ?_L_2140846441) ?_I1_2140846441
+			WHERE
+			  { ?ShipmentItem
+			              a                     <http://www.example.com/dolibarr/ShipmentItem> ;
+			              <http://www.example.com/dolibarr/shipmentItemId>  ?_I1_2140846441}
+			
+
+mappingId	ONPROM_MAPPING_34
+target		:{_L_706915627}/{_I1_706915627}/{PaymentItem} a log:EAttrValue . 
+source		SELECT  ?PaymentItem ("Paymentitem" AS ?_L_706915627) ?_I1_706915627
+			WHERE
+			  { ?PaymentItem  a                 <http://www.example.com/dolibarr/PaymentItem> ;
+			              <http://www.example.com/dolibarr/paymentItemId>  ?_I1_706915627}
+			
+
+mappingId	ONPROM_MAPPING_35
+target		:{_L_706915627}/{_I1_706915627}/{PaymentItem} log:eValue {_I1_706915627}^^xsd:anyURI . 
+source		SELECT  ?PaymentItem ?_I1_706915627 ("Paymentitem" AS ?_L_706915627)
+			WHERE
+			  { ?PaymentItem  <http://www.example.com/dolibarr/paymentItemId>  ?_I1_706915627}
+			
+
+mappingId	ONPROM_MAPPING_36
+target		:{_L_303846650}/{_I1_303846650}/{PaymentItem} log:hasEValue :{_L_706915627}/{_I1_706915627}/{PaymentItem} . 
+source		SELECT  ?PaymentItem ("Paymentitem" AS ?_L_706915627) ?_I1_706915627 ("paymentItemType" AS ?_L_303846650) ("PaymentItem" AS ?_I1_303846650)
+			WHERE
+			  { ?PaymentItem  a                 <http://www.example.com/dolibarr/PaymentItem> ;
+			              <http://www.example.com/dolibarr/paymentItemId>  ?_I1_706915627}
+			
+
+mappingId	ONPROM_MAPPING_37
+target		:{_L_1859153769}/{_I1_1859153769}/{_I2_1859153769}/{Payment} log:hasEAttr :{_L_706915627}/{_I1_706915627}/{PaymentItem} . 
+source		SELECT  ?PaymentItem ?Payment ("Paymentitem" AS ?_L_706915627) ?_I1_706915627 ("DoPayment" AS ?_L_1859153769) ?_I1_1859153769 ?_I2_1859153769
+			WHERE
+			  { ?PaymentItem  <http://www.example.com/dolibarr/relatedPayment>  ?Payment ;
+			              <http://www.example.com/dolibarr/paymentItemId>  ?_I1_706915627 .
+			    ?Payment  <http://www.example.com/dolibarr/paymentId>  ?_I1_1859153769 ;
+			              <http://www.example.com/dolibarr/paymentDate>  ?_I2_1859153769}
+			
+
+mappingId	ONPROM_MAPPING_38
+target		:{_L_1220747354}/{_I1_1220747354}/{Customer} a log:Object . 
+source		SELECT  ?Customer ("Customer" AS ?_L_1220747354) ?_I1_1220747354
+			WHERE
+			  { ?Customer  a                    <http://www.example.com/dolibarr/Customer> ;
+			              <http://www.example.com/dolibarr/customerId>  ?_I1_1220747354}
+			
+
+mappingId	ONPROM_MAPPING_39
+target		:{_L_1220747354}/{_I1_1220747354}/{Customer} log:objectId {_I1_1220747354}^^xsd:string . 
+source		SELECT  ?Customer ?_I1_1220747354 ("Customer" AS ?_L_1220747354)
+			WHERE
+			  { ?Customer  <http://www.example.com/dolibarr/customerId>  ?_I1_1220747354}
+			
+
+mappingId	ONPROM_MAPPING_40
+target		:corr/{_L_957387062}/{_I1_957387062}/{_I2_957387062}/{Order}/{_L_1220747354}/{_I1_1220747354}/{Customer} a log:corr ; log:corr_2_Event :{_L_957387062}/{_I1_957387062}/{_I2_957387062}/{Order} ; log:corr_2_Object :{_L_1220747354}/{_I1_1220747354}/{Customer} . 
+source		SELECT  ?Customer ?Order ("Customer" AS ?_L_1220747354) ?_I1_1220747354 ("PlaceOrder" AS ?_L_957387062) ?_I1_957387062 ?_I2_957387062
+			WHERE
+			  { ?Customer  <http://www.example.com/dolibarr/createOrder>  ?Order ;
+			              <http://www.example.com/dolibarr/customerId>  ?_I1_1220747354 .
+			    ?Order    <http://www.example.com/dolibarr/orderId>  ?_I1_957387062 ;
+			              <http://www.example.com/dolibarr/orderDate>  ?_I2_957387062}
+			
+
+mappingId	ONPROM_MAPPING_41
+target		:corr/{_L_1442342557}/{_I1_1442342557}/{_I2_1442342557}/{Invoice}/{_L_1220747354}/{_I1_1220747354}/{Customer} a log:corr ; log:corr_2_Event :{_L_1442342557}/{_I1_1442342557}/{_I2_1442342557}/{Invoice} ; log:corr_2_Object :{_L_1220747354}/{_I1_1220747354}/{Customer} . 
+source		SELECT  ?Customer ?Invoice ("Customer" AS ?_L_1220747354) ?_I1_1220747354 ("DoInvoice" AS ?_L_1442342557) ?_I1_1442342557 ?_I2_1442342557
+			WHERE
+			  { ?Invoice  <http://www.example.com/dolibarr/invoiceTo>  ?Customer .
+			    ?Customer  <http://www.example.com/dolibarr/customerId>  ?_I1_1220747354 .
+			    ?Invoice  <http://www.example.com/dolibarr/invoiceId>  ?_I1_1442342557 ;
+			              <http://www.example.com/dolibarr/invoiceDate>  ?_I2_1442342557}
+			
+
+mappingId	ONPROM_MAPPING_42
+target		:{_L_303846650}/{_I1_303846650}/{PaymentItem} a log:Attribute . 
+source		SELECT  ?PaymentItem ("paymentItemType" AS ?_L_303846650) ("PaymentItem" AS ?_I1_303846650)
+			WHERE
+			  { ?PaymentItem  a  <http://www.example.com/dolibarr/PaymentItem>}
+			
+
+mappingId	ONPROM_MAPPING_43
+target		:{_L_303846650}/{_I1_303846650}/{PaymentItem} log:key {_I1_303846650}^^xsd:string . 
+source		SELECT  ?PaymentItem ("PaymentItem" AS ?_I1_303846650) ("paymentItemType" AS ?_L_303846650)
+			WHERE
+			  { ?PaymentItem  a  <http://www.example.com/dolibarr/PaymentItem>}
+			
+
+mappingId	ONPROM_MAPPING_44
+target		:{_I0_239937174}/{Payment} log:hasEAttribute :{_L_303846650}/{_I1_303846650}/{PaymentItem} . 
+source		SELECT  ?PaymentItem ?Payment ("paymentItemType" AS ?_L_303846650) ("PaymentItem" AS ?_I1_303846650) ("DoPayment" AS ?_I0_239937174)
+			WHERE
+			  { ?PaymentItem  <http://www.example.com/dolibarr/relatedPayment>  ?Payment}
+			
+
+mappingId	ONPROM_MAPPING_45
+target		:{_L_2086945474}/{_I1_2086945474}/{Shipment} a log:related . 
+source		SELECT  ?Shipment ("receieved" AS ?_L_2086945474) ("beenShipped" AS ?_I1_2086945474)
+			WHERE
+			  { ?Shipment  a  <http://www.example.com/dolibarr/Shipment>}
+			
+
+mappingId	ONPROM_MAPPING_46
+target		:{_L_2086945474}/{_I1_2086945474}/{Shipment} log:oQualifier {_I1_2086945474}^^xsd:string . 
+source		SELECT  ?Shipment ("beenShipped" AS ?_I1_2086945474) ("receieved" AS ?_L_2086945474)
+			WHERE
+			  { ?Shipment  a  <http://www.example.com/dolibarr/Shipment>}
+			
+
+mappingId	ONPROM_MAPPING_47
+target		:{_L_2086945474}/{_I1_2086945474}/{Shipment} log:oTargets {_value}^^xsd:string . 
+source		SELECT  ?Shipment ?_value ("receieved" AS ?_L_2086945474) ("beenShipped" AS ?_I1_2086945474)
+			WHERE
+			  { ?ShipmentItem
+			              <http://www.example.com/dolibarr/relatedShipment>  ?Shipment ;
+			              <http://www.example.com/dolibarr/shipmentItemId>  ?_value}
+			
+
+mappingId	ONPROM_MAPPING_48
+target		:{_L_1220747354}/{_I1_1220747354}/{Customer} log:relatedToObjects :{_L_2086945474}/{_I1_2086945474}/{Shipment} . 
+source		SELECT  ?Shipment ?Customer ("receieved" AS ?_L_2086945474) ("beenShipped" AS ?_I1_2086945474) ("Customer" AS ?_L_1220747354) ?_I1_1220747354
+			WHERE
+			  { ?Shipment  <http://www.example.com/dolibarr/shipTo>  ?Customer .
+			    ?Customer  <http://www.example.com/dolibarr/customerId>  ?_I1_1220747354}
+			
+
+mappingId	ONPROM_MAPPING_49
+target		:{_L_424209001}/{_I1_424209001}/{Product} a log:OAttrValue . 
+source		SELECT  ?Product ("priceValue" AS ?_L_424209001) ?_I1_424209001
+			WHERE
+			  { ?Product  a                     <http://www.example.com/dolibarr/Product> ;
+			              <http://www.example.com/dolibarr/productPrice>  ?_I1_424209001}
+			
+
+mappingId	ONPROM_MAPPING_50
+target		:{_L_424209001}/{_I1_424209001}/{Product} log:oValue {_I1_424209001}^^xsd:anyURI . 
+source		SELECT  ?Product ?_I1_424209001 ("priceValue" AS ?_L_424209001)
+			WHERE
+			  { ?Product  <http://www.example.com/dolibarr/productPrice>  ?_I1_424209001}
+			
+
+mappingId	ONPROM_MAPPING_51
+target		:{_L_424226973}/{_I1_424226973}/{Product} log:hasOValue :{_L_424209001}/{_I1_424209001}/{Product} . 
+source		SELECT  ?Product ("priceValue" AS ?_L_424209001) ?_I1_424209001 ("priceType" AS ?_L_424226973) ("price" AS ?_I1_424226973)
+			WHERE
+			  { ?Product  a                     <http://www.example.com/dolibarr/Product> ;
+			              <http://www.example.com/dolibarr/productPrice>  ?_I1_424209001}
+			
+
+mappingId	ONPROM_MAPPING_52
+target		:{_L_1414924274}/{_I1_1414924274}/{Product} log:hasOAttr :{_L_424209001}/{_I1_424209001}/{Product} . 
+source		SELECT  ?Product ("priceValue" AS ?_L_424209001) ?_I1_424209001 ("Product" AS ?_L_1414924274) ?_I1_1414924274
+			WHERE
+			  { ?Product  a                     <http://www.example.com/dolibarr/Product> ;
+			              <http://www.example.com/dolibarr/productPrice>  ?_I1_424209001 ;
+			              <http://www.example.com/dolibarr/productId>  ?_I1_1414924274}
+			
+
+mappingId	ONPROM_MAPPING_53
+target		:{_I0_1232703108}/{Order} a log:Activity . 
+source		SELECT  ?Order ("PlaceOrder" AS ?_I0_1232703108)
+			WHERE
+			  { ?Order  a  <http://www.example.com/dolibarr/Order>}
+			
+
+mappingId	ONPROM_MAPPING_54
+target		:{_I0_1232703108}/{Order} log:name {_I0_1232703108}^^xsd:string . 
+source		SELECT  ?Order ("PlaceOrder" AS ?_I0_1232703108)
+			WHERE
+			  { ?Order  a  <http://www.example.com/dolibarr/Order>}
+			
+
+mappingId	ONPROM_MAPPING_55
+target		:{_L_957387062}/{_I1_957387062}/{_I2_957387062}/{Order} log:observes :{_I0_1232703108}/{Order} . 
+source		SELECT  ?Order ("PlaceOrder" AS ?_I0_1232703108) ("PlaceOrder" AS ?_L_957387062) ?_I1_957387062 ?_I2_957387062
+			WHERE
+			  { ?Order  a                     <http://www.example.com/dolibarr/Order> ;
+			            <http://www.example.com/dolibarr/orderId>  ?_I1_957387062 ;
+			            <http://www.example.com/dolibarr/orderDate>  ?_I2_957387062}
+			
+
+mappingId	ONPROM_MAPPING_56
+target		:{_L_1859153769}/{_I1_1859153769}/{_I2_1859153769}/{Payment} a log:Event . 
+source		SELECT  ?Payment ("DoPayment" AS ?_L_1859153769) ?_I1_1859153769 ?_I2_1859153769
+			WHERE
+			  { ?Payment  a                     <http://www.example.com/dolibarr/Payment> ;
+			              <http://www.example.com/dolibarr/paymentId>  ?_I1_1859153769 ;
+			              <http://www.example.com/dolibarr/paymentDate>  ?_I2_1859153769}
+			
+
+mappingId	ONPROM_MAPPING_57
+target		:{_L_1859153769}/{_I1_1859153769}/{_I2_1859153769}/{Payment} log:eventId {_I1_1859153769}^^xsd:string . 
+source		SELECT  ?Payment ?_I1_1859153769 ("DoPayment" AS ?_L_1859153769) ?_I2_1859153769
+			WHERE
+			  { ?Payment  <http://www.example.com/dolibarr/paymentId>  ?_I1_1859153769 ;
+			              <http://www.example.com/dolibarr/paymentDate>  ?_I2_1859153769}
+			
+
+mappingId	ONPROM_MAPPING_58
+target		:{_L_1859153769}/{_I1_1859153769}/{_I2_1859153769}/{Payment} log:timestamp {_I2_1859153769}^^xsd:dateTimeStamp . 
+source		SELECT  ?Payment ?_I2_1859153769 ("DoPayment" AS ?_L_1859153769) ?_I1_1859153769
+			WHERE
+			  { ?Payment  <http://www.example.com/dolibarr/paymentDate>  ?_I2_1859153769 ;
+			              <http://www.example.com/dolibarr/paymentId>  ?_I1_1859153769}
+			
+
+mappingId	ONPROM_MAPPING_59
+target		:{_I0_1365163763}/{Order} a log:Type . 
+source		SELECT  ?Order ("Order" AS ?_I0_1365163763)
+			WHERE
+			  { ?Order  a  <http://www.example.com/dolibarr/Order>}
+			
+
+mappingId	ONPROM_MAPPING_60
+target		:{_I0_1365163763}/{Order} log:typeString {_I0_1365163763}^^xsd:string . 
+source		SELECT  ?Order ("Order" AS ?_I0_1365163763)
+			WHERE
+			  { ?Order  a  <http://www.example.com/dolibarr/Order>}
+			
+
+mappingId	ONPROM_MAPPING_61
+target		:{_L_628933116}/{_I1_628933116}/{Order} log:has :{_I0_1365163763}/{Order} . 
+source		SELECT  ?Order ("Order" AS ?_I0_1365163763) ("Order" AS ?_L_628933116) ?_I1_628933116
+			WHERE
+			  { ?Order  a                     <http://www.example.com/dolibarr/Order> ;
+			            <http://www.example.com/dolibarr/orderId>  ?_I1_628933116}
+			
+
+mappingId	ONPROM_MAPPING_62
+target		:{_L_1414924274}/{_I1_1414924274}/{Product} a log:Object . 
+source		SELECT  ?Product ("Product" AS ?_L_1414924274) ?_I1_1414924274
+			WHERE
+			  { ?Product  a                     <http://www.example.com/dolibarr/Product> ;
+			              <http://www.example.com/dolibarr/productId>  ?_I1_1414924274}
+			
+
+mappingId	ONPROM_MAPPING_63
+target		:{_L_1414924274}/{_I1_1414924274}/{Product} log:objectId {_I1_1414924274}^^xsd:string . 
+source		SELECT  ?Product ?_I1_1414924274 ("Product" AS ?_L_1414924274)
+			WHERE
+			  { ?Product  <http://www.example.com/dolibarr/productId>  ?_I1_1414924274}
+			
+
+mappingId	ONPROM_MAPPING_64
+target		:corr/{_L_957387062}/{_I1_957387062}/{_I2_957387062}/{Order}/{_L_1414924274}/{_I1_1414924274}/{Product} a log:corr ; log:corr_2_Event :{_L_957387062}/{_I1_957387062}/{_I2_957387062}/{Order} ; log:corr_2_Object :{_L_1414924274}/{_I1_1414924274}/{Product} . 
+source		SELECT  ?Product ?Order ("Product" AS ?_L_1414924274) ?_I1_1414924274 ("PlaceOrder" AS ?_L_957387062) ?_I1_957387062 ?_I2_957387062
+			WHERE
+			  { ?OrderItem  <http://www.example.com/dolibarr/hasProduct>  ?Product ;
+			              <http://www.example.com/dolibarr/relatedOrder>  ?Order .
+			    ?Product  <http://www.example.com/dolibarr/productId>  ?_I1_1414924274 .
+			    ?Order    <http://www.example.com/dolibarr/orderId>  ?_I1_957387062 ;
+			              <http://www.example.com/dolibarr/orderDate>  ?_I2_957387062}
+			
+
+mappingId	ONPROM_MAPPING_65
+target		:{_L_957387062}/{_I1_957387062}/{_I2_957387062}/{Order} a log:Event . 
+source		SELECT  ?Order ("PlaceOrder" AS ?_L_957387062) ?_I1_957387062 ?_I2_957387062
+			WHERE
+			  { ?Order  a                     <http://www.example.com/dolibarr/Order> ;
+			            <http://www.example.com/dolibarr/orderId>  ?_I1_957387062 ;
+			            <http://www.example.com/dolibarr/orderDate>  ?_I2_957387062}
+			
+
+mappingId	ONPROM_MAPPING_66
+target		:{_L_957387062}/{_I1_957387062}/{_I2_957387062}/{Order} log:eventId {_I1_957387062}^^xsd:string . 
+source		SELECT  ?Order ?_I1_957387062 ("PlaceOrder" AS ?_L_957387062) ?_I2_957387062
+			WHERE
+			  { ?Order  <http://www.example.com/dolibarr/orderId>  ?_I1_957387062 ;
+			            <http://www.example.com/dolibarr/orderDate>  ?_I2_957387062}
+			
+
+mappingId	ONPROM_MAPPING_67
+target		:{_L_957387062}/{_I1_957387062}/{_I2_957387062}/{Order} log:timestamp {_I2_957387062}^^xsd:dateTimeStamp . 
+source		SELECT  ?Order ?_I2_957387062 ("PlaceOrder" AS ?_L_957387062) ?_I1_957387062
+			WHERE
+			  { ?Order  <http://www.example.com/dolibarr/orderDate>  ?_I2_957387062 ;
+			            <http://www.example.com/dolibarr/orderId>  ?_I1_957387062}
+			
+
+mappingId	ONPROM_MAPPING_68
+target		:{_L_55429210}/{_I1_55429210}/{Payment} a log:Type . 
+source		SELECT  ?Payment ("paymentType" AS ?_L_55429210) ("Payment" AS ?_I1_55429210)
+			WHERE
+			  { ?Payment  a  <http://www.example.com/dolibarr/Payment>}
+			
+
+mappingId	ONPROM_MAPPING_69
+target		:{_L_55429210}/{_I1_55429210}/{Payment} log:typeString {_I1_55429210}^^xsd:string . 
+source		SELECT  ?Payment ("Payment" AS ?_I1_55429210) ("paymentType" AS ?_L_55429210)
+			WHERE
+			  { ?Payment  a  <http://www.example.com/dolibarr/Payment>}
+			
+
+mappingId	ONPROM_MAPPING_70
+target		:{_L_1989826789}/{_I1_1989826789}/{Payment} log:has :{_L_55429210}/{_I1_55429210}/{Payment} . 
+source		SELECT  ?Payment ("paymentType" AS ?_L_55429210) ("Payment" AS ?_I1_55429210) ("Payment" AS ?_L_1989826789) ?_I1_1989826789
+			WHERE
+			  { ?Payment  a                     <http://www.example.com/dolibarr/Payment> ;
+			              <http://www.example.com/dolibarr/paymentId>  ?_I1_1989826789}
+			
+
+mappingId	ONPROM_MAPPING_71
+target		:{_L_1516536489}/{_I1_1516536489}/{OrderItem} a log:related . 
+source		SELECT  ?OrderItem ("hasItem" AS ?_L_1516536489) ?_I1_1516536489
+			WHERE
+			  { ?OrderItem  a                   <http://www.example.com/dolibarr/OrderItem> ;
+			              <http://www.example.com/dolibarr/orderItemId>  ?_I1_1516536489}
+			
+
+mappingId	ONPROM_MAPPING_72
+target		:{_L_1516536489}/{_I1_1516536489}/{OrderItem} log:oQualifier {_value}^^xsd:string . 
+source		SELECT  ?OrderItem ?_value ("hasItem" AS ?_L_1516536489) ?_I1_1516536489
+			WHERE
+			  { ?OrderItem  <http://www.example.com/dolibarr/hasProduct>  ?Product .
+			    ?Product  <http://www.example.com/dolibarr/productId>  ?_value .
+			    ?OrderItem  <http://www.example.com/dolibarr/orderItemId>  ?_I1_1516536489}
+			
+
+mappingId	ONPROM_MAPPING_73
+target		:{_L_1516536489}/{_I1_1516536489}/{OrderItem} log:oTargets {_I1_1516536489}^^xsd:string . 
+source		SELECT  ?OrderItem ?_I1_1516536489 ("hasItem" AS ?_L_1516536489)
+			WHERE
+			  { ?OrderItem  <http://www.example.com/dolibarr/orderItemId>  ?_I1_1516536489}
+			
+
+mappingId	ONPROM_MAPPING_74
+target		:{_L_1414924274}/{_I1_1414924274}/{Product} log:relatedToObjects :{_L_1516536489}/{_I1_1516536489}/{OrderItem} . 
+source		SELECT  ?OrderItem ?Product ("hasItem" AS ?_L_1516536489) ?_I1_1516536489 ("Product" AS ?_L_1414924274) ?_I1_1414924274
+			WHERE
+			  { ?OrderItem  <http://www.example.com/dolibarr/hasProduct>  ?Product ;
+			              <http://www.example.com/dolibarr/orderItemId>  ?_I1_1516536489 .
+			    ?Product  <http://www.example.com/dolibarr/productId>  ?_I1_1414924274}
+			
+
+mappingId	ONPROM_MAPPING_75
+target		:{_L_2140846441}/{_I1_2140846441}/{ShipmentItem} a log:Object . 
+source		SELECT  ?ShipmentItem ("ShippedItems" AS ?_L_2140846441) ?_I1_2140846441
+			WHERE
+			  { ?ShipmentItem
+			              a                     <http://www.example.com/dolibarr/ShipmentItem> ;
+			              <http://www.example.com/dolibarr/shipmentItemId>  ?_I1_2140846441}
+			
+
+mappingId	ONPROM_MAPPING_76
+target		:{_L_2140846441}/{_I1_2140846441}/{ShipmentItem} log:objectId {_I1_2140846441}^^xsd:string . 
+source		SELECT  ?ShipmentItem ?_I1_2140846441 ("ShippedItems" AS ?_L_2140846441)
+			WHERE
+			  { ?ShipmentItem
+			              <http://www.example.com/dolibarr/shipmentItemId>  ?_I1_2140846441}
+			
+]]
+

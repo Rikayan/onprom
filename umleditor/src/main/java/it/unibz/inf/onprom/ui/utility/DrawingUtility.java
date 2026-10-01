@@ -46,6 +46,7 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.*;
+import java.util.Objects;
 
 /**
  * Created by T. E. Kalayci on 17-Nov-2017.
@@ -236,7 +237,7 @@ public class DrawingUtility {
 
     public static Font getFont(String fontName, Integer style, Float size) {
         try {
-            return Font.createFont(Font.TRUETYPE_FONT, DrawingUtility.class.getResourceAsStream("/fonts/" + fontName + ".ttf")).deriveFont(size).deriveFont(style);
+            return Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(DrawingUtility.class.getResourceAsStream("/fonts/" + fontName + ".ttf"))).deriveFont(size).deriveFont(style);
         } catch (Exception e) {
             logger.error("Couldn't create font:" + e.getMessage());
             return new Font(Font.DIALOG, style, size.intValue());

@@ -68,42 +68,57 @@
     </developers>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <logback.version>1.2.10</logback.version>
+        <logback.version>1.5.32</logback.version>
         <jaxb.version>2.3.1</jaxb.version>
         <maven.assembly.version>3.3.0</maven.assembly.version>
-        <owlapi.version>4.5.19</owlapi.version>
-        <ontop.version>4.2.0</ontop.version>
+        <owlapi.version>5.5.1</owlapi.version>
+        <ontop.version>5.4.1</ontop.version>
+        <slf4j.version>2.0.18</slf4j.version>
+        <picocli.version>4.7.7</picocli.version>
+        <lanterna.version>3.1.5</lanterna.version>
+        <javers.version>7.11.1</javers.version>
         <local.repository>file://${basedir}/../libraries</local.repository>
+        <maven.compiler.release>21</maven.compiler.release>
     </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.9.0</version>
-                <configuration>
-                    <release>11</release>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <dependencyManagement>
+        <dependencies>
+            <!-- Source: https://mvnrepository.com/artifact/info.picocli/picocli -->
+            <dependency>
+                <groupId>info.picocli</groupId>
+                <artifactId>picocli</artifactId>
+                <version>${picocli.version}</version>
+            </dependency>
+            <!-- Source: https://mvnrepository.com/artifact/com.googlecode.lanterna/lanterna -->
+            <dependency>
+                <groupId>com.googlecode.lanterna</groupId>
+                <artifactId>lanterna</artifactId>
+                <version>${lanterna.version}</version>
+            </dependency>
+            <!-- Source: https://mvnrepository.com/artifact/org.javers/javers-core -->
+            <dependency>
+                <groupId>org.javers</groupId>
+                <artifactId>javers-core</artifactId>
+                <version>${javers.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>tools.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>3.2.2</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!-- Source: https://mvnrepository.com/artifact/com.fasterxml.jackson/jackson-bom -->
+            <dependency>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>2.22.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-    <modules>
-        <module>data</module>
-        <module>umleditor</module>
-        <module>annotationeditor</module>
-        <module>obdamapper</module>
-        <module>ocel</module>
-        <module>logextractor</module>
-        <module>toolkit</module>
-    </modules>
-    <repositories>
-        <repository>
-            <id>libraries</id>
-            <url>${local.repository}</url>
-        </repository>
-    </repositories>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -111,9 +126,32 @@
             <version>4.13.2</version>
         </dependency>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
         </dependency>
     </dependencies>
+
+    <modules>
+        <module>cli</module>
+        <module>data</module>
+        <module>umleditor</module>
+        <module>annotationeditor</module>
+        <module>obdamapper</module>
+        <module>ocel</module>
+        <module>logextractor</module>
+        <module>toolkit</module>
+        <module>pythoninterface</module>
+    </modules>
+    <repositories>
+        <repository>
+            <id>libraries</id>
+            <url>${local.repository}</url>
+        </repository>
+    </repositories>
 </project>

@@ -75,9 +75,15 @@
             <artifactId>ontop-system-sql-owlapi</artifactId>
             <version>${ontop.version}</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>it.unibz.inf.ontop</groupId>-->
+<!--            <artifactId>ontop-protege</artifactId>-->
+<!--            <version>${ontop.version}</version>-->
+<!--            <type>pom</type>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>it.unibz.inf.ontop</groupId>
-            <artifactId>ontop-protege</artifactId>
+            <artifactId>ontop-protege-plugin</artifactId>
             <version>${ontop.version}</version>
         </dependency>
         <dependency>
@@ -88,6 +94,11 @@
         <dependency>
             <groupId>it.unibz.inf.ontop</groupId>
             <artifactId>ontop-obda-core</artifactId>
+            <version>${ontop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>it.unibz.inf.ontop</groupId>
+            <artifactId>ontop-rdf4j</artifactId>
             <version>${ontop.version}</version>
         </dependency>
         <!-- =============================================================== -->
@@ -101,6 +112,16 @@
             <artifactId>data</artifactId>
             <groupId>${project.groupId}</groupId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>it.unibz.inf.onprom</groupId>
+            <artifactId>umleditor</artifactId>
+            <version>2.4.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.javers</groupId>
+            <artifactId>javers-core</artifactId>
         </dependency>
         <!-- =============================================================== -->
 		<!-- END OF Related to OnProm -->

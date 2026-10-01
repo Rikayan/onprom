@@ -31,6 +31,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import java.io.InputStream;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * This class provides some constants declaration related to the Ocel Event Ontology
@@ -127,44 +129,115 @@ public class OCELConstants {
                     ATT_KEY_ATT + " ?attKey; " +
                     ATT_VAL_ATT + " ?attValue  }";
 
-    static final String qObjects =
-            "PREFIX : <" + eventOntoPrefix + "> \n" +
-                    "SELECT distinct * \n" +
-                    "WHERE { ?object a " + OCEL_OBJECT_IRI + " . OPTIONAL { \n" +
-                    "  ?object " + O_HAS_A_ROLE + " ?att . \n" +
-                    "  ?att a " + ATTRIBUTE_CONCEPT + "; \n" +
-                    ATT_TYPE_ATT + " ?attType; \n" +
-                    ATT_KEY_ATT + " ?attKey; \n" +
-                    ATT_VAL_ATT + " ?attValue  } }";
 
-    static final String qEvents =
-            "PREFIX : <" + eventOntoPrefix + "> \n" +
-                    "SELECT distinct * \n" +
-                    "WHERE { " +
-                    "?event a " + OCEL_EVENT_IRI + " . \n" +
-                    "OPTIONAL { \n" +
-                    "  ?event " + E_HAS_A_ROLE + " ?att . \n" +
-                    "  ?att a " + ATTRIBUTE_CONCEPT + "; \n" +
-                    ATT_TYPE_ATT + " ?attType; \n" +
-                    ATT_KEY_ATT + " ?attKey; \n" +
-                    ATT_VAL_ATT + " ?attValue  } " +
-                    "}";
+//    static final String qObjects =
+//            "PREFIX : <" + eventOntoPrefix + "> \n" +
+//                    "SELECT distinct * \n" +
+//                    "WHERE { ?object a " + OCEL_OBJECT_IRI + " . OPTIONAL { \n" +
+//                    "  ?object " + O_HAS_A_ROLE + " ?att . \n" +
+//                    "  ?att a " + ATTRIBUTE_CONCEPT + "; \n" +
+//                    ATT_TYPE_ATT + " ?attType; \n" +
+//                    ATT_KEY_ATT + " ?attKey; \n" +
+//                    ATT_VAL_ATT + " ?attValue  } }";
 
-    static final String qEventsWithObjects =
-            "PREFIX : <" + eventOntoPrefix + "> \n" +
-                    "SELECT distinct * \n" +
-                    "WHERE { " +
-                    "?event a " + OCEL_EVENT_IRI + " . \n" +
-                    "?event " + E_CONTAINS_O_ROLE + " ?object  " +
-                    "}";
 
-    static final String qEventsWithTimestamps =
-            "PREFIX : <" + eventOntoPrefix + "> \n" +
-                    "SELECT distinct * \n" +
-                    "WHERE { " +
-                    "?event a " + OCEL_EVENT_IRI + " . \n" +
-                    "?event  " + OCEL_TIMESTAMP_IRI + " ?timestamp  " +
-                    "}";
+    private static String computeSomeValuesString(Set<String> ids, String thing) {
+        String mergedString = "";
+        if (ids != null) {mergedString = "VALUES ?" + thing + " { " +
+                someThingsString(ids, " ") + " } \n";}
+        return mergedString;
+    }
+
+    private static String someThingsString(Set<String> ids, String splitChar) {
+        String mergedString = "";
+        if (ids != null) {mergedString = ids.stream().map((o) -> "<" + o + ">")
+                        .collect(Collectors.joining(splitChar));}
+        return mergedString;
+    }
+
+    private static String computeURIHasOneOf(Set<String> staticTypes, String thing) {
+        String filterString = "";
+        if (staticTypes != null && !staticTypes.isEmpty()) {
+            filterString = "REGEX(STR(?" + thing + "), \"" + String.join("|", staticTypes) + "\")";
+        }
+        return filterString;
+    }
+
+    public static String qObjects(Set<String> objects, Set<String> staticTypes) {
+        return "PREFIX : <" + eventOntoPrefix + "> \n" +
+                "SELECT distinct ?object ?att ?attType ?attKey ?attValue \n" +
+                "WHERE {?object a " + OCEL_OBJECT_IRI + " . \n" +
+                " OPTIONAL { \n" +
+                "  ?object " + O_HAS_A_ROLE + " ?att . \n" +
+                "  ?att a " + ATTRIBUTE_CONCEPT + "; \n" +
+                ATT_TYPE_ATT + " ?attType; \n" +
+                ATT_KEY_ATT + " ?attKey; \n" +
+                ATT_VAL_ATT + " ?attValue  } \n" + computeFilterForObject(objects, staticTypes) +
+                "}";
+    }
+
+    static final String qEvents = "PREFIX : <" + eventOntoPrefix + "> \n" +
+                "SELECT distinct * \n" +
+                "WHERE { ?event a " + OCEL_EVENT_IRI + " . \n" +
+                "OPTIONAL { \n" +
+                "  ?event " + E_HAS_A_ROLE + " ?att . \n" +
+                "  ?att a " + ATTRIBUTE_CONCEPT + "; \n" +
+                ATT_TYPE_ATT + " ?attType; \n" +
+                ATT_KEY_ATT + " ?attKey; \n" +
+                ATT_VAL_ATT + " ?attValue  } " +
+                "}";
+
+    static final String qEventsWithObjects =  "PREFIX : <" + eventOntoPrefix + "> \n" +
+                "SELECT distinct * \n" +
+                "WHERE { ?event a " + OCEL_EVENT_IRI + " . \n" +
+                        "?event " + E_CONTAINS_O_ROLE + " ?object  . }";
+    ;
+
+    public static String qEventsWithEverything(Set<String> objects) {
+        return "PREFIX : <" + eventOntoPrefix + "> \n" +
+                "SELECT distinct * \n" +
+                "WHERE { ?event a " + OCEL_EVENT_IRI + " . \n" +
+                "?event " + E_CONTAINS_O_ROLE + " ?object  . \n" +
+                "?event  " + OCEL_TIMESTAMP_IRI + " ?timestamp . \n  " +
+                "?event  " + OCEL_ACTIVITY_IRI + " ?activity . \n " + computeFilter(objects) + "}";
+    }
+
+    private static String computeFilterForObject(Set<String> objects, Set<String> staticTypes) {
+        if ((staticTypes == null || staticTypes.isEmpty()) &&( objects == null || objects.isEmpty() )) {
+            return "";
+        }
+        if (staticTypes == null || staticTypes.isEmpty()) {
+            return "FILTER EXISTS { ?event " + E_CONTAINS_O_ROLE + " ?object . \n" +
+                    "?event " + E_CONTAINS_O_ROLE + " ?o2. \n" +
+                    "FILTER(?" + "object" + " IN (" + someThingsString(objects, ", ") + ")" + " || " +
+                    "?o2" + " IN (" + someThingsString(objects, ", ") + "))}";
+        } else if (objects == null || objects.isEmpty()) {
+            return "FILTER EXISTS { ?event " + E_CONTAINS_O_ROLE + " ?o2 . \n" +
+                    "?event " + E_CONTAINS_O_ROLE + " ?o2. \n" + "FILTER(" +
+                    computeURIHasOneOf(staticTypes, "object") + ")}";
+        } else {
+            return "FILTER EXISTS { ?event " + E_CONTAINS_O_ROLE + " ?object . \n" +
+                    "?event " + E_CONTAINS_O_ROLE + " ?o2. \n" +
+                    "FILTER(?" + "object" + " IN (" + someThingsString(objects, ", ") + ")" + " || " +
+                    "?o2" + " IN (" + someThingsString(objects, ", ") + ") || "
+                    + computeURIHasOneOf(staticTypes, "object") + ")}";
+        }
+    }
+
+    private static String computeFilter(Set<String> objects) {
+        if ( objects == null || objects.isEmpty() )
+            return "";
+        else {
+            return  "FILTER EXISTS {?event " + E_CONTAINS_O_ROLE + " ?o2 . \n"
+                    + "FILTER (?o2 IN (" + someThingsString(objects, ", ") + ")" + ")}";
+        }
+    }
+
+    static final String qEventsWithTimestamps = "PREFIX : <" + eventOntoPrefix + "> \n" +
+                "SELECT distinct * \n" +
+                "WHERE {?event a " + OCEL_EVENT_IRI + " . \n" +
+                "?event  " + OCEL_TIMESTAMP_IRI + " ?timestamp  " +
+                "}";
 
     static final String qEventsWithActivities =
             "PREFIX : <" + eventOntoPrefix + "> \n" +
@@ -174,13 +247,22 @@ public class OCELConstants {
                     "?event  " + OCEL_ACTIVITY_IRI + " ?activity " +
                     "}";
 
-    static final String qObjectWithType =
-            "PREFIX : <" + eventOntoPrefix + "> \n" +
-                    "SELECT distinct * \n" +
-                    "WHERE { " +
-                    "?object a " + OCEL_OBJECT_IRI + " . \n" +
-                    "?object  " + OCEL_OBJECTTYPE_IRI + " ?objectType " +
-                    "}";
+    public static String qEventsWithActivities(Set<String> eventIDs) {
+        return "PREFIX : <" + eventOntoPrefix + "> \n" +
+                "SELECT distinct * \n" +
+                "WHERE { " + computeSomeValuesString(eventIDs, "event") +
+                "?event a " + OCEL_EVENT_IRI + " . \n" +
+                "?event  " + OCEL_ACTIVITY_IRI + " ?activity " +
+                "}";
+    }
+
+    static String qObjectWithType(Set<String> objects, Set<String> staticTypes) {
+        return "PREFIX : <" + eventOntoPrefix + "> \n" +
+                "SELECT distinct ?object ?objectType \n" +
+                "WHERE { ?object a " + OCEL_OBJECT_IRI + " . \n" +
+                "?object  " + OCEL_OBJECTTYPE_IRI + " ?objectType . \n" + computeFilterForObject(objects, staticTypes
+        ) + "}";
+    }
 
 
     public static synchronized OWLOntology getDefaultEventOntology() throws OWLOntologyCreationException {

@@ -146,9 +146,13 @@ public class UMLEditor extends JInternalFrame implements DiagramEditor {
     return frame;
   }
 
-  protected void initUI() {
+  protected void initUI() { initUI(false); }
+
+  protected void initUI(boolean barebones) {
     this.getContentPane().removeAll();
-    this.setJMenuBar(createMenuBar());
+    if(!barebones) {
+      this.setJMenuBar(createMenuBar());
+    }
     this.getContentPane().setLayout(new BorderLayout());
     this.getContentPane().add(createToolbar(), BorderLayout.WEST);
     JScrollPane scrollPane = new JScrollPane(diagramPanel);
@@ -190,14 +194,14 @@ public class UMLEditor extends JInternalFrame implements DiagramEditor {
         if (iri != null) {
           if (UIUtility.confirm(UMLEditorMessages.SAVE_FILE)) {
               UIUtility.selectFileToSave(FileType.ONTOLOGY).ifPresent(f ->
-                      OWLExporter.export(iri, diagramPanel.getShapes(false), f).ifPresent(o -> {
+                        OWLExporter.export(iri, diagramPanel.getShapes(false), f).ifPresent(o -> {
                           ontology = o;
                           loadedFile = f;
                       }));
           }
         }
         if (listener != null)
-          if (!identifier.isEmpty()) {
+          if (identifier != null && !identifier.isEmpty()) {
             listener.store(identifier, ontology);
           } else {
             listener.store(getOntologyName(), ontology);

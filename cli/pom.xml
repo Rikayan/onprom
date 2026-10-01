@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>it.unibz.inf.onprom</groupId>
+        <artifactId>onprom</artifactId>
+        <version>2.4.0</version>
+    </parent>
+
+    <artifactId>cli</artifactId>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>it.unibz.inf.onprom</groupId>
+            <artifactId>umleditor</artifactId>
+            <version>2.4.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.lanterna</groupId>
+            <artifactId>lanterna</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>it.unibz.inf.onprom</groupId>
+            <artifactId>annotationeditor</artifactId>
+            <version>2.4.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.javers</groupId>
+            <artifactId>javers-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>tools.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.2</version>
+
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+
+                        <configuration>
+                            <outputFile>${project.build.directory}/onprom-cli.jar</outputFile>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>it.unibz.inf.onprom.cli.MainOnprom</mainClass>
+                                </transformer>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>module-info.class</exclude>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.6.3</version>
+
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>jpackage</id>-->
+<!--                        <phase>verify</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>exec</goal>-->
+<!--                        </goals>-->
+
+<!--                        <configuration>-->
+<!--                            <executable>jpackage</executable>-->
+<!--                            <arguments>-->
+<!--                                <argument>&#45;&#45;name</argument>-->
+<!--                                <argument>onprom-cli</argument>-->
+
+<!--                                <argument>&#45;&#45;input</argument>-->
+<!--                                <argument>${project.build.directory}</argument>-->
+
+<!--                                <argument>&#45;&#45;dest</argument>-->
+<!--                                <argument>${project.build.directory}</argument>-->
+
+<!--                                <argument>&#45;&#45;main-jar</argument>-->
+<!--                                <argument>onprom-cli.jar</argument>-->
+
+<!--                                <argument>&#45;&#45;main-class</argument>-->
+<!--                                <argument>it.unibz.inf.onprom.cli.MainOnprom</argument>-->
+
+<!--                                <argument>&#45;&#45;type</argument>-->
+<!--                                <argument>app-image</argument>-->
+<!--                            </arguments>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

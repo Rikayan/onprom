@@ -43,6 +43,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -159,12 +160,20 @@ public class UMLDiagramPanel extends JPanel implements UMLDiagram {
             }
             relationship = new Inheritance(secondClass, firstClass);
         } else {
-            if (firstClass.equals(secondClass) && tempAnchors.size() < 1) {
+            if (firstClass.equals(secondClass) && tempAnchors.isEmpty()) {
                 tempAnchors.add(new RelationAnchor(firstClass.getEndX() + 50, firstClass.getCenterY()));
                 tempAnchors.add(new RelationAnchor(secondClass.getEndX() + 50, secondClass.getEndY() + 50));
                 tempAnchors.add(new RelationAnchor(secondClass.getCenterX(), secondClass.getEndY() + 50));
             }
+            List<Relationship> sharedRelations = new ArrayList<>(firstClass.getRelations().stream()
+                    .filter(r -> r.getSecondClass().equals(secondClass)).toList());
+            sharedRelations.addAll(secondClass.getRelations().stream()
+                    .filter(r -> r.getSecondClass().equals(firstClass)).toList());
             relationship = new Association("relation_" + shapes.size(), firstClass, secondClass);
+            if(!sharedRelations.isEmpty()) {
+                sharedRelations.add(relationship);
+                setAnchorsForMultipleRelations(sharedRelations, firstClass, secondClass);
+            }
         }
         relationship.addAnchors(tempAnchors);
         shapes.add(relationship);
@@ -177,6 +186,33 @@ public class UMLDiagramPanel extends JPanel implements UMLDiagram {
         DiagramUndoManager.addEdit(EditFactory.relationCreated(this, relationship, null, true));
         tempAnchors.clear();
         shapes.clearSelection();
+    }
+
+    private void setAnchorsForMultipleRelations(List<Relationship> sharedRelations,
+                                                UMLClass firstClass, UMLClass secondClass) {
+        double x1 = firstClass.getCenterX();
+        double y1 = firstClass.getCenterY();
+        double x2 = secondClass.getCenterX();
+        double y2 = secondClass.getCenterY();
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        double length = Math.sqrt(dx * dx + dy * dy);
+        double unitPerpX = -dy / length;
+        double unitPerpY = dx / length;
+        int total = sharedRelations.size();
+        double spacing = 20.0; // Pixels between lines
+
+        for (int i = 0; i < total; i++) {
+            Relationship relationship = sharedRelations.get(i);
+            double offset = (i - (total - 1) / 2.0) * spacing;
+            double ax1 = x1 + (dx * 0.33) + (unitPerpX * offset);
+            double ay1 = y1 + (dy * 0.33) + (unitPerpY * offset);
+            double ax2 = x1 + (dx * 0.66) + (unitPerpX * offset);
+            double ay2 = y1 + (dy * 0.66) + (unitPerpY * offset);
+            relationship.addAnchor((int) ax1, (int) ay1);
+            relationship.addAnchor((int) ax2, (int) ay2);
+            relationship.setParallelRelationsInfo(offset, unitPerpX, unitPerpY);
+        }
     }
 
     @Override

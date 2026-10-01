@@ -28,6 +28,7 @@ package it.unibz.inf.onprom.ui.component;
 
 import com.google.common.collect.Sets;
 import it.unibz.inf.onprom.data.FileType;
+import lombok.Getter;
 
 import javax.annotation.Nonnull;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -39,7 +40,9 @@ import java.util.Set;
  * @author T. E. Kalayci on 26-Apr-2017
  */
 public class TreeNode<T> extends DefaultMutableTreeNode {
+    @Getter
     private final String title;
+    @Getter
     private final FileType type;
     private final int id;
     private final ZonedDateTime timestamp = ZonedDateTime.now();
@@ -95,16 +98,8 @@ public class TreeNode<T> extends DefaultMutableTreeNode {
         return title + " (" + timestamp + ")";
     }
 
-    public FileType getType() {
-        return type;
-    }
-
     public String getIdentifier() {
         return Integer.toString(id);
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     String getIcon() {

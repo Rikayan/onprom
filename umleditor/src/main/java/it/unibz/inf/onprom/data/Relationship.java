@@ -48,6 +48,7 @@ public abstract class Relationship extends AbstractDiagramShape<UMLDiagram> {
     private UMLClass firstClass;
     private UMLClass secondClass;
     private List<RelationAnchor> anchors;
+    protected ParallelRelationInfo info = null;
 
     @JsonIgnore
     private List<RelationAnchor> selectedAnchors;
@@ -201,12 +202,20 @@ public abstract class Relationship extends AbstractDiagramShape<UMLDiagram> {
         }
     }
 
+    @Override
+    public void setState(State state) {
+        super.setState(state);
+        if (anchors != null) {
+            anchors.forEach(anchor -> anchor.setState(state));
+        }
+    }
+
     RelationAnchor getFirstAnchor() {
-        return anchors.get(0);
+        return anchors.getFirst();
     }
 
     RelationAnchor getLastAnchor() {
-        return anchors.get(anchors.size() - 1);
+        return anchors.getLast();
     }
 
     public RelationAnchor addAnchor(int x, int y) {
@@ -271,11 +280,27 @@ public abstract class Relationship extends AbstractDiagramShape<UMLDiagram> {
                     .getCenterX()) / 2, (firstClass.getCenterY() + secondClass
                     .getCenterY()) / 2};
         }
-        //return middle anchor's position
-        int[] position = getAnchors().get(getAnchorCount() / 2).getPosition();
-        position[0] += DrawingUtility.MARGIN;
-        position[1] -= DrawingUtility.MARGIN;
-        return position;
+        if(this.info == null || this.anchors.size() == 1) {
+            //return middle anchor's position
+            int[] position = getAnchors().get(getAnchorCount() / 2).getPosition();
+            position[0] += DrawingUtility.MARGIN;
+            position[1] -= DrawingUtility.MARGIN;
+            return position;
+        } else {
+            RelationAnchor a1 = anchors.get(0);
+            RelationAnchor a2 = anchors.get(1);
+
+            // Calculate the center point between the two anchors
+            int midX = (a1.getX() + a2.getX()) / 2;
+            int midY = (a1.getY() + a2.getY()) / 2;
+
+            // Apply offset so the text sits ABOVE the line rather than on it
+            // Use the unit perpendicular to push it "out"
+            int textX = (int) (midX + (this.info.unitPerpX() * DrawingUtility.MARGIN));
+            int textY = (int) (midY + (this.info.unitPerpY() * DrawingUtility.MARGIN));
+
+            return new int[]{textX, textY};
+        }
     }
 
     private void drawAnchors(Graphics2D g2d) {
@@ -290,5 +315,9 @@ public abstract class Relationship extends AbstractDiagramShape<UMLDiagram> {
 
     public boolean isSecondFunctional() {
         return true;
+    }
+
+    public void setParallelRelationsInfo(double offset, double unitPerpX, double unitPerpY) {
+        info = new ParallelRelationInfo(offset, unitPerpX, unitPerpY);
     }
 }

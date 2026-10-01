@@ -5,8 +5,6 @@ import it.unibz.inf.pm.ocel.entity.OcelEvent;
 import it.unibz.inf.pm.ocel.entity.OcelLog;
 import it.unibz.inf.pm.ocel.entity.OcelObject;
 import it.unibz.inf.pm.ocel.logging.OcelLogging;
-import org.deckfour.xes.util.XsDateTimeConversion;
-import org.deckfour.xes.util.XsDateTimeConversionJava7;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -16,13 +14,13 @@ import org.dom4j.io.XMLWriter;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 public class OcelXmlSerializer {
-    protected XsDateTimeConversion xsDateTimeConversion = new XsDateTimeConversionJava7();
-    private String prefix = "ocel:";
 
     public OcelXmlSerializer() {
     }
@@ -48,7 +46,7 @@ public class OcelXmlSerializer {
         return str.substring(i + prefix.length());
     }
 
-    public void serialize(OcelLog log, OutputStream out) throws IOException, DocumentException {
+    public static void serialize(OcelLog log, OutputStream out) throws IOException, DocumentException {
         OcelLogging.log("start serializing log to OCEL.XML", OcelLogging.Importance.DEBUG);
         long start = System.currentTimeMillis();
 
@@ -95,7 +93,7 @@ public class OcelXmlSerializer {
 
 
         //loop for global tag
-        Map<String, Object> global_logMap = log.getGlobalLog();
+        Map<String, OcelAttribute> global_logMap = log.getGlobalLog();
         for (String stringkey : global_logMap.keySet()) {
 //            if ((prefix + "version").equals(stringkey)) {
 //                Element global_log_string = global_log.addElement("string");
@@ -104,7 +102,7 @@ public class OcelXmlSerializer {
 //                global_log_string.setName("string");
 //            }
             if ((prefix + "attribute-names").equals(stringkey)) {
-                List attributeNames = (ArrayList) global_logMap.get(stringkey);
+                Collection<String> attributeNames = global_logMap.get(stringkey).getThing().getListValue();
                 for (Object attr : attributeNames) {
                     Element global_log_string = attribute_names.addElement("string");
                     global_log_string.addAttribute("key", "attribute-name");
@@ -113,7 +111,7 @@ public class OcelXmlSerializer {
                 }
             }
             if ((prefix + "object-types").equals(stringkey)) {
-                List objectTypes = (ArrayList) global_logMap.get(stringkey);
+                Collection<String> objectTypes = global_logMap.get(stringkey).getThing().getListValue();
                 for (Object attr : objectTypes) {
                     Element global_log_string = object_types.addElement("string");
                     global_log_string.addAttribute("key", "object-type");
@@ -153,7 +151,9 @@ public class OcelXmlSerializer {
             Element eventTimestamp = event.addElement("date");
             eventTimestamp.setName("date");
             eventTimestamp.addAttribute("key", "timestamp");
-            eventTimestamp.addAttribute("value", ocelEvent.getTimestamp());
+            eventTimestamp.addAttribute("value", ocelEvent.getTimestamp().format(
+                    DateTimeFormatter.ISO_LOCAL_DATE
+            ));
             //write omap
             List<String> omap = ocelEvent.getOmap();
             //create <event></list> node
@@ -176,7 +176,7 @@ public class OcelXmlSerializer {
                 OcelAttribute ocelAttribute = vmap.get(itemkey);
                 Element event_vmaplist_string = eventVmapList.addElement("string");
                 event_vmaplist_string.addAttribute("key", itemkey);
-                event_vmaplist_string.addAttribute("value", ocelAttribute.getValue());
+                event_vmaplist_string.addAttribute("value", ocelAttribute.getThing().toString());
                 event_vmaplist_string.setName("string");
             }
         }
@@ -211,7 +211,7 @@ public class OcelXmlSerializer {
                 OcelAttribute ocelAttribute = ovmap.get(itemkey);
                 Element object_list_string = objectOVmapList.addElement("string");
                 object_list_string.addAttribute("key", itemkey);
-                object_list_string.addAttribute("value", ocelAttribute.getValue());
+                object_list_string.addAttribute("value", ocelAttribute.getThing().toString());
                 object_list_string.setName("string");
             }
         }
@@ -231,7 +231,7 @@ public class OcelXmlSerializer {
         OcelLogging.log("finished serializing log" + duration, OcelLogging.Importance.DEBUG);
     }
 
-    static void writeXMLElementsFromMap(Element xmlElement, Map<String, Object> map, String stringkey) {
+    static void writeXMLElementsFromMap(Element xmlElement, Map<String, OcelAttribute> map, String stringkey) {
         Map<String, String> tmpMap = (Map<String, String>) map.get(stringkey);
         for (String key : tmpMap.keySet()) {
             String value = tmpMap.get(key);

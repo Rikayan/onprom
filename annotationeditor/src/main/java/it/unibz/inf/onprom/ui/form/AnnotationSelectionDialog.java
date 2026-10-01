@@ -43,7 +43,7 @@ public class AnnotationSelectionDialog extends JDialog {
 
     public AnnotationSelectionDialog(Stream<UMLClass> classStream) {
         setModal(true);
-        setTitle("Select concepts to use as an annotation type");
+        setTitle("Select concepts to use as annotation type(s)");
         setLayout(new BorderLayout());
 
         JPanel pnlConcepts = new JPanel(null);

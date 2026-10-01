@@ -43,6 +43,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 
 public class XESLogExtractor implements Extractor<XLog> {
@@ -51,7 +52,7 @@ public class XESLogExtractor implements Extractor<XLog> {
     public static OWLOntology getOntology() {
         try {
             return OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(
-                    XESLogExtractor.class.getResourceAsStream(XESConstants.eventOntoPath)
+                    Objects.requireNonNull(XESLogExtractor.class.getResourceAsStream(XESConstants.eventOntoPath))
             );
         } catch (OWLOntologyCreationException e) {
             e.printStackTrace();

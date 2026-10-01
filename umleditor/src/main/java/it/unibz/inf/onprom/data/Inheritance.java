@@ -75,13 +75,11 @@ public class Inheritance extends Relationship {
     }
 
     public int getStartY() {
-        switch (trianglePosition) {
-            case TOP:
-              return getSuperclass().getStartY() - cos30;
-            case BOTTOM:
-              return getSuperclass().getEndY() + cos30;
-        }
-        return getSuperclass().getCenterY();
+        return switch (trianglePosition) {
+            case TOP -> getSuperclass().getStartY() - cos30;
+            case BOTTOM -> getSuperclass().getEndY() + cos30;
+            default -> getSuperclass().getCenterY();
+        };
     }
 
   //TODO a different triangle and line drawn for each subclass

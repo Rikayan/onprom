@@ -27,6 +27,8 @@
 package it.unibz.inf.onprom.data;
 
 import it.unibz.inf.onprom.interfaces.DiagramShape;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
@@ -35,10 +37,13 @@ import java.util.Set;
  * <p>
  * @author T. E. Kalayci on 17/11/16.
  */
+@Getter
 public class NavigationalAttribute {
+    @Setter
     private Set<DiagramShape> path;
     private UMLClass umlClass;
     private Attribute attribute;
+    @Setter
     private String filterClause;
 
     NavigationalAttribute() {
@@ -58,22 +63,6 @@ public class NavigationalAttribute {
         path = null;
         umlClass = null;
         attribute = null;
-    }
-
-    public Set<DiagramShape> getPath() {
-        return path;
-    }
-
-    public void setPath(Set<DiagramShape> path) {
-        this.path = path;
-    }
-
-    public UMLClass getUmlClass() {
-        return umlClass;
-    }
-
-    public Attribute getAttribute() {
-        return attribute;
     }
 
     @Override
@@ -107,11 +96,4 @@ public class NavigationalAttribute {
         return super.equals(object);
     }
 
-    public String getFilterClause() {
-        return filterClause;
-    }
-
-    public void setFilterClause(String _regex) {
-        filterClause = _regex;
-    }
 }

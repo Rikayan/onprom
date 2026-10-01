@@ -31,6 +31,7 @@ import it.unibz.inf.onprom.interfaces.*;
 import it.unibz.inf.onprom.ui.edit.AddDeleteAnnotationEdit;
 import it.unibz.inf.onprom.ui.interfaces.DiagramEditor;
 import it.unibz.inf.onprom.ui.utility.*;
+import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,6 +49,7 @@ import java.util.stream.Stream;
  * <p>
  */
 public class AnnotationDiagramPanel extends UMLDiagramPanel implements AnnotationDiagram {
+    @Setter
     private AnnotationFactory factory;
     private final DiagramNavigator diagramNavigator = new DiagramNavigator(this);
 
@@ -83,14 +85,14 @@ public class AnnotationDiagramPanel extends UMLDiagramPanel implements Annotatio
                             return;
                         }
                     }
+                    // Allowing updates temporarily for debugging purposes
+                    // TODO: remove this later
+                    isUpdateAllowed = true;
                     super.mousePressed(e);
+                    isUpdateAllowed = false;
                 }
             }
         };
-    }
-
-    public void setFactory(AnnotationFactory factory) {
-        this.factory = factory;
     }
 
     public void startNavigation(NavigationListener navigationListener) {

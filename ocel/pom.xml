@@ -74,10 +74,17 @@
             <version>2.11.0</version>
         </dependency>
 
+        <!-- Source: https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>tools.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
+            <version>1.18.42</version>
             <scope>compile</scope>
         </dependency>
 
@@ -114,6 +121,29 @@
             <groupId>deckfour</groupId>
             <artifactId>openxes</artifactId>
             <version>2.26</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.17.8</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owlapi-api</artifactId>
+            <version>5.5.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>24.0.1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

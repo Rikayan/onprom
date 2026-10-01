@@ -34,6 +34,7 @@ import it.unibz.inf.onprom.ui.utility.ZoomUtility;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
@@ -42,7 +43,7 @@ import java.awt.geom.Rectangle2D;
  * to minimize the effort required to implement this interface.
  * @author T. E. Kalayci
  */
-public abstract class AbstractDiagramShape<T extends Diagram> implements DiagramShape<T>, Cloneable {
+public abstract class AbstractDiagramShape<T extends Diagram> implements DiagramShape<T> {
   private int startX;
   private int startY;
   private String name;
@@ -71,11 +72,11 @@ public abstract class AbstractDiagramShape<T extends Diagram> implements Diagram
     startY = y;
   }
 
-    AbstractDiagramShape(String n, int x, int y) {
-        name = n;
-        startX = x;
-        startY = y;
-    }
+  AbstractDiagramShape(String n, int x, int y) {
+      name = n;
+      startX = x;
+      startY = y;
+  }
 
 
   @Override
@@ -206,11 +207,16 @@ public abstract class AbstractDiagramShape<T extends Diagram> implements Diagram
 
   private boolean contains(int x, int y) {
     Shape shape = getShape();
-    if (shape instanceof Line2D) {
-      return shape.intersects(x, y, DrawingUtility.MARGIN, DrawingUtility.MARGIN);
-    } else {
-      return shape.contains(x, y);
-    }
+      if (shape instanceof Line2D) {
+          double size = DrawingUtility.MARGIN;
+          return shape.intersects(x - size / 2.0, y - size / 2.0, size, size);
+      } else if (shape instanceof GeneralPath) {
+          Stroke hitStroke = new BasicStroke(DrawingUtility.MARGIN);
+          Shape hitArea = hitStroke.createStrokedShape(shape);
+          return hitArea.contains(x, y);
+      } else {
+          return shape.contains(x, y);
+      }
   }
 
   Shape getShape() {

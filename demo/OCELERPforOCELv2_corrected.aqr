@@ -1,0 +1,436 @@
+{
+  "@class" : "it.unibz.inf.onprom.data.query.AnnotationQueries",
+  "queries" : [ "java.util.LinkedHashSet", [ {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Payment (\"Payment\" AS ?_L_871222828) ?_I1_871222828\nWHERE\n  { ?Payment  a                     <http://www.example.com/dolibarr/Payment> ;\n              <http://www.example.com/dolibarr/paymentId>  ?_I1_871222828}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Object",
+    "component" : [ "_L_871222828", "_I1_871222828", "Payment" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Payment ?_I1_871222828 (\"Payment\" AS ?_L_871222828)\nWHERE\n  { ?Payment  <http://www.example.com/dolibarr/paymentId>  ?_I1_871222828}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/objectId",
+    "firstComponent" : [ "_L_871222828", "_I1_871222828", "Payment" ],
+    "secondComponent" : [ "_I1_871222828" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Payment (\"Payment\" AS ?_L_871222828) ?_I1_871222828 (\"DoPayment\" AS ?_L_1963110894) ?_I1_1963110894 ?_I2_1963110894\nWHERE\n  { ?Payment  a                     <http://www.example.com/dolibarr/Payment> ;\n              <http://www.example.com/dolibarr/paymentId>  ?_I1_871222828 ;\n              <http://www.example.com/dolibarr/paymentId>  ?_I1_1963110894 ;\n              <http://www.example.com/dolibarr/paymentDate>  ?_I2_1963110894}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/corr",
+    "firstComponent" : [ "_L_1963110894", "_I1_1963110894", "_I2_1963110894", "Payment" ],
+    "secondComponent" : [ "_L_871222828", "_I1_871222828", "Payment" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Payment ?Invoice (\"Payment\" AS ?_L_871222828) ?_I1_871222828 (\"DoInvoice\" AS ?_L_1012095696) ?_I1_1012095696 ?_I2_1012095696\nWHERE\n  { ?PaymentItem  <http://www.example.com/dolibarr/relatedPayment>  ?Payment ;\n              <http://www.example.com/dolibarr/hasInvoice>  ?Invoice .\n    ?Payment  <http://www.example.com/dolibarr/paymentId>  ?_I1_871222828 .\n    ?Invoice  <http://www.example.com/dolibarr/invoiceId>  ?_I1_1012095696 ;\n              <http://www.example.com/dolibarr/invoiceDate>  ?_I2_1012095696}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/corr",
+    "firstComponent" : [ "_L_1012095696", "_I1_1012095696", "_I2_1012095696", "Invoice" ],
+    "secondComponent" : [ "_L_871222828", "_I1_871222828", "Payment" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Invoice (\"DoInvoice\" AS ?_L_1012095696) ?_I1_1012095696 ?_I2_1012095696\nWHERE\n  { ?Invoice  a                     <http://www.example.com/dolibarr/Invoice> ;\n              <http://www.example.com/dolibarr/invoiceId>  ?_I1_1012095696 ;\n              <http://www.example.com/dolibarr/invoiceDate>  ?_I2_1012095696}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Event",
+    "component" : [ "_L_1012095696", "_I1_1012095696", "_I2_1012095696", "Invoice" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Invoice ?_I1_1012095696 (\"DoInvoice\" AS ?_L_1012095696) ?_I2_1012095696\nWHERE\n  { ?Invoice  <http://www.example.com/dolibarr/invoiceId>  ?_I1_1012095696 ;\n              <http://www.example.com/dolibarr/invoiceDate>  ?_I2_1012095696}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/eventId",
+    "firstComponent" : [ "_L_1012095696", "_I1_1012095696", "_I2_1012095696", "Invoice" ],
+    "secondComponent" : [ "_I1_1012095696" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Invoice ?_I2_1012095696 (\"DoInvoice\" AS ?_L_1012095696) ?_I1_1012095696\nWHERE\n  { ?Invoice  <http://www.example.com/dolibarr/invoiceDate>  ?_I2_1012095696 ;\n              <http://www.example.com/dolibarr/invoiceId>  ?_I1_1012095696}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/timestamp",
+    "firstComponent" : [ "_L_1012095696", "_I1_1012095696", "_I2_1012095696", "Invoice" ],
+    "secondComponent" : [ "_I2_1012095696" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Customer (\"Customer\" AS ?_I0_1670781973)\nWHERE\n  { ?Customer  a  <http://www.example.com/dolibarr/Customer>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Type",
+    "component" : [ "_I0_1670781973", "Customer" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Customer (\"Customer\" AS ?_I0_1670781973)\nWHERE\n  { ?Customer  a  <http://www.example.com/dolibarr/Customer>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/typeString",
+    "firstComponent" : [ "_I0_1670781973", "Customer" ],
+    "secondComponent" : [ "_I0_1670781973" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Customer (\"Customer\" AS ?_I0_1670781973) (\"Customer\" AS ?_L_137957534) ?_I1_137957534\nWHERE\n  { ?Customer  a                    <http://www.example.com/dolibarr/Customer> ;\n              <http://www.example.com/dolibarr/customerId>  ?_I1_137957534}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/has",
+    "firstComponent" : [ "_L_137957534", "_I1_137957534", "Customer" ],
+    "secondComponent" : [ "_I0_1670781973", "Customer" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Shipment (\"shipmentActivity\" AS ?_L_1473767646) (\"DoShipment\" AS ?_I1_1473767646)\nWHERE\n  { ?Shipment  a  <http://www.example.com/dolibarr/Shipment>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Activity",
+    "component" : [ "_L_1473767646", "_I1_1473767646", "Shipment" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Shipment (\"DoShipment\" AS ?_I1_1473767646) (\"shipmentActivity\" AS ?_L_1473767646)\nWHERE\n  { ?Shipment  a  <http://www.example.com/dolibarr/Shipment>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/name",
+    "firstComponent" : [ "_L_1473767646", "_I1_1473767646", "Shipment" ],
+    "secondComponent" : [ "_I1_1473767646" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Shipment (\"shipmentActivity\" AS ?_L_1473767646) (\"DoShipment\" AS ?_I1_1473767646) (\"DoShipment\" AS ?_L_1209408095) ?_I1_1209408095 ?_I2_1209408095\nWHERE\n  { ?Shipment  a                    <http://www.example.com/dolibarr/Shipment> ;\n              <http://www.example.com/dolibarr/shipmentId>  ?_I1_1209408095 ;\n              <http://www.example.com/dolibarr/shipmentDate>  ?_I2_1209408095}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/observes",
+    "firstComponent" : [ "_L_1209408095", "_I1_1209408095", "_I2_1209408095", "Shipment" ],
+    "secondComponent" : [ "_L_1473767646", "_I1_1473767646", "Shipment" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Shipment (\"DoShipment\" AS ?_L_1209408095) ?_I1_1209408095 ?_I2_1209408095\nWHERE\n  { ?Shipment  a                    <http://www.example.com/dolibarr/Shipment> ;\n              <http://www.example.com/dolibarr/shipmentId>  ?_I1_1209408095 ;\n              <http://www.example.com/dolibarr/shipmentDate>  ?_I2_1209408095}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Event",
+    "component" : [ "_L_1209408095", "_I1_1209408095", "_I2_1209408095", "Shipment" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Shipment ?_I1_1209408095 (\"DoShipment\" AS ?_L_1209408095) ?_I2_1209408095\nWHERE\n  { ?Shipment  <http://www.example.com/dolibarr/shipmentId>  ?_I1_1209408095 ;\n              <http://www.example.com/dolibarr/shipmentDate>  ?_I2_1209408095}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/eventId",
+    "firstComponent" : [ "_L_1209408095", "_I1_1209408095", "_I2_1209408095", "Shipment" ],
+    "secondComponent" : [ "_I1_1209408095" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Shipment ?_I2_1209408095 (\"DoShipment\" AS ?_L_1209408095) ?_I1_1209408095\nWHERE\n  { ?Shipment  <http://www.example.com/dolibarr/shipmentDate>  ?_I2_1209408095 ;\n              <http://www.example.com/dolibarr/shipmentId>  ?_I1_1209408095}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/timestamp",
+    "firstComponent" : [ "_L_1209408095", "_I1_1209408095", "_I2_1209408095", "Shipment" ],
+    "secondComponent" : [ "_I2_1209408095" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Invoice (\"DoInvoice\" AS ?_I0_1354307957)\nWHERE\n  { ?Invoice  a  <http://www.example.com/dolibarr/Invoice>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Activity",
+    "component" : [ "_I0_1354307957", "Invoice" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Invoice (\"DoInvoice\" AS ?_I0_1354307957)\nWHERE\n  { ?Invoice  a  <http://www.example.com/dolibarr/Invoice>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/name",
+    "firstComponent" : [ "_I0_1354307957", "Invoice" ],
+    "secondComponent" : [ "_I0_1354307957" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Invoice (\"DoInvoice\" AS ?_I0_1354307957) (\"DoInvoice\" AS ?_L_1012095696) ?_I1_1012095696 ?_I2_1012095696\nWHERE\n  { ?Invoice  a                     <http://www.example.com/dolibarr/Invoice> ;\n              <http://www.example.com/dolibarr/invoiceId>  ?_I1_1012095696 ;\n              <http://www.example.com/dolibarr/invoiceDate>  ?_I2_1012095696}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/observes",
+    "firstComponent" : [ "_L_1012095696", "_I1_1012095696", "_I2_1012095696", "Invoice" ],
+    "secondComponent" : [ "_I0_1354307957", "Invoice" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Payment (\"DoPayment\" AS ?_I0_808722212)\nWHERE\n  { ?Payment  a  <http://www.example.com/dolibarr/Payment>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Activity",
+    "component" : [ "_I0_808722212", "Payment" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Payment (\"DoPayment\" AS ?_I0_808722212)\nWHERE\n  { ?Payment  a  <http://www.example.com/dolibarr/Payment>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/name",
+    "firstComponent" : [ "_I0_808722212", "Payment" ],
+    "secondComponent" : [ "_I0_808722212" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Payment (\"DoPayment\" AS ?_I0_808722212) (\"DoPayment\" AS ?_L_1963110894) ?_I1_1963110894 ?_I2_1963110894\nWHERE\n  { ?Payment  a                     <http://www.example.com/dolibarr/Payment> ;\n              <http://www.example.com/dolibarr/paymentId>  ?_I1_1963110894 ;\n              <http://www.example.com/dolibarr/paymentDate>  ?_I2_1963110894}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/observes",
+    "firstComponent" : [ "_L_1963110894", "_I1_1963110894", "_I2_1963110894", "Payment" ],
+    "secondComponent" : [ "_I0_808722212", "Payment" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Product (\"Product\" AS ?_I0_461496727)\nWHERE\n  { ?Product  a  <http://www.example.com/dolibarr/Product>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Type",
+    "component" : [ "_I0_461496727", "Product" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Product (\"Product\" AS ?_I0_461496727)\nWHERE\n  { ?Product  a  <http://www.example.com/dolibarr/Product>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/typeString",
+    "firstComponent" : [ "_I0_461496727", "Product" ],
+    "secondComponent" : [ "_I0_461496727" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Order (\"Order\" AS ?_L_951171435) ?_I1_951171435\nWHERE\n  { ?Order  a                     <http://www.example.com/dolibarr/Order> ;\n            <http://www.example.com/dolibarr/orderId>  ?_I1_951171435}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Object",
+    "component" : [ "_L_951171435", "_I1_951171435", "Order" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Order ?_I1_951171435 (\"Order\" AS ?_L_951171435)\nWHERE\n  { ?Order  <http://www.example.com/dolibarr/orderId>  ?_I1_951171435}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/objectId",
+    "firstComponent" : [ "_L_951171435", "_I1_951171435", "Order" ],
+    "secondComponent" : [ "_I1_951171435" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Order (\"Order\" AS ?_L_951171435) ?_I1_951171435 (\"PlaceOrder\" AS ?_L_594238745) ?_I1_594238745 ?_I2_594238745\nWHERE\n  { ?Order  a                     <http://www.example.com/dolibarr/Order> ;\n            <http://www.example.com/dolibarr/orderId>  ?_I1_951171435 ;\n            <http://www.example.com/dolibarr/orderId>  ?_I1_594238745 ;\n            <http://www.example.com/dolibarr/orderDate>  ?_I2_594238745}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/corr",
+    "firstComponent" : [ "_L_594238745", "_I1_594238745", "_I2_594238745", "Order" ],
+    "secondComponent" : [ "_L_951171435", "_I1_951171435", "Order" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Product (\"priceType\" AS ?_L_211684028) (\"price\" AS ?_I1_211684028)\nWHERE\n  { ?Product  a  <http://www.example.com/dolibarr/Product>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/OAttribute",
+    "component" : [ "_L_211684028", "_I1_211684028", "Product" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Product (\"price\" AS ?_I1_211684028) (\"priceType\" AS ?_L_211684028)\nWHERE\n  { ?Product  a  <http://www.example.com/dolibarr/Product>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/oKey",
+    "firstComponent" : [ "_L_211684028", "_I1_211684028", "Product" ],
+    "secondComponent" : [ "_I1_211684028" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Product (\"priceType\" AS ?_L_211684028) (\"price\" AS ?_I1_211684028) (\"Product\" AS ?_L_552713536) ?_I1_552713536\nWHERE\n  { ?Product  a                     <http://www.example.com/dolibarr/Product> ;\n              <http://www.example.com/dolibarr/productId>  ?_I1_552713536}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/hasOAttribute",
+    "firstComponent" : [ "_L_552713536", "_I1_552713536", "Product" ],
+    "secondComponent" : [ "_L_211684028", "_I1_211684028", "Product" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?ShipmentItem (\"ShippedItems\" AS ?_I0_615876886)\nWHERE\n  { ?ShipmentItem\n              a  <http://www.example.com/dolibarr/ShipmentItem>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Type",
+    "component" : [ "_I0_615876886", "ShipmentItem" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?ShipmentItem (\"ShippedItems\" AS ?_I0_615876886)\nWHERE\n  { ?ShipmentItem\n              a  <http://www.example.com/dolibarr/ShipmentItem>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/typeString",
+    "firstComponent" : [ "_I0_615876886", "ShipmentItem" ],
+    "secondComponent" : [ "_I0_615876886" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?ShipmentItem (\"ShippedItems\" AS ?_I0_615876886) (\"ShippedItems\" AS ?_L_1744346884) ?_I1_1744346884\nWHERE\n  { ?ShipmentItem\n              a                     <http://www.example.com/dolibarr/ShipmentItem> ;\n              <http://www.example.com/dolibarr/shipmentItemId>  ?_I1_1744346884}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/has",
+    "firstComponent" : [ "_L_1744346884", "_I1_1744346884", "ShipmentItem" ],
+    "secondComponent" : [ "_I0_615876886", "ShipmentItem" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?PaymentItem (\"Paymentitem\" AS ?_L_1504239309) ?_I1_1504239309\nWHERE\n  { ?PaymentItem  a                 <http://www.example.com/dolibarr/PaymentItem> ;\n              <http://www.example.com/dolibarr/paymentItemId>  ?_I1_1504239309}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/EAttrValue",
+    "component" : [ "_L_1504239309", "_I1_1504239309", "PaymentItem" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?PaymentItem ?_I1_1504239309 (\"Paymentitem\" AS ?_L_1504239309)\nWHERE\n  { ?PaymentItem  <http://www.example.com/dolibarr/paymentItemId>  ?_I1_1504239309}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/eValue",
+    "firstComponent" : [ "_L_1504239309", "_I1_1504239309", "PaymentItem" ],
+    "secondComponent" : [ "_I1_1504239309" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?PaymentItem (\"Paymentitem\" AS ?_L_1504239309) ?_I1_1504239309 (\"paymentItemType\" AS ?_L_1489866980) (\"PaymentItem\" AS ?_I1_1489866980)\nWHERE\n  { ?PaymentItem  a                 <http://www.example.com/dolibarr/PaymentItem> ;\n              <http://www.example.com/dolibarr/paymentItemId>  ?_I1_1504239309}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/hasEValue",
+    "firstComponent" : [ "_L_1489866980", "_I1_1489866980", "PaymentItem" ],
+    "secondComponent" : [ "_L_1504239309", "_I1_1504239309", "PaymentItem" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?PaymentItem ?Payment (\"Paymentitem\" AS ?_L_1504239309) ?_I1_1504239309 (\"DoPayment\" AS ?_L_1963110894) ?_I1_1963110894 ?_I2_1963110894\nWHERE\n  { ?PaymentItem  <http://www.example.com/dolibarr/relatedPayment>  ?Payment ;\n              <http://www.example.com/dolibarr/paymentItemId>  ?_I1_1504239309 .\n    ?Payment  <http://www.example.com/dolibarr/paymentId>  ?_I1_1963110894 ;\n              <http://www.example.com/dolibarr/paymentDate>  ?_I2_1963110894}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/hasEAttr",
+    "firstComponent" : [ "_L_1963110894", "_I1_1963110894", "_I2_1963110894", "Payment" ],
+    "secondComponent" : [ "_L_1504239309", "_I1_1504239309", "PaymentItem" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Customer (\"Customer\" AS ?_L_137957534) ?_I1_137957534\nWHERE\n  { ?Customer  a                    <http://www.example.com/dolibarr/Customer> ;\n              <http://www.example.com/dolibarr/customerId>  ?_I1_137957534}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Object",
+    "component" : [ "_L_137957534", "_I1_137957534", "Customer" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Customer ?_I1_137957534 (\"Customer\" AS ?_L_137957534)\nWHERE\n  { ?Customer  <http://www.example.com/dolibarr/customerId>  ?_I1_137957534}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/objectId",
+    "firstComponent" : [ "_L_137957534", "_I1_137957534", "Customer" ],
+    "secondComponent" : [ "_I1_137957534" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Customer ?Order (\"Customer\" AS ?_L_137957534) ?_I1_137957534 (\"PlaceOrder\" AS ?_L_594238745) ?_I1_594238745 ?_I2_594238745\nWHERE\n  { ?Customer  <http://www.example.com/dolibarr/createOrder>  ?Order ;\n              <http://www.example.com/dolibarr/customerId>  ?_I1_137957534 .\n    ?Order    <http://www.example.com/dolibarr/orderId>  ?_I1_594238745 ;\n              <http://www.example.com/dolibarr/orderDate>  ?_I2_594238745}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/corr",
+    "firstComponent" : [ "_L_594238745", "_I1_594238745", "_I2_594238745", "Order" ],
+    "secondComponent" : [ "_L_137957534", "_I1_137957534", "Customer" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Customer ?Invoice (\"Customer\" AS ?_L_137957534) ?_I1_137957534 (\"DoInvoice\" AS ?_L_1012095696) ?_I1_1012095696 ?_I2_1012095696\nWHERE\n  { ?Invoice  <http://www.example.com/dolibarr/invoiceTo>  ?Customer .\n    ?Customer  <http://www.example.com/dolibarr/customerId>  ?_I1_137957534 .\n    ?Invoice  <http://www.example.com/dolibarr/invoiceId>  ?_I1_1012095696 ;\n              <http://www.example.com/dolibarr/invoiceDate>  ?_I2_1012095696}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/corr",
+    "firstComponent" : [ "_L_1012095696", "_I1_1012095696", "_I2_1012095696", "Invoice" ],
+    "secondComponent" : [ "_L_137957534", "_I1_137957534", "Customer" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?PaymentItem (\"paymentItemType\" AS ?_L_1489866980) (\"PaymentItem\" AS ?_I1_1489866980)\nWHERE\n  { ?PaymentItem  a  <http://www.example.com/dolibarr/PaymentItem>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Attribute",
+    "component" : [ "_L_1489866980", "_I1_1489866980", "PaymentItem" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?PaymentItem (\"PaymentItem\" AS ?_I1_1489866980) (\"paymentItemType\" AS ?_L_1489866980)\nWHERE\n  { ?PaymentItem  a  <http://www.example.com/dolibarr/PaymentItem>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/key",
+    "firstComponent" : [ "_L_1489866980", "_I1_1489866980", "PaymentItem" ],
+    "secondComponent" : [ "_I1_1489866980" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?PaymentItem ?Payment (\"paymentItemType\" AS ?_L_1489866980) (\"PaymentItem\" AS ?_I1_1489866980) (\"DoPayment\" AS ?_I0_808722212)\nWHERE\n  { ?PaymentItem  <http://www.example.com/dolibarr/relatedPayment>  ?Payment}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/hasEAttribute",
+    "firstComponent" : [ "_I0_808722212", "Payment" ],
+    "secondComponent" : [ "_L_1489866980", "_I1_1489866980", "PaymentItem" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Shipment (\"receieved\" AS ?_L_60698420) (\"beenShipped\" AS ?_I1_60698420)\nWHERE\n  { ?Shipment  a  <http://www.example.com/dolibarr/Shipment>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/related",
+    "component" : [ "_L_60698420", "_I1_60698420", "Shipment" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Shipment (\"beenShipped\" AS ?_I1_60698420) (\"receieved\" AS ?_L_60698420)\nWHERE\n  { ?Shipment  a  <http://www.example.com/dolibarr/Shipment>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/oQualifier",
+    "firstComponent" : [ "_L_60698420", "_I1_60698420", "Shipment" ],
+    "secondComponent" : [ "_I1_60698420" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Shipment ?_value (\"receieved\" AS ?_L_60698420) (\"beenShipped\" AS ?_I1_60698420)\nWHERE\n  { ?ShipmentItem\n              <http://www.example.com/dolibarr/relatedShipment>  ?Shipment ;\n              <http://www.example.com/dolibarr/shipmentItemId>  ?_value}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/oTargets",
+    "firstComponent" : [ "_L_60698420", "_I1_60698420", "Shipment" ],
+    "secondComponent" : [ "_value" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Shipment ?Customer (\"receieved\" AS ?_L_60698420) (\"beenShipped\" AS ?_I1_60698420) (\"Customer\" AS ?_L_137957534) ?_I1_137957534\nWHERE\n  { ?Shipment  <http://www.example.com/dolibarr/shipTo>  ?Customer .\n    ?Customer  <http://www.example.com/dolibarr/customerId>  ?_I1_137957534}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/relatedToObjects",
+    "firstComponent" : [ "_L_137957534", "_I1_137957534", "Customer" ],
+    "secondComponent" : [ "_L_60698420", "_I1_60698420", "Shipment" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Product (\"priceValue\" AS ?_L_2123396090) ?_I1_2123396090\nWHERE\n  { ?Product  a               <http://www.example.com/dolibarr/Product> ;\n              <http://www.example.com/dolibarr/productPrice>  ?_I1_2123396090}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/OAttrValue",
+    "component" : [ "_L_2123396090", "_I1_2123396090", "Product" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Product ?_I1_2123396090 (\"priceValue\" AS ?_L_2123396090)\nWHERE\n  { ?Product  <http://www.example.com/dolibarr/productPrice>  ?_I1_2123396090}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/oValue",
+    "firstComponent" : [ "_L_2123396090", "_I1_2123396090", "Product" ],
+    "secondComponent" : [ "_I1_2123396090" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Product (\"priceValue\" AS ?_L_2123396090) ?_I1_2123396090 (\"priceType\" AS ?_L_211684028) (\"price\" AS ?_I1_211684028)\nWHERE\n  { ?Product  a               <http://www.example.com/dolibarr/Product> ;\n              <http://www.example.com/dolibarr/productPrice>  ?_I1_2123396090}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/hasOValue",
+    "firstComponent" : [ "_L_211684028", "_I1_211684028", "Product" ],
+    "secondComponent" : [ "_L_2123396090", "_I1_2123396090", "Product" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Product (\"priceValue\" AS ?_L_2123396090) ?_I1_2123396090 (\"Product\" AS ?_L_552713536) ?_I1_552713536\nWHERE\n  { ?Product  a                     <http://www.example.com/dolibarr/Product> ;\n              <http://www.example.com/dolibarr/productPrice>        ?_I1_2123396090 ;\n              <http://www.example.com/dolibarr/productId>  ?_I1_552713536}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/hasOAttr",
+    "firstComponent" : [ "_L_552713536", "_I1_552713536", "Product" ],
+    "secondComponent" : [ "_L_2123396090", "_I1_2123396090", "Product" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Order (\"PlaceOrder\" AS ?_I0_10242999)\nWHERE\n  { ?Order  a  <http://www.example.com/dolibarr/Order>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Activity",
+    "component" : [ "_I0_10242999", "Order" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Order (\"PlaceOrder\" AS ?_I0_10242999)\nWHERE\n  { ?Order  a  <http://www.example.com/dolibarr/Order>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/name",
+    "firstComponent" : [ "_I0_10242999", "Order" ],
+    "secondComponent" : [ "_I0_10242999" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Order (\"PlaceOrder\" AS ?_I0_10242999) (\"PlaceOrder\" AS ?_L_594238745) ?_I1_594238745 ?_I2_594238745\nWHERE\n  { ?Order  a                     <http://www.example.com/dolibarr/Order> ;\n            <http://www.example.com/dolibarr/orderId>  ?_I1_594238745 ;\n            <http://www.example.com/dolibarr/orderDate>  ?_I2_594238745}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/observes",
+    "firstComponent" : [ "_L_594238745", "_I1_594238745", "_I2_594238745", "Order" ],
+    "secondComponent" : [ "_I0_10242999", "Order" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Payment (\"DoPayment\" AS ?_L_1963110894) ?_I1_1963110894 ?_I2_1963110894\nWHERE\n  { ?Payment  a                     <http://www.example.com/dolibarr/Payment> ;\n              <http://www.example.com/dolibarr/paymentId>  ?_I1_1963110894 ;\n              <http://www.example.com/dolibarr/paymentDate>  ?_I2_1963110894}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Event",
+    "component" : [ "_L_1963110894", "_I1_1963110894", "_I2_1963110894", "Payment" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Payment ?_I1_1963110894 (\"DoPayment\" AS ?_L_1963110894) ?_I2_1963110894\nWHERE\n  { ?Payment  <http://www.example.com/dolibarr/paymentId>  ?_I1_1963110894 ;\n              <http://www.example.com/dolibarr/paymentDate>  ?_I2_1963110894}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/eventId",
+    "firstComponent" : [ "_L_1963110894", "_I1_1963110894", "_I2_1963110894", "Payment" ],
+    "secondComponent" : [ "_I1_1963110894" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Payment ?_I2_1963110894 (\"DoPayment\" AS ?_L_1963110894) ?_I1_1963110894\nWHERE\n  { ?Payment  <http://www.example.com/dolibarr/paymentDate>  ?_I2_1963110894 ;\n              <http://www.example.com/dolibarr/paymentId>  ?_I1_1963110894}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/timestamp",
+    "firstComponent" : [ "_L_1963110894", "_I1_1963110894", "_I2_1963110894", "Payment" ],
+    "secondComponent" : [ "_I2_1963110894" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Order (\"Order\" AS ?_I0_1380470264)\nWHERE\n  { ?Order  a  <http://www.example.com/dolibarr/Order>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Type",
+    "component" : [ "_I0_1380470264", "Order" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Order (\"Order\" AS ?_I0_1380470264)\nWHERE\n  { ?Order  a  <http://www.example.com/dolibarr/Order>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/typeString",
+    "firstComponent" : [ "_I0_1380470264", "Order" ],
+    "secondComponent" : [ "_I0_1380470264" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Order (\"Order\" AS ?_I0_1380470264) (\"Order\" AS ?_L_951171435) ?_I1_951171435\nWHERE\n  { ?Order  a                     <http://www.example.com/dolibarr/Order> ;\n            <http://www.example.com/dolibarr/orderId>  ?_I1_951171435}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/has",
+    "firstComponent" : [ "_L_951171435", "_I1_951171435", "Order" ],
+    "secondComponent" : [ "_I0_1380470264", "Order" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Product (\"Product\" AS ?_L_552713536) ?_I1_552713536\nWHERE\n  { ?Product  a                     <http://www.example.com/dolibarr/Product> ;\n              <http://www.example.com/dolibarr/productId>  ?_I1_552713536}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Object",
+    "component" : [ "_L_552713536", "_I1_552713536", "Product" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Product ?_I1_552713536 (\"Product\" AS ?_L_552713536)\nWHERE\n  { ?Product  <http://www.example.com/dolibarr/productId>  ?_I1_552713536}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/objectId",
+    "firstComponent" : [ "_L_552713536", "_I1_552713536", "Product" ],
+    "secondComponent" : [ "_I1_552713536" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Product ?Order (\"Product\" AS ?_L_552713536) ?_I1_552713536 (\"PlaceOrder\" AS ?_L_594238745) ?_I1_594238745 ?_I2_594238745\nWHERE\n  { ?OrderItem  <http://www.example.com/dolibarr/hasProduct>  ?Product ;\n              <http://www.example.com/dolibarr/relatedOrder>  ?Order .\n    ?Product  <http://www.example.com/dolibarr/productId>  ?_I1_552713536 .\n    ?Order    <http://www.example.com/dolibarr/orderId>  ?_I1_594238745 ;\n              <http://www.example.com/dolibarr/orderDate>  ?_I2_594238745}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/corr",
+    "firstComponent" : [ "_L_594238745", "_I1_594238745", "_I2_594238745", "Order" ],
+    "secondComponent" : [ "_L_552713536", "_I1_552713536", "Product" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Order (\"PlaceOrder\" AS ?_L_594238745) ?_I1_594238745 ?_I2_594238745\nWHERE\n  { ?Order  a                     <http://www.example.com/dolibarr/Order> ;\n            <http://www.example.com/dolibarr/orderId>  ?_I1_594238745 ;\n            <http://www.example.com/dolibarr/orderDate>  ?_I2_594238745}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Event",
+    "component" : [ "_L_594238745", "_I1_594238745", "_I2_594238745", "Order" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Order ?_I1_594238745 (\"PlaceOrder\" AS ?_L_594238745) ?_I2_594238745\nWHERE\n  { ?Order  <http://www.example.com/dolibarr/orderId>  ?_I1_594238745 ;\n            <http://www.example.com/dolibarr/orderDate>  ?_I2_594238745}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/eventId",
+    "firstComponent" : [ "_L_594238745", "_I1_594238745", "_I2_594238745", "Order" ],
+    "secondComponent" : [ "_I1_594238745" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Order ?_I2_594238745 (\"PlaceOrder\" AS ?_L_594238745) ?_I1_594238745\nWHERE\n  { ?Order  <http://www.example.com/dolibarr/orderDate>  ?_I2_594238745 ;\n            <http://www.example.com/dolibarr/orderId>  ?_I1_594238745}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/timestamp",
+    "firstComponent" : [ "_L_594238745", "_I1_594238745", "_I2_594238745", "Order" ],
+    "secondComponent" : [ "_I2_594238745" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?Payment (\"paymentType\" AS ?_L_215075557) (\"Payment\" AS ?_I1_215075557)\nWHERE\n  { ?Payment  a  <http://www.example.com/dolibarr/Payment>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Type",
+    "component" : [ "_L_215075557", "_I1_215075557", "Payment" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Payment (\"Payment\" AS ?_I1_215075557) (\"paymentType\" AS ?_L_215075557)\nWHERE\n  { ?Payment  a  <http://www.example.com/dolibarr/Payment>}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/typeString",
+    "firstComponent" : [ "_L_215075557", "_I1_215075557", "Payment" ],
+    "secondComponent" : [ "_I1_215075557" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?Payment (\"paymentType\" AS ?_L_215075557) (\"Payment\" AS ?_I1_215075557) (\"Payment\" AS ?_L_871222828) ?_I1_871222828\nWHERE\n  { ?Payment  a                     <http://www.example.com/dolibarr/Payment> ;\n              <http://www.example.com/dolibarr/paymentId>  ?_I1_871222828}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/has",
+    "firstComponent" : [ "_L_871222828", "_I1_871222828", "Payment" ],
+    "secondComponent" : [ "_L_215075557", "_I1_215075557", "Payment" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?OrderItem (\"hasItem\" AS ?_L_2037402440) ?_I1_2037402440\nWHERE\n  { ?OrderItem  a                   <http://www.example.com/dolibarr/OrderItem> ;\n              <http://www.example.com/dolibarr/orderItemId>  ?_I1_2037402440}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/related",
+    "component" : [ "_L_2037402440", "_I1_2037402440", "OrderItem" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?OrderItem ?_value (\"hasItem\" AS ?_L_2037402440) ?_I1_2037402440\nWHERE\n  { ?OrderItem  <http://www.example.com/dolibarr/hasProduct>  ?Product .\n    ?Product  <http://www.example.com/dolibarr/productId>  ?_value .\n    ?OrderItem  <http://www.example.com/dolibarr/orderItemId>  ?_I1_2037402440}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/oQualifier",
+    "firstComponent" : [ "_L_2037402440", "_I1_2037402440", "OrderItem" ],
+    "secondComponent" : [ "_value" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?OrderItem ?_I1_2037402440 (\"hasItem\" AS ?_L_2037402440)\nWHERE\n  { ?OrderItem  <http://www.example.com/dolibarr/orderItemId>  ?_I1_2037402440}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/oTargets",
+    "firstComponent" : [ "_L_2037402440", "_I1_2037402440", "OrderItem" ],
+    "secondComponent" : [ "_I1_2037402440" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?OrderItem ?Product (\"hasItem\" AS ?_L_2037402440) ?_I1_2037402440 (\"Product\" AS ?_L_552713536) ?_I1_552713536\nWHERE\n  { ?OrderItem  <http://www.example.com/dolibarr/hasProduct>  ?Product ;\n              <http://www.example.com/dolibarr/orderItemId>  ?_I1_2037402440 .\n    ?Product  <http://www.example.com/dolibarr/productId>  ?_I1_552713536}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/relatedToObjects",
+    "firstComponent" : [ "_L_552713536", "_I1_552713536", "Product" ],
+    "secondComponent" : [ "_L_2037402440", "_I1_2037402440", "OrderItem" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.UnaryAnnotationQuery",
+    "query" : "SELECT  ?ShipmentItem (\"ShippedItems\" AS ?_L_1744346884) ?_I1_1744346884\nWHERE\n  { ?ShipmentItem\n              a                     <http://www.example.com/dolibarr/ShipmentItem> ;\n              <http://www.example.com/dolibarr/shipmentItemId>  ?_I1_1744346884}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/Object",
+    "component" : [ "_L_1744346884", "_I1_1744346884", "ShipmentItem" ]
+  }, {
+    "@class" : "it.unibz.inf.onprom.data.query.BinaryAnnotationQuery",
+    "query" : "SELECT  ?ShipmentItem ?_I1_1744346884 (\"ShippedItems\" AS ?_L_1744346884)\nWHERE\n  { ?ShipmentItem\n              <http://www.example.com/dolibarr/shipmentItemId>  ?_I1_1744346884}\n",
+    "targetIRI" : "http://www.example.com/OCELv2/objectId",
+    "firstComponent" : [ "_L_1744346884", "_I1_1744346884", "ShipmentItem" ],
+    "secondComponent" : [ "_I1_1744346884" ]
+  } ] ]
+}

@@ -61,6 +61,10 @@ public class Attribute implements Cloneable {
     return longName;
   }
 
+  public boolean hasLongName() {
+    return this.longName != null && !this.longName.isEmpty();
+  }
+
   public void setLongName(String longName) {
     this.longName = longName;
   }

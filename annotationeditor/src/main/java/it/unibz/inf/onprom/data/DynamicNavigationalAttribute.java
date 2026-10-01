@@ -27,6 +27,7 @@
 package it.unibz.inf.onprom.data;
 
 import it.unibz.inf.onprom.interfaces.DiagramShape;
+import lombok.Getter;
 
 import java.util.Set;
 
@@ -35,6 +36,7 @@ import java.util.Set;
  */
 public class DynamicNavigationalAttribute implements DynamicAttribute {
     private boolean partOfURI;
+    @Getter
     private NavigationalAttribute attribute;
 
     DynamicNavigationalAttribute() {
@@ -47,10 +49,6 @@ public class DynamicNavigationalAttribute implements DynamicAttribute {
 
     public DynamicNavigationalAttribute(NavigationalAttribute navigationalAttribute) {
         attribute = navigationalAttribute;
-    }
-
-    public NavigationalAttribute getAttribute() {
-        return attribute;
     }
 
     @Override

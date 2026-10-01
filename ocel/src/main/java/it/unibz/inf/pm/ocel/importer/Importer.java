@@ -26,14 +26,24 @@
 
 package it.unibz.inf.pm.ocel.importer;
 
+import it.unibz.inf.pm.ocel.entity.OcelLog;
+import org.dom4j.DocumentException;
+
+import java.io.IOException;
+import java.util.Map;
+
 public class Importer {
-    public static Object apply(String input_path, String... parameters) throws Exception {
+    public static Object apply(String input_path) throws IOException, DocumentException {
         if (input_path.contains(".json")) {
-            if (parameters.length > 0) {
-                return Oceljson.apply(input_path, parameters);
-            } else {
-                return Oceljson.apply(input_path);
-            }
+            return Oceljson.apply(input_path);
+        } else {
+            return Ocelxml.apply(input_path);
+        }
+    }
+
+    public static OcelLog apply_map(String input_path) throws IOException, DocumentException {
+        if (input_path.contains(".json")) {
+            return Oceljson.apply_map(input_path);
         } else {
             return Ocelxml.apply(input_path);
         }

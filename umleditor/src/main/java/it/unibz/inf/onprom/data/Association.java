@@ -139,14 +139,15 @@ public class Association extends Relationship {
     final int[] m1Position = getM1Position(g2d);
     final int[] m2Position = getM2Position(g2d);
     drawLabel(g2d, getFirstMultiplicityString(), m1Position[0], m1Position[1] - DrawingUtility.MARGIN, true);
-    drawLabel(g2d, getSecondMultiplicityString(), m2Position[0], m2Position[1] - DrawingUtility.MARGIN, true);
+    drawLabel(g2d, getSecondMultiplicityString(), m2Position[0], m2Position[1] - DrawingUtility.MARGIN,
+            true);
     g2d.setColor(oldColor);
     g2d.setStroke(oldStroke);
     g2d.setFont(oldFont);
   }
 
   /**
-   * Calculates position of first multiplicity using distance and
+   * Calculates the position of the first multiplicity using distance and
    * trigonometry based on class shape positions
    *
    * @return position of first multiplicity
@@ -162,6 +163,41 @@ public class Association extends Relationship {
     // get distance from center to start point to estimate the position
     int distance = Math.max(centerX - startX, centerY - startY);
     // getCardinality slope between class and reference point
+    float angle = getAngle(centerX, secondClass, centerY);
+    // get new position using trigonometric functions isOver calculated distance
+    //adjacent edge - for x axis
+    int a = (int) (Math.cos(angle) * distance);
+    //adjacent edge - for y axis
+    int b = (int) (Math.sin(angle) * distance);
+    // get coordinates of position using distance from center
+    int x;
+    int y;
+    // arrange coordinates according size of string
+    //check the angle to find correct position of label
+    double offset, upX, upY;
+    if (this.info == null) {
+      offset = 0; upX = 0; upY = 0;
+    } else {
+      offset = this.info.offset(); upX = this.info.unitPerpX(); upY = this.info.unitPerpY();
+    }
+    if (angle >= -DrawingUtility.D45 && angle < DrawingUtility.D45) {
+      x = startX - g2d.getFontMetrics().stringWidth(getFirstMultiplicityString()) - DrawingUtility.MARGIN;
+      y = (int) (centerY - b + (upY * offset));
+    } else if (angle >= DrawingUtility.D45 && angle < DrawingUtility.D135) {
+      y = startY - DrawingUtility.MARGIN;
+      x = (int) (centerX - a + (upX * offset));
+    } else if (angle <= -DrawingUtility.D45 && angle > -DrawingUtility.D135) {
+      y = firstClass.getEndY() + g2d.getFontMetrics().getHeight() + DrawingUtility.MARGIN;
+      x = (int) (centerX - a + (upX * offset));
+    } else {
+      x = firstClass.getEndX() + DrawingUtility.MARGIN;
+      y = (int) (centerY - b + (upY * offset));
+    }
+    // return calculated position
+    return new int[]{x, y};
+  }
+
+  private float getAngle(int centerX, UMLClass secondClass, int centerY) {
     int deltaX, deltaY;
     if (getAnchorCount() == 0) {
       // if we don't have any anchors, we are going to use second class as
@@ -174,28 +210,7 @@ public class Association extends Relationship {
       deltaX = centerX - getFirstAnchor().getX();
       deltaY = getFirstAnchor().getY() - centerY;
     }
-    float angle = -(float) Math.atan2(deltaY, deltaX);
-    // get new position using trigonometric functions isOver calculated distance
-    //adjacent edge - for x axis
-    int a = (int) (Math.cos(angle) * distance);
-    //adjacent edge - for y axis
-    int b = (int) (Math.sin(angle) * distance);
-    // get coordinates of position using distance from center
-    int x = centerX - a;
-    int y = centerY - b;
-    // arrange coordinates according size of string
-    //check the angle to find correct position of label
-    if (angle >= -DrawingUtility.D45 && angle < DrawingUtility.D45) {
-        x = startX - g2d.getFontMetrics().stringWidth(getFirstMultiplicityString()) - DrawingUtility.MARGIN;
-    } else if (angle >= DrawingUtility.D45 && angle < DrawingUtility.D135) {
-      y = startY - DrawingUtility.MARGIN;
-    } else if (angle <= -DrawingUtility.D45 && angle > -DrawingUtility.D135) {
-      y = firstClass.getEndY() + g2d.getFontMetrics().getHeight() + DrawingUtility.MARGIN;
-    } else {
-      x = firstClass.getEndX() + DrawingUtility.MARGIN;
-    }
-    // return calculated position
-    return new int[]{x, y};
+      return -(float) Math.atan2(deltaY, deltaX);
   }
 
   /**
@@ -215,6 +230,41 @@ public class Association extends Relationship {
     // get distance from center to start point to estimate the position
     int distance = Math.max(centerX - startX, centerY - startY);
     // getCardinality slope between class and reference point
+    float angle = getAngle(firstClass, centerX, centerY);
+    // get new position using trigonometric functions isOver
+    // calculated distance
+    //adjacent edge - for x axis
+    int a = (int) (Math.cos(angle) * distance);
+    //opposite edge - for y axis
+    int b = (int) (Math.sin(angle) * distance);
+    // get coordinates of position using distance from center
+    int x;
+    int y;
+    //check the angle to find correct position of label
+    double offset, upX, upY;
+    if (this.info == null) {
+      offset = 0; upX = 0; upY = 0;
+    } else {
+      offset = this.info.offset(); upX = this.info.unitPerpX(); upY = this.info.unitPerpY();
+    }
+    if (angle > -DrawingUtility.D45 && angle < DrawingUtility.D45) {
+      x = secondClass.getEndX() + DrawingUtility.MARGIN;
+      y = (int) (centerY + b + (upY * offset));
+    } else if (angle > DrawingUtility.D45 && angle < DrawingUtility.D135) {
+      y = secondClass.getEndY() + g2d.getFontMetrics().getHeight() + DrawingUtility.MARGIN;
+      x = (int) (centerX + a + (upX * offset));
+    } else if (angle < -DrawingUtility.D45 && angle > -DrawingUtility.D135) {
+      y = startY - DrawingUtility.MARGIN;
+      x = (int) (centerX + a + (upX * offset));
+    } else {
+      x = startX - g2d.getFontMetrics().stringWidth(getSecondMultiplicityString()) - DrawingUtility.MARGIN;
+      y = (int) (centerY + b + (upY * offset));
+    }
+    //return calculated position
+    return new int[]{x, y};
+  }
+
+  private float getAngle(UMLClass firstClass, int centerX, int centerY) {
     int deltaX, deltaY;
     if (getAnchorCount() == 0) {
       // if we don't have any anchors, we are going to second class as
@@ -227,28 +277,7 @@ public class Association extends Relationship {
       deltaX = getLastAnchor().getX() - centerX;
       deltaY = centerY - getLastAnchor().getY();
     }
-    float angle = -(float) Math.atan2(deltaY, deltaX);
-    // get new position using trigonometric functions isOver
-    // calculated distance
-    //adjacent edge - for x axis
-    int a = (int) (Math.cos(angle) * distance);
-    //opposite edge - for y axis
-    int b = (int) (Math.sin(angle) * distance);
-    // get coordinates of position using distance from center
-    int x = centerX + a;
-    int y = centerY + b;
-    //check the angle to find correct position of label
-    if (angle > -DrawingUtility.D45 && angle < DrawingUtility.D45) {
-      x = secondClass.getEndX() + DrawingUtility.MARGIN;
-    } else if (angle > DrawingUtility.D45 && angle < DrawingUtility.D135) {
-      y = secondClass.getEndY() + g2d.getFontMetrics().getHeight() + DrawingUtility.MARGIN;
-    } else if (angle < -DrawingUtility.D45 && angle > -DrawingUtility.D135) {
-      y = startY - DrawingUtility.MARGIN;
-    } else {
-        x = startX - g2d.getFontMetrics().stringWidth(getSecondMultiplicityString()) - DrawingUtility.MARGIN;
-    }
-    //return calculated position
-    return new int[]{x, y};
+      return -(float) Math.atan2(deltaY, deltaX);
   }
 
   private String getDirectionTriangle() {

@@ -1,57 +1,40 @@
 package it.unibz.inf.pm.ocel.entity;
 
-import java.util.Date;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-public class OcelAttribute {
-    private long millis;
-    private String key;
-    private String value;
+import java.time.LocalDateTime;
+
+public class OcelAttribute extends OcelPart {
+    @Getter
+    private OcelElement thing;
+    @Getter
     private String type;
 
-    public String getValue() {
-        return value;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    private Date date;
+    @Setter
+    @Getter
     private OcelExtension extension;
 
-    public OcelAttribute(String key, String value) {
-        this.key = key;
-        this.value = value;
+    @Builder
+    public OcelAttribute(String key, OcelElement value) {
+        this(key, value, null, null);
     }
 
-    public OcelAttribute(String key, String value, OcelExtension extension) {
-        this.key = key;
-        this.value = value;
+    private OcelAttribute(String key, OcelElement value, OcelExtension extension, String type) {
+        this.id = key;
+        this.thing = value;
         this.extension = extension;
-    }
-
-    public OcelAttribute(String type, String key, String value) {
         this.type = type;
-        this.key = key;
-        this.value = value;
     }
 
-    public OcelAttribute(String key, Date date, OcelExtension extension) {
-        this.key = key;
-        this.date = date;
-        this.extension = extension;
+    public OcelAttribute(String key, OcelElement value, String type) {
+        this(key, value, null, type);
     }
 
-    public OcelAttribute(String key, long millis, OcelExtension extension) {
-        this.key = key;
-        this.millis = millis;
-        this.extension = extension;
+    @Override
+    public String getDescription() {
+        return "Attribute: " + this.getId() + ": " + this.thing.getValue();
     }
-
-
-    public String getKey() {
-        return key;
-    }
-
 
 }
